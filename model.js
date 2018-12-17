@@ -23,8 +23,8 @@ class Sea {
         let min = this.m[1][1].x, max = min;
         for (let r = 1; r < n - 1; r++) {
             for (let c = 1; c < n - 1; c++) {
-                this.m[r][c].v += this.m[r][c].f ;
-                this.m[r][c].x += this.m[r][c].v ;
+                this.m[r][c].v += this.m[r][c].f;
+                this.m[r][c].x += this.m[r][c].v;
 
                 if (this.m[r][c].x < min) min = this.m[r][c].x;
                 if (this.m[r][c].x > max) max = this.m[r][c].x;
@@ -33,4 +33,23 @@ class Sea {
         this.min = min;
         this.max = max;
     }
+}
+
+
+class Vibrator {
+    constructor(r, c, l, a, sea) {
+        this.r = r;
+        this.c = c;
+        this.l = l;
+        this.a = a;
+        this.sea = sea;
+        this.t = 0;
+    }
+
+    next() {
+        this.sea.m[this.r][this.c].x =
+            Math.sin(Math.PI * 2 * this.t++ / this.l) * this.a;
+    }
+
+
 }
