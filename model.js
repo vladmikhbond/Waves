@@ -14,26 +14,24 @@ class Sea {
         let n = this.m.length;
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
-                let m = this.m[r][c].x;
-                let a = r !== 0     ? this.m[r-1][c].x - m : 0;
-                let b = r !== n - 1 ? this.m[r+1][c].x - m : 0;
-                let d = c !== 0     ? this.m[r][c-1].x - m : 0;
-                let e = c !== n - 1 ? this.m[r][c+1].x - m : 0;
-                this.m[r][c].f = (a + b + d + e) / 4;
+                let center = this.m[r][c].x;
+                let up = r > 0 ? this.m[r-1][c].x - center : 0;
+                let down = r < n - 1 ? this.m[r+1][c].x - center : 0;
+                let left = c > 0 ? this.m[r][c-1].x - center : 0;
+                let right = c < n - 1 ? this.m[r][c+1].x - center : 0;
+                this.m[r][c].f = (up + down + left + right) / 4 ;
             }
         }
         let min = this.m[1][1].x, max = min;
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
                 this.m[r][c].v += this.m[r][c].f;
+                let s = 25
+                if (c < s || c > n-s || r < s || r > n-s)
+                    this.m[r][c].v *= 0.9;
                 this.m[r][c].x += this.m[r][c].v;
-
-                if (this.m[r][c].x < min) min = this.m[r][c].x;
-                if (this.m[r][c].x > max) max = this.m[r][c].x;
             }
         }
-        this.min = min;
-        this.max = max;
     }
 }
 
