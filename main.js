@@ -8,7 +8,8 @@ canvas.width = N;
 canvas.height = N;
 let sea = new Sea(N);
 let view = new View(sea);
-let vib = new Vibrator(N / 2, N / 2, 10, 1, sea);
+let omega = 1/3.14159/10;
+let vib = new Vibrator(N / 2, N / 2, omega, 0.1, sea);
 sea.step();
 view.draw();
 

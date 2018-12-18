@@ -37,10 +37,10 @@ class Sea {
 
 
 class Vibrator {
-    constructor(r, c, l, a, sea) {
+    constructor(r, c, o, a, sea) {
         this.r = r;
         this.c = c;
-        this.l = l;
+        this.o = o;
         this.a = a;
         this.sea = sea;
         this.t = 0;
@@ -48,7 +48,7 @@ class Vibrator {
 
     next() {
         this.sea.m[this.r][this.c].x =
-            Math.sin(Math.PI * 2 * this.t++ / this.l) * this.a;
+            Math.sin(2 * Math.PI * this.o * this.t++) * this.a;
     }
 
 
