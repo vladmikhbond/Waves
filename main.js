@@ -1,5 +1,5 @@
 
-const N = 600;
+const N = 100;
 let canvas = document.getElementById("canvas");
 let info = document.getElementById("info");
 
@@ -8,8 +8,8 @@ canvas.width = N;
 canvas.height = N;
 let sea = new Sea(N);
 let view = new View(sea);
-let omega = 1/3.14159/10;
-let vib = new Vibrator(N / 2, N / 2, omega, 0.1, sea);
+let omega = 0.01;
+let vib = new Vibrator(N / 2, N / 2, omega, 1, sea);
 sea.step();
 view.draw();
 

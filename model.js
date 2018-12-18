@@ -12,17 +12,19 @@ class Sea {
 
     step() {
         let n = this.m.length;
-        for (let r = 1; r < n - 1; r++) {
-            for (let c = 1; c < n - 1; c++) {
-                this.m[r][c].f = (
-                    this.m[r-1][c].x + this.m[r+1][c].x +
-                    this.m[r][c-1].x + this.m[r][c+1].x -
-                    4 * this.m[r][c].x) / 4;
+        for (let r = 0; r < n; r++) {
+            for (let c = 0; c < n; c++) {
+                let m = this.m[r][c].x;
+                let a = r !== 0     ? this.m[r-1][c].x - m : 0;
+                let b = r !== n - 1 ? this.m[r+1][c].x - m : 0;
+                let d = c !== 0     ? this.m[r][c-1].x - m : 0;
+                let e = c !== n - 1 ? this.m[r][c+1].x - m : 0;
+                this.m[r][c].f = (a + b + d + e) / 4;
             }
         }
         let min = this.m[1][1].x, max = min;
-        for (let r = 1; r < n - 1; r++) {
-            for (let c = 1; c < n - 1; c++) {
+        for (let r = 0; r < n; r++) {
+            for (let c = 0; c < n; c++) {
                 this.m[r][c].v += this.m[r][c].f;
                 this.m[r][c].x += this.m[r][c].v;
 
