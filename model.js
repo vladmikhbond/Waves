@@ -1,6 +1,10 @@
 class Sea {
-    constructor(n) {
+    constructor(n, m) {
+        this.t = -1;
+        this.n = n;
+        this.margin = m;
         this.m = [];
+
         for (let r = 0; r < n; r++) {
             let q = [];
             for (let c = 0; c < n; c++) {
@@ -11,7 +15,9 @@ class Sea {
     }
 
     step() {
-        let n = this.m.length;
+        this.t++;
+        let n = this.n;
+        // расчет сил
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
                 let center = this.m[r][c].x;
@@ -22,33 +28,50 @@ class Sea {
                 this.m[r][c].f = (up + down + left + right) / 4 ;
             }
         }
-        let min = this.m[1][1].x, max = min;
+
+        // препятствие
+        // for (let r = 100; r < 200; r++) {
+        //     sea.m[r][N/4].f = 0;
+        // }
+
+        let s = this.margin;
+        // расчет амплитуд
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
-                this.m[r][c].v += this.m[r][c].f;
-                let s = 25
-                if (c < s || c > n-s || r < s || r > n-s)
-                    this.m[r][c].v *= 0.9;
-                this.m[r][c].x += this.m[r][c].v;
+                let o = this.m[r][c];
+
+                // attenuation
+                if (c < s || c > n-s || r < s || r > n-s) {
+                    let di = Math.min(c, r, n - c, n - r );
+                    let w = 0.6 + 0.4 * di / s;
+                    o.f *= w;
+                    // change v
+                    o.v += o.f;
+                    o.v *= w;
+                } else {
+                    // change v
+                    o.v += o.f;
+                }
+                // change x
+                o.x += o.v;
             }
         }
     }
 }
 
 
-class Vibrator {
+class Oscillator {
     constructor(r, c, o, a, sea) {
         this.r = r;
         this.c = c;
         this.o = o;
         this.a = a;
         this.sea = sea;
-        this.t = 0;
     }
 
     next() {
         this.sea.m[this.r][this.c].x =
-            Math.sin(2 * Math.PI * this.o * this.t++) * this.a;
+            Math.sin(2 * Math.PI * this.o * this.sea.t) * this.a;
     }
 
 
