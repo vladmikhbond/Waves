@@ -1,11 +1,11 @@
 // скорость волн = 1 пиксель/тик
 
-const N = 600;
+const N = 500;
 const OMEGA_MIN = 0.2 /(2 * Math.PI); // 0.2 < OMEGA_MIN < 0.8
 const M = 1 / OMEGA_MIN;              // Margin = 1/omegaMin
 const VIS = 500;                      // visualise coefficient
 
-let canvas = document.getElementById("canvas1");
+let canvas = document.getElementById("canvas");
 let info = document.getElementById("info");
 
 // init
@@ -24,14 +24,34 @@ document.body.onkeydown = e => {
     if (e.key === ' ') {
         sea.step();
         osc1.next();
-        osc2.next();
+        //osc2.next();
         view.draw();
     }
 };
 
+let r0 = null, c0;
+
+canvas.onmousedown = e => {
+    c0 = e.offsetX, r0 = e.offsetY;
+};
+
 canvas.onmousemove = e => {
     let c = e.offsetX, r = e.offsetY;
-    if (c < N && r < N ) {
-        info.innerHTML = sea.w[r][c].x;
+    if (r0) {
+        view.draw();
+        view.drawLine(r0, c0, r, c);
+    } else {
+        if (c < N && r < N ) info.innerHTML = sea.w[r][c].x;
     }
+};
+
+canvas.onmouseup = e => {
+    let c = e.offsetX, r = e.offsetY;
+    if (r0) {
+        r0 = null;
+        var canvasData = canvas.getContext("2d").getImageData(0, 0, N, N);
+        sea.rocksFromImg(canvasData);
+        view.draw();
+    }
+
 };

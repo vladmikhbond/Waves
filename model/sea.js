@@ -9,44 +9,53 @@ class Sea
         for (let r = 0; r < n; r++) {
             let row = [];
             for (let c = 0; c < n; c++) {
-                row.push({x: 0, f: 0, v: 0, r: 0});  // r - rock
+                row.push({x: 0, f: 0, v: 0, rock: 0});
             }
             this.w.push(row);
         }
+    }
 
-        // макет скалы
-        for (let r = 100; r < 300; r++) {
-            this.w[r][100].r = 1;
+
+    rocksFromImg(canvasData) {
+        let n = this.n;
+        for (let r = 1; r < n-1; r++) {
+            for (let c = 1; c < n-1; c++) {
+                let idx = (c + r * n) * 4;
+                if (canvasData.data[idx] === 255)  // red
+                    this.w[r][c].rock = 1;
+            }
         }
     }
 
     step() {
         this.chronos++;
-        let n = this.n;
+
         // расчет сил
+        let n = this.n;
         for (let r = 1; r < n-1; r++) {
             for (let c = 1; c < n-1; c++) {
-                if (!this.w[r][c].r)
-                    this.w[r][c].f = (this.w[r-1][c].x + this.w[r+1][c].x +
-                        this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) / 4 ;
+                if (this.w[r][c].rock)
+                    continue;
+                this.w[r][c].f = (this.w[r-1][c].x + this.w[r+1][c].x +
+                    this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) / 4 ;
             }
         }
 
         // расчет амплитуд
-        let s = this.margin;
+        let m = this.margin;
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
-                if (this.w[r][c].r)
+                if (this.w[r][c].rock)
                     continue;
                 let o = this.w[r][c];
                 // attenuation at the board
-                if (c < s || c > n - s || r < s || r > n - s) {
+                if (c < m || c > n - m || r < m || r > n - m) {
                     let di = Math.min(c, r, n - c, n - r );
-                    let w = 0.6 + 0.4 * di / s;
-                    o.f *= w;
+                    let k = 0.6 + 0.4 * di / m;
+                    o.f *= k;
                     // change v
                     o.v += o.f;
-                    o.v *= w;
+                    o.v *= k;
                 } else {
                     // change v
                     o.v += o.f;
@@ -56,22 +65,4 @@ class Sea
             }
         }
     }
-}
-
-
-class Oscillator {
-    constructor(r, c, o, a, sea) {
-        this.r = r;
-        this.c = c;
-        this.o = o;
-        this.a = a;
-        this.sea = sea;
-    }
-
-    next() {
-        this.sea.w[this.r][this.c].x =
-            Math.sin(2 * Math.PI * this.o * this.sea.chronos) * this.a;
-    }
-
-
 }
