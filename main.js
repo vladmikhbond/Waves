@@ -1,10 +1,10 @@
-// скорость волн 1 пиксель/сек
+// скорость волн 1 пиксель/тик
 
-const N = 600;
+const N = 400;
 const omega = 0.2 /(2 * Math.PI); // 0.2 < omega < 0.8
-let M = (1 / omega) | 0;          // lambda = 1 / omega
+let M = 30;          //  = 1 / omega-min
 
-let canvas = document.getElementById("canvas");
+let canvas = document.getElementById("canvas1");
 let info = document.getElementById("info");
 
 // init
@@ -14,7 +14,7 @@ let sea = new Sea(N, M);
 let view = new View(sea);
 
 let osc1 = new Oscillator(N / 2, N / 2, omega, 1, sea);
-let osc2 = new Oscillator(N / 2, (N / 2 + 2/omega)|0, omega, 1, sea);
+let osc2 = new Oscillator(N / 2, (N / 2 + 2/omega)|0, omega * 2, 1, sea);
 
 sea.step();
 view.draw();
@@ -23,6 +23,7 @@ document.body.onkeydown = e => {
     if (e.key === ' ') {
         sea.step();
         osc1.next();
+        osc2.next();
         view.draw();
     }
 };
@@ -30,6 +31,6 @@ document.body.onkeydown = e => {
 canvas.onmousemove = e => {
     let c = e.offsetX, r = e.offsetY;
     if (c < N && r < N ) {
-        info.innerHTML = sea.m[r][c].x;
+        info.innerHTML = sea.w[r][c].x;
     }
 };

@@ -1,47 +1,51 @@
-class Sea {
+class Sea
+{
     constructor(n, m) {
-        this.t = -1;
+        this.chronos = -1;
         this.n = n;
         this.margin = m;
-        this.m = [];
-
+        // water
+        this.w = [];
         for (let r = 0; r < n; r++) {
-            let q = [];
+            let row = [];
             for (let c = 0; c < n; c++) {
-                q.push({x: 0, f: 0, v: 0});
+                row.push({x: 0, f: 0, v: 0});
             }
-            this.m.push(q);
+            this.w.push(row);
+        }
+        // rocks
+        this.rocks = [];
+        for (let r = 0; r < n; r++) {
+            this.rocks.push(new Array(n));
+        }
+
+        // макет скалы
+        for (let r = 100; r < 300; r++) {
+            this.rocks[r][100] = 1;
         }
     }
 
     step() {
-        this.t++;
+        this.chronos++;
         let n = this.n;
         // расчет сил
-        for (let r = 0; r < n; r++) {
-            for (let c = 0; c < n; c++) {
-                let center = this.m[r][c].x;
-                let up = r > 0 ? this.m[r-1][c].x - center : 0;
-                let down = r < n - 1 ? this.m[r+1][c].x - center : 0;
-                let left = c > 0 ? this.m[r][c-1].x - center : 0;
-                let right = c < n - 1 ? this.m[r][c+1].x - center : 0;
-                this.m[r][c].f = (up + down + left + right) / 4 ;
+        for (let r = 1; r < n-1; r++) {
+            for (let c = 1; c < n-1; c++) {
+                if (!this.rocks[r][c])
+                    this.w[r][c].f = (this.w[r-1][c].x + this.w[r+1][c].x +
+                        this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) / 4 ;
             }
         }
 
-        // препятствие
-        // for (let r = 100; r < 200; r++) {
-        //     sea.m[r][N/4].f = 0;
-        // }
-
-        let s = this.margin;
         // расчет амплитуд
+        let s = this.margin;
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
-                let o = this.m[r][c];
-
-                // attenuation
-                if (c < s || c > n-s || r < s || r > n-s) {
+                if (this.rocks[r][c])
+                    continue;
+                let o = this.w[r][c];
+                // attenuation at the board
+                if (c < s || c > n - s || r < s || r > n - s) {
                     let di = Math.min(c, r, n - c, n - r );
                     let w = 0.6 + 0.4 * di / s;
                     o.f *= w;
@@ -70,8 +74,8 @@ class Oscillator {
     }
 
     next() {
-        this.sea.m[this.r][this.c].x =
-            Math.sin(2 * Math.PI * this.o * this.sea.t) * this.a;
+        this.sea.w[this.r][this.c].x =
+            Math.sin(2 * Math.PI * this.o * this.sea.chronos) * this.a;
     }
 
 
