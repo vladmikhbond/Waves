@@ -9,19 +9,14 @@ class Sea
         for (let r = 0; r < n; r++) {
             let row = [];
             for (let c = 0; c < n; c++) {
-                row.push({x: 0, f: 0, v: 0});
+                row.push({x: 0, f: 0, v: 0, r: 0});  // r - rock
             }
             this.w.push(row);
-        }
-        // rocks
-        this.rocks = [];
-        for (let r = 0; r < n; r++) {
-            this.rocks.push(new Array(n));
         }
 
         // макет скалы
         for (let r = 100; r < 300; r++) {
-            this.rocks[r][100] = 1;
+            this.w[r][100].r = 1;
         }
     }
 
@@ -31,7 +26,7 @@ class Sea
         // расчет сил
         for (let r = 1; r < n-1; r++) {
             for (let c = 1; c < n-1; c++) {
-                if (!this.rocks[r][c])
+                if (!this.w[r][c].r)
                     this.w[r][c].f = (this.w[r-1][c].x + this.w[r+1][c].x +
                         this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) / 4 ;
             }
@@ -41,7 +36,7 @@ class Sea
         let s = this.margin;
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
-                if (this.rocks[r][c])
+                if (this.w[r][c].r)
                     continue;
                 let o = this.w[r][c];
                 // attenuation at the board

@@ -1,8 +1,9 @@
-// скорость волн 1 пиксель/тик
+// скорость волн = 1 пиксель/тик
 
-const N = 400;
-const omega = 0.2 /(2 * Math.PI); // 0.2 < omega < 0.8
-let M = 30;          //  = 1 / omega-min
+const N = 600;
+const OMEGA_MIN = 0.2 /(2 * Math.PI); // 0.2 < OMEGA_MIN < 0.8
+const M = 1 / OMEGA_MIN;              // Margin = 1/omegaMin
+const VIS = 500;                      // visualise coefficient
 
 let canvas = document.getElementById("canvas1");
 let info = document.getElementById("info");
@@ -13,8 +14,8 @@ canvas.height = N;
 let sea = new Sea(N, M);
 let view = new View(sea);
 
-let osc1 = new Oscillator(N / 2, N / 2, omega, 1, sea);
-let osc2 = new Oscillator(N / 2, (N / 2 + 2/omega)|0, omega * 2, 1, sea);
+let osc1 = new Oscillator(N / 2, N / 2, OMEGA_MIN, 1, sea);
+let osc2 = new Oscillator(N / 2, (N / 2 + 2/OMEGA_MIN)|0, OMEGA_MIN * 2, 1, sea);
 
 sea.step();
 view.draw();

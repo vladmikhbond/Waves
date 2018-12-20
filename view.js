@@ -8,10 +8,10 @@ class View
         for (let r = 0; r < N; r++) {
             for (let c = 0; c < N; c++) {
                 let idx = (c + r * N) * 4;
-                this.canvasData.data[idx    ] = 255;  // reg
-                this.canvasData.data[idx + 1] = 255;  // green
-                this.canvasData.data[idx + 2] = 255;  // blue
-                this.canvasData.data[idx + 3] = 0;    // alpha
+                // this.canvasData.data[idx    ] = 0;  // red
+                // this.canvasData.data[idx + 1] = 0;  // green
+                // this.canvasData.data[idx + 2] = 0;  // blue
+                // this.canvasData.data[idx + 3] = 0;  // alpha
             }
         }
     }
@@ -19,15 +19,25 @@ class View
     draw () {
         for (let r = 0; r < N; r++) {
             for (let c = 0; c < N; c++) {
-                let color = this.sea.w[r][c].x * 400 | 0;
-                let A = 127;
-                if (color > A) color = A;
-                if (color < -A) color = -A;
-                color += 127;
-
                 let idx = (c + r * N) * 4;
-                this.canvasData.data[idx + 3] = color;  // alpha
+                if (this.sea.w[r][c].r) {
+                    this.canvasData.data[idx    ] = 255;  // red
+                    // this.canvasData.data[idx + 1] = 0;  // green
+                    // this.canvasData.data[idx + 2] = 0;  // blue
+                    this.canvasData.data[idx + 3] = 255;  // alpha
+                } else {
+                    let color = this.sea.w[r][c].x * VIS | 0;
 
+                    const maxColor = 127;
+                    if (color > maxColor) color = maxColor;
+                    if (color < -maxColor) color = -maxColor;
+                    color += 127;
+
+                    this.canvasData.data[idx    ] = 0;  // red
+                    // this.canvasData.data[idx + 1] = 0;  // green
+                    // this.canvasData.data[idx + 2] = 0;  // blue
+                    this.canvasData.data[idx + 3] = color;  // alpha
+                }
             }
         }
         this.ctx.putImageData(this.canvasData, 0, 0);
