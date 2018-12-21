@@ -67,8 +67,8 @@ class View
         info.innerHTML = sea.chronos;
     }
 
-    drawRockLine(r0, c0, r, c) {
-        this.ctx.lineWidth = 2;
+    drawRockLine(r0, c0, r, c, lineWidth) {
+        this.ctx.lineWidth = lineWidth;
         this.ctx.strokeStyle = 'red';
         this.ctx.beginPath();
         this.ctx.moveTo(c0, r0);

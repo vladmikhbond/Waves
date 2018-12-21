@@ -4,6 +4,7 @@ class Sea
         this.chronos = -1;
         this.n = n;
         this.margin = m;
+        this.oscs = [];
         // water
         this.w = [];
         for (let r = 0; r < n; r++) {
@@ -15,6 +16,10 @@ class Sea
         }
     }
 
+    addOscillator(r, c, omega, ampl) {
+        let osc = new Oscillator(r, c, omega, ampl, this );
+        this.oscs.push(osc);
+    }
 
     rocksFromImg(canvasData) {
         let n = this.n;
@@ -30,6 +35,10 @@ class Sea
     step() {
         this.chronos++;
 
+        // oscillators
+        for (let o of this.oscs) {
+            o.next();
+        }
         // расчет сил
         let n = this.n;
         for (let r = 1; r < n-1; r++) {
