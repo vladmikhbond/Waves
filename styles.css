@@ -1,4 +1,9 @@
 #canvas {
     background-color: cyan;
+    margin: 3px;
 
+}
+
+.dashboard {
+    margin-left: 3px;
 }

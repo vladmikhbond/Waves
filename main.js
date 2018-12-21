@@ -3,7 +3,8 @@
 const N = 500;
 const OMEGA_MIN = 0.2 /(2 * Math.PI); // 0.2 < OMEGA_MIN < 0.8
 const M = 1 / OMEGA_MIN;              // Margin = 1/omegaMin
-const VIS = 500;                      // visualise coefficient
+let Kvis = 2**9;                      // visualise coefficient
+let Mode = 'none'  // 'none', 'rock', 'clean'
 
 let canvas = document.getElementById("canvas");
 let info = document.getElementById("info");
@@ -39,7 +40,7 @@ canvas.onmousemove = e => {
     let c = e.offsetX, r = e.offsetY;
     if (r0) {
         view.draw();
-        view.drawLine(r0, c0, r, c);
+        view.drawRockLine(r0, c0, r, c);
     } else {
         if (c < N && r < N ) info.innerHTML = sea.w[r][c].x;
     }
@@ -53,5 +54,10 @@ canvas.onmouseup = e => {
         sea.rocksFromImg(canvasData);
         view.draw();
     }
+};
 
+
+kvisRange.onchange = e => {
+  Kvis = 2 ** kvisRange.value;
+    kvisRange.title = "Kvis = " + Kvis;
 };

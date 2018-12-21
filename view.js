@@ -27,7 +27,7 @@ class View
                     // this.canvasData.data[idx + 2] = 0;  // blue
                     this.canvasData.data[idx + 3] = 255;  // alpha
                 } else {
-                    let color = this.sea.w[r][c].x * VIS | 0;
+                    let color = this.sea.w[r][c].x * Kvis | 0;
 
                     const maxColor = 127;
                     if (color > maxColor) color = maxColor;
@@ -42,7 +42,7 @@ class View
             }
         }
         this.ctx.putImageData(this.canvasData, 0, 0);
-        //this.drawInfo();
+        this.drawInfo();
     }
 
     draw1 () {
@@ -67,8 +67,8 @@ class View
         info.innerHTML = sea.chronos;
     }
 
-    drawLine(r0, c0, r, c) {
-        this.ctx.lineWidth = 3;
+    drawRockLine(r0, c0, r, c) {
+        this.ctx.lineWidth = 2;
         this.ctx.strokeStyle = 'red';
         this.ctx.beginPath();
         this.ctx.moveTo(c0, r0);
