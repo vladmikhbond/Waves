@@ -32,6 +32,17 @@ class Sea
         }
     }
 
+    clearRocks(canvasData, r0, c0, radius) {
+        let n = this.n;
+        for (let r = r0 - radius; r < r0 + radius; r++) {
+            for (let c = c0 - radius; c < c0 + radius; c++) {
+                let idx = (c + r * n) * 4;
+                if (canvasData.data[idx] === 255)  // red
+                    this.w[r][c].rock = 0;
+            }
+        }
+    }
+
     step() {
         this.chronos++;
 

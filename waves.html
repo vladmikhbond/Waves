@@ -10,9 +10,9 @@
    <div class="dashboard">
        <input type="range" id="kvisRange" class="" step="1" min="1" max="30" value="9" title=" Амплитудный коэффициент, Kvis = 2**n "/>
        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-           <label class="btn btn-primary active"><input type="radio" name="optradio" id="noneButton" checked>None</label>
+           <label class="btn btn-primary active"><input type="radio" name="optradio" id="oscilButton" checked>Oscil</label>
            <label class="btn btn-primary"><input type="radio" name="optradio" id="rocksButton">Rocks</label>
-           <label class="btn btn-primary"><input type="radio" name="optradio" id="cleanButton">Clean</label>
+           <label class="btn btn-primary"><input type="radio" name="optradio" id="cleanButton">???</label>
        </div>
     </div>
 
@@ -27,8 +27,9 @@
    <script src="model/sea.js"></script>
    <script src="model/oscillator.js"></script>
    <script src="view.js"></script>
+   <script src="controller/OscilHandler.js"></script>
    <script src="controller/RockHandler.js"></script>
-   <script src="controller/NoneHandler.js"></script>
+   <script src="controller/CleanHandler.js"></script>
    <script src="main.js"></script>
 </body>
 </html>

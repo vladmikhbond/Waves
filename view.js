@@ -15,7 +15,6 @@ class View
         // }
     }
 
-
     draw () {
         this.canvasData = this.ctx.getImageData(0, 0, N, N);
         for (let r = 0; r < N; r++) {
@@ -62,11 +61,11 @@ class View
     }
 
     drawInfo() {
-        this.ctx.lineWidth = 0.1;
-        this.ctx.strokeRect(sea.margin, sea.margin, N - 2 * sea.margin, N - 2 * sea.margin);
+        // this.ctx.lineWidth = 0.1;
+        // this.ctx.strokeRect(sea.margin, sea.margin, N - 2 * sea.margin, N - 2 * sea.margin);
         info.innerHTML = sea.chronos;
     }
-
+    
     drawRockLine(r0, c0, r, c, lineWidth) {
         this.ctx.lineWidth = lineWidth;
         this.ctx.strokeStyle = 'red';
@@ -75,6 +74,15 @@ class View
         this.ctx.lineTo(c, r);
         this.ctx.stroke();
     }
+
+    drawCircle(r0, c0, radius) {
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeStyle = 'orange';
+        this.ctx.beginPath();
+        this.ctx.ellipse(c0, r0, radius, radius, 0, 0, 2*Math.PI );
+        this.ctx.stroke();
+    }
+
 }
 
 
