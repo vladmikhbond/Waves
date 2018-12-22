@@ -21,6 +21,12 @@ class Sea
         this.oscs.push(osc);
     }
 
+    removeOscillator(r, c) {
+        let i = this.oscs.findIndex(o => Math.hypot(o.r - r, o.c - c) < 3);
+        if (i !== -1) this.oscs.splice(i, 1);
+    }
+
+
     rocksFromImg(canvasData) {
         let n = this.n;
         for (let r = 1; r < n-1; r++) {
@@ -85,4 +91,5 @@ class Sea
             }
         }
     }
-}
+
+ }

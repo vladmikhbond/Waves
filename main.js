@@ -8,6 +8,10 @@ let Kvis = 2**9;                      // visualise coefficient
 
 let canvas = document.getElementById("canvas");
 let info = document.getElementById("info");
+let kvisRange = document.getElementById("kvisRange");
+let playPauseButton = document.getElementById("playPauseButton");
+let rocksButton = document.getElementById("rocksButton");
+let oscilButton = document.getElementById("oscilButton");
 
 // init
 canvas.width = N;
@@ -17,12 +21,31 @@ let view = new View(sea);
 
 
 //sea.addOscillator(N/2, N/2, OMEGA_MIN, 1);
-sea.step();
+// sea.step();
 view.draw();
 OscilHandler.set();
 
 // -------------- handlers ----------
 // canvas.oncontextmenu = e => {e.preventDefault();}
+
+let timerId;
+
+playPauseButton.onclick = function() {
+    if (timerId) {
+        // stop
+        clearInterval(timerId);
+        timerId = null;
+        playPauseButton.innerHTML = '■';
+    } else {
+        // start to play
+        timerId = setInterval( function () {
+            sea.step();
+            view.draw();
+        }, 50);
+        playPauseButton.innerHTML = '►';
+    }
+};
+
 
 document.body.onkeydown = e => {
     if (e.key === ' ') {
@@ -33,19 +56,16 @@ document.body.onkeydown = e => {
 
 kvisRange.onchange = function() {
     Kvis = 2 ** kvisRange.value;
-    this.title = "Kvis = " + Kvis;
+    kvisRange.title = "Kvis = 2 ** " + kvisRange.value;
     view.draw();
 };
 
-rocksButton.onclick = function(e) {
+rocksButton.onclick = function() {
     RockHandler.set();
 };
 
-cleanButton.onclick = function(e) {
-    CleanHandler.set();
-};
 
-oscilButton.onclick = function(e) {
+oscilButton.onclick = function() {
     OscilHandler.set();
 };
 

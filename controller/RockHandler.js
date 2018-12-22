@@ -4,7 +4,6 @@ class RockHandler
         RockHandler.c0 = e.offsetX;
         RockHandler.r0 = e.offsetY;
         RockHandler.button = e.buttons;
-
     }
 
     static move(e) {
@@ -21,7 +20,7 @@ class RockHandler
 
     }
 
-    static up(e)  {
+    static up()  {
         if (RockHandler.button === 1) {
             let canvasData = canvas.getContext("2d").getImageData(0, 0, N, N);
             sea.rocksFromImg(canvasData);
