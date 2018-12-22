@@ -85,6 +85,7 @@ class Sea
                 } else {
                     // change v
                     o.v += o.f;
+                    o.v *= W;
                 }
                 // change x
                 o.x += o.v;

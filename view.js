@@ -45,14 +45,13 @@ class View
         // draw oscillators
         for (let o of this.sea.oscs) {
             let idx = (o.c + o.r * N) * 4;
-            this.canvasData.data[idx    ] = 254;  // red
+            // this.canvasData.data[idx    ] = 255;  // red
             // this.canvasData.data[idx + 1] = 255;  // green
             // this.canvasData.data[idx + 2] = 255;  // blue
-            this.canvasData.data[idx + 3] = 255;  // alpha
+            this.canvasData.data[idx + 3] = 0;  // alpha
         }
 
         this.ctx.putImageData(this.canvasData, 0, 0);
-        View.drawInfo();
     }
 
     // draw () {
@@ -68,11 +67,15 @@ class View
     //         this.ctx.lineTo(c, r + 30 * h);
     //     }
     //     this.ctx.stroke();
-    //     View.drawInfo();
     // }
 
-    static drawInfo() {
-        info.innerHTML = sea.chronos;
+    drawInfo() {
+        playPauseButton.innerHTML = this.sea.chronos;
+        // this.ctx.fillStyle = "white";
+        // this.ctx.fillRect(N - 50, 5, 40, 16 );
+        //
+        // this.ctx.fillStyle = "black";
+        // this.ctx.fillText(this.sea.chronos, N - 40, 16 );
     }
     
     drawRockLine(r0, c0, r, c, lineWidth) {

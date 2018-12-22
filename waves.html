@@ -8,13 +8,16 @@
 </head>
 <body>
    <div class="dashboard">
-       <input type="range" id="kvisRange" class="" step="1" min="1" max="30" value="9" title=" Амплитудный коэффициент, Kvis = 2**n "/>
-       <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+
+       <input type="range" id="kvisRange" class="" step="1" min="1" max="30" value="9" title=" Kvis = 2**n "/>
+       <div class="btn-group btn-group-sm" role="group">
            <label class="btn btn-primary active"><input type="radio" name="optradio" id="oscilButton" checked>Oscil</label>
            <label class="btn btn-primary"><input type="radio" name="optradio" id="rocksButton">Rock</label>
        </div>
-
+     <span>
        <button type="button" class="btn btn-success btn-sm" id="playPauseButton" title="Play/Pause">■</button>
+       <button type="button" class="btn btn-danger btn-sm" id="resetButton" title="Reset">R</button>
+     </span>
 
     </div>
 

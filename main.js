@@ -1,10 +1,10 @@
 // скорость волн = 1 пиксель/тик
 
-const N = 500;
+let N = 500;
 const OMEGA_MIN = 0.2 /(2 * Math.PI); // 0.2 < OMEGA_MIN < 0.8
 const M = 1 / OMEGA_MIN;              // Margin = 1/omegaMin
+let W = 0.99;
 let Kvis = 2**9;                      // visualise coefficient
-// let Mode = 'none'; // 'none', 'rock', 'clean'
 
 let canvas = document.getElementById("canvas");
 let info = document.getElementById("info");
@@ -12,30 +12,42 @@ let kvisRange = document.getElementById("kvisRange");
 let playPauseButton = document.getElementById("playPauseButton");
 let rocksButton = document.getElementById("rocksButton");
 let oscilButton = document.getElementById("oscilButton");
-
-// init
-canvas.width = N;
-canvas.height = N;
-let sea = new Sea(N, M);
-let view = new View(sea);
-
-
-//sea.addOscillator(N/2, N/2, OMEGA_MIN, 1);
-// sea.step();
-view.draw();
-OscilHandler.set();
-
-// -------------- handlers ----------
-// canvas.oncontextmenu = e => {e.preventDefault();}
-
+let resetButton = document.getElementById("resetButton");
 let timerId;
+let sea;
+let view;
 
-playPauseButton.onclick = function() {
+init();
+
+function init() {
+    canvas.width = N;
+    canvas.height = N;
+    OscilHandler.set();
+    oscilButton.checked = true;
+    // do pause
     if (timerId) {
-        // stop
         clearInterval(timerId);
         timerId = null;
         playPauseButton.innerHTML = '■';
+    }
+
+    sea = new Sea(N, M);
+    view = new View(sea);
+    view.draw();
+}
+
+// -------------- handlers ----------
+
+resetButton.onclick = init;
+
+playPauseButton.onclick = function() {
+
+    if (timerId) {
+        // do pause
+        clearInterval(timerId);
+        timerId = null;
+        playPauseButton.innerHTML = '■';
+        view.drawInfo();
     } else {
         // start to play
         timerId = setInterval( function () {
