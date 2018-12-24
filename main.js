@@ -17,11 +17,12 @@ let timerId;
 let sea;
 let view;
 
-init();
+init(N, M);
+init3d(N, sea);
 
-function init() {
-    canvas.width = N;
-    canvas.height = N;
+function init(n, m) {
+    canvas.width = n;
+    canvas.height = n;
     OscilHandler.set();
     oscilButton.checked = true;
     // do pause
@@ -31,17 +32,18 @@ function init() {
         playPauseButton.innerHTML = '■';
     }
 
-    sea = new Sea(N, M);
+    sea = new Sea(n, m);
     view = new View(sea);
     view.draw();
 }
 
 // -------------- handlers ----------
 
-resetButton.onclick = init;
+tryButton.onclick = () => show3d(N, sea);
+
+resetButton.onclick = () => init(N, M);
 
 playPauseButton.onclick = function() {
-
     if (timerId) {
         // do pause
         clearInterval(timerId);
@@ -60,9 +62,10 @@ playPauseButton.onclick = function() {
 
 
 document.body.onkeydown = e => {
-    if (e.key === ' ') {
+    if (e.key === 's') {
         sea.step();
         view.draw();
+        show3d(N, sea);
     }
 };
 
@@ -80,6 +83,8 @@ rocksButton.onclick = function() {
 oscilButton.onclick = function() {
     OscilHandler.set();
 };
+
+
 
 
 
