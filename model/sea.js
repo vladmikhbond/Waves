@@ -21,6 +21,12 @@ class Sea
         this.oscs.push(osc);
     }
 
+    removeOscillator(r, c) {
+        let i = this.oscs.findIndex(o => Math.hypot(o.r - r, o.c - c) < 3);
+        if (i !== -1) this.oscs.splice(i, 1);
+    }
+
+
     rocksFromImg(canvasData) {
         let n = this.n;
         for (let r = 1; r < n-1; r++) {
@@ -28,6 +34,17 @@ class Sea
                 let idx = (c + r * n) * 4;
                 if (canvasData.data[idx] === 255)  // red
                     this.w[r][c].rock = 1;
+            }
+        }
+    }
+
+    clearRocks(canvasData, r0, c0, radius) {
+        let n = this.n;
+        for (let r = r0 - radius; r < r0 + radius; r++) {
+            for (let c = c0 - radius; c < c0 + radius; c++) {
+                let idx = (c + r * n) * 4;
+                if (canvasData.data[idx] === 255)  // red
+                    this.w[r][c].rock = 0;
             }
         }
     }
@@ -68,10 +85,12 @@ class Sea
                 } else {
                     // change v
                     o.v += o.f;
+                    o.v *= W;
                 }
                 // change x
                 o.x += o.v;
             }
         }
     }
-}
+
+ }

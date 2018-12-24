@@ -1,7 +1,6 @@
 #canvas {
     background-color: cyan;
     margin: 3px;
-
 }
 
 .dashboard {
@@ -10,4 +9,8 @@
 
 .radio-inline {
     margin-left: 5px;
+}
+
+.btn-group {
+    margin-top: 6px;
 }
