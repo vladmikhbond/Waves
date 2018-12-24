@@ -54,7 +54,8 @@ playPauseButton.onclick = function() {
         // start to play
         timerId = setInterval( function () {
             sea.step();
-            view.draw();
+            show3d(N, sea);
+            //view.draw();
         }, 50);
         playPauseButton.innerHTML = '►';
     }
