@@ -1,10 +1,12 @@
 // скорость волн = 1 пиксель/тик
 
-let N = 500;
+const D = 2;  // triangle size for 3d visualize
+const N = D * 250 // 3 * 167 = 501
 const OMEGA_MIN = 0.2 /(2 * Math.PI); // 0.2 < OMEGA_MIN < 0.8
 const M = 1 / OMEGA_MIN;              // Margin = 1/omegaMin
 let W = 0.99;
 let Kvis = 2**9;                      // visualise coefficient
+let Kvis3d = 10;                      // visualise coefficient
 
 let canvas = document.getElementById("canvas");
 let info = document.getElementById("info");
@@ -16,9 +18,9 @@ let resetButton = document.getElementById("resetButton");
 let timerId;
 let sea;
 let view;
+let view3d;
 
 init(N, M);
-init3d(N, sea);
 
 function init(n, m) {
     canvas.width = n;
@@ -33,15 +35,15 @@ function init(n, m) {
     }
 
     sea = new Sea(n, m);
+
     view = new View(sea);
     view.draw();
+
+    view3d = new View3d(sea);
+    view3d.draw();
 }
 
 // -------------- handlers ----------
-
-tryButton.onclick = () => show3d(N, sea);
-
-resetButton.onclick = () => init(N, M);
 
 playPauseButton.onclick = function() {
     if (timerId) {
@@ -54,19 +56,23 @@ playPauseButton.onclick = function() {
         // start to play
         timerId = setInterval( function () {
             sea.step();
-            show3d(N, sea);
+            view3d.draw();
             //view.draw();
         }, 50);
         playPauseButton.innerHTML = '►';
     }
 };
 
+resetButton.onclick = function() {
+    init(N, M);
+}
+
 
 document.body.onkeydown = e => {
     if (e.key === 's') {
         sea.step();
         view.draw();
-        show3d(N, sea);
+        view3d.draw();
     }
 };
 
