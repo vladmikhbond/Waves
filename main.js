@@ -8,7 +8,7 @@ let W = 0.99;
 let Kvis = 2**9;                      // visualise coefficient
 let Kvis3d = 10;                      // visualise coefficient
 
-let canvas = document.getElementById("canvas");
+let canvas = document.getElementById("canvas1");
 let info = document.getElementById("info");
 let kvisRange = document.getElementById("kvisRange");
 let playPauseButton = document.getElementById("playPauseButton");

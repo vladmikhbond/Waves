@@ -5,12 +5,11 @@ class View3d {
         this.sea = sea;
         this.n = sea.n;
 
-
         this.camera = new THREE.  PerspectiveCamera( 75, 1, 0.1, 1000 );
         this.camera.position.set( this.n/2, this.n/2, 325 );
         this.camera.lookAt( this.n/2, this.n/2, 0 );
 
-        this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer({canvas: canvas3d});
         this.renderer.setSize(this.n, this.n);
         this.renderer.shadowMap.enabled = true;
 
@@ -32,13 +31,6 @@ class View3d {
         this.scene.background = new THREE.Color( 0xbfd1e5 );
         this.scene.add(light);
         this.scene.add( this.ocean );
-
-        let owner3d = document.getElementById("owner3d");
-        owner3d.style.width = this.n + 'px';
-        owner3d.style.height = this.n + 'px';
-        owner3d.innerHTML = '';
-        owner3d.appendChild( this.renderer.domElement );
-
     }
 
 
