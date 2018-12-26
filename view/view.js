@@ -50,11 +50,10 @@ class View
             // this.canvasData.data[idx + 2] = 255;  // blue
             this.canvasData.data[idx + 3] = 0;  // alpha
         }
-
         this.ctx.putImageData(this.canvasData, 0, 0);
     }
 
-    // draw () {
+    // draw_1d () {
     //     this.ctx.lineWidth = 1;
     //     this.ctx.strokeStyle = 'red';
     //
@@ -71,11 +70,7 @@ class View
 
     drawInfo() {
         playPauseButton.innerHTML = this.sea.chronos;
-        // this.ctx.fillStyle = "white";
-        // this.ctx.fillRect(N - 50, 5, 40, 16 );
-        //
-        // this.ctx.fillStyle = "black";
-        // this.ctx.fillText(this.sea.chronos, N - 40, 16 );
+        info.innerHTML = this.sea.point.e;
     }
     
     drawRockLine(r0, c0, r, c, lineWidth) {

@@ -14,8 +14,10 @@ class OscilHandler
     static move(e) {
         let c = e.offsetX;
         let r = e.offsetY;
-        if (c < N && r < N )
-            info.innerHTML = sea.w[r][c].x;
+        if (c < N && r < N ) {
+            sea.point.r = r;
+            sea.point.c = c;
+        }
      }
 
     static up() {

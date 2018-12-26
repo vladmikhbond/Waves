@@ -14,6 +14,7 @@ class Sea
             }
             this.w.push(row);
         }
+        this.point = {r: 0, c: 0};
     }
 
     addOscillator(r, c, omega, ampl) {
@@ -91,6 +92,24 @@ class Sea
                 o.x += o.v;
             }
         }
+
+    }
+
+    // замер энергии
+    measure() {
+        let r0 = this.point.r, c0 = this.point.c;
+        let e = 0, n = 0, d = M | 0;
+        for (let r = r0 - d; r < r0 + d; r++) {
+            for (let c = c0 - d; c < c0 + d; c++) {
+                if (r > 0 && r < this.n && c > 0 && c < this.n) {
+                    let x = this.w[r][c].x;
+                    let v = this.w[r][c].v;
+                    e += Math.abs(x) + v * v / 2;
+                    n++;
+                }
+            }
+        }
+        return e / n;
     }
 
  }

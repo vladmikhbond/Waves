@@ -1,4 +1,4 @@
-//import * as THREE from "/lib/three";
+//import * as THREE from "/lib/lib";
 
 class View3d {
     constructor(sea) {

@@ -1,7 +1,7 @@
 // скорость волн = 1 пиксель/тик
 
-const D = 2;  // triangle size for 3d visualize
-const N = D * 250 // 3 * 167 = 501
+const D = 5;  // triangle size for 3d visualize
+const N = D * 100 // 3 * 167 = 501
 const OMEGA_MIN = 0.2 /(2 * Math.PI); // 0.2 < OMEGA_MIN < 0.8
 const M = 1 / OMEGA_MIN;              // Margin = 1/omegaMin
 let W = 0.99;
@@ -57,24 +57,28 @@ playPauseButton.onclick = function() {
         timerId = setInterval( function () {
             sea.step();
             view3d.draw();
-            //view.draw();
+            view.draw();
         }, 50);
         playPauseButton.innerHTML = '►';
     }
 };
-
-resetButton.onclick = function() {
-    init(N, M);
-}
-
 
 document.body.onkeydown = e => {
     if (e.key === 's') {
         sea.step();
         view.draw();
         view3d.draw();
+
+    } else if (e.key === 'm') {
+
     }
+    info.innerHTML = `r=${sea.point.r}  c=${sea.point.c}  E=${sea.measure()}` ;
 };
+
+resetButton.onclick = function() {
+    init(N, M);
+}
+
 
 kvisRange.onchange = function() {
     Kvis = 2 ** kvisRange.value;
