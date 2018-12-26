@@ -14,3 +14,10 @@
 .btn-group {
     margin-top: 6px;
 }
+
+#toolsArea {
+    display: none;
+    width: 100%;
+    margin: 0px 54px 4px 16px;
+
+}

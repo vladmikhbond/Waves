@@ -1,9 +1,10 @@
 //import * as THREE from "/lib/lib";
 
 class View3d {
-    constructor(sea) {
+    constructor(sea, d) {
         this.sea = sea;
         this.n = sea.n;
+        this.d = d;
 
         this.camera = new THREE.  PerspectiveCamera( 75, 1, 0.1, 1000 );
         this.camera.position.set( this.n/2, this.n/2, 325 );
@@ -35,33 +36,34 @@ class View3d {
 
 
     initVertices() {
+        let d = this.d;
         let a = [];
-        for (let r = 0; r < this.n - D; r += D ) {
-            for (let c = 0; c < this.n - D; c += D ) {
+        for (let r = 0; r < this.n - d; r += d ) {
+            for (let c = 0; c < this.n - d; c += d ) {
                 // 1
                 a.push(c);
                 a.push(r);
                 a.push(0);
                 // 2
-                a.push(c+D);
+                a.push(c+d);
                 a.push(r);
                 a.push(0);
                 // 3
                 a.push(c);
-                a.push(r+D);
+                a.push(r+d);
                 a.push(0);
 
                 //3
                 a.push(c);
-                a.push(r+D);
+                a.push(r+d);
                 a.push(0);
                 // 2
-                a.push(c+D);
+                a.push(c+d);
                 a.push(r);
                 a.push(0);
                 // 4
-                a.push(c+D);
-                a.push(r+D);
+                a.push(c+d);
+                a.push(r+d);
                 a.push(0);        }
         }
         this.vertices = new Float32Array(a);
@@ -70,24 +72,25 @@ class View3d {
 
     draw()
     {
+        let d = this.d;
         let i = 2;
         let k = Kvis3d;
-        for (let r_ = 0; r_ < this.n - D; r_ += D) {
-            let r = this.n - D - r_;
-            for (let c = 0; c < this.n - D; c += D) {
+        for (let r_ = 0; r_ < this.n - d; r_ += d) {
+            let r = this.n - d - r_;
+            for (let c = 0; c < this.n - d; c += d) {
                 // 1
                 let v = this.vertices;
                 v[i] = this.sea.w[r][c].x * k;
                 // 2
-                v[i+3] = this.sea.w[r-D][c].x * k;
+                v[i+3] = this.sea.w[r-d][c].x * k;
                 // 3
-                v[i+6] = this.sea.w[r][c + D].x * k;
+                v[i+6] = this.sea.w[r][c + d].x * k;
                 // 3
-                v[i+9] = this.sea.w[r][c + D].x * k;
+                v[i+9] = this.sea.w[r][c + d].x * k;
                 // 2
-                v[i+12] = this.sea.w[r-D][c].x * k;
+                v[i+12] = this.sea.w[r-d][c].x * k;
                 // 4
-                v[i+15] = this.sea.w[r-D][c + D].x * k;
+                v[i+15] = this.sea.w[r-d][c + d].x * k;
                 i += 18;
             }
         }
