@@ -4,7 +4,7 @@ class OscilHandler
         let c = e.offsetX;
         let r = e.offsetY;
         if (e.buttons === 1) {
-            sea.addOscillator(r, c, opts.OMEGA_MIN, 1);
+            sea.addOscillator(r, c, opts.OMEGA, 1);
         } else if (e.buttons === 2) {
             sea.removeOscillator(r, c);
         }
