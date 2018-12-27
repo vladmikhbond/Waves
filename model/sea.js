@@ -1,9 +1,8 @@
 class Sea
 {
-    constructor(n, m) {
+    constructor(n) {
         this.chronos = -1;
         this.n = n;
-        this.margin = m;
         this.oscs = [];
         // water
         this.w = [];
@@ -69,36 +68,35 @@ class Sea
         }
 
         // расчет амплитуд
-        let m = this.margin;
-        for (let r = 0; r < n; r++) {
-            for (let c = 0; c < n; c++) {
-                if (this.w[r][c].rock)
-                    continue;
+
+        // точки по периметру
+        for (let t = 1; t < n-1; t++) {
+            this.w[t][0].x = this.w[t][1].x - this.w[t][1].v;
+            this.w[t][n-1].x = this.w[t][n-2].x - this.w[t][n-2].v;
+            this.w[0][t].x = this.w[1][t].x - this.w[1][t].v;
+            this.w[n-1][t].x = this.w[n-2][t].x - this.w[n-2][t].v;
+        }
+        // внутренние точки
+        for (let r = 1; r < n-1; r++) {
+            for (let c = 1; c < n-1; c++) {
                 let o = this.w[r][c];
-                // attenuation at the board
-                if (c < m || c > n - m || r < m || r > n - m) {
-                    let di = Math.min(c, r, n - c, n - r );
-                    let k = 0.6 + 0.4 * di / m;
-                    o.f *= k;
-                    // change v
-                    o.v += o.f;
-                    o.v *= k;
-                } else {
-                    // change v
-                    o.v += o.f;
-                    o.v *= opts.W;
-                }
-                // change x
+                if (o.rock)
+                    continue;
+                // change v
+                o.v += o.f;
+                o.v *= opts.W;
+                 // change x
                 o.x += o.v;
             }
         }
+
 
     }
 
     // замер энергии
     measure() {
         let r0 = this.point.r, c0 = this.point.c;
-        let e = 0, n = 0, d = opts.M | 0;
+        let e = 0, n = 0, d = 20;
         for (let r = r0 - d; r < r0 + d; r++) {
             for (let c = c0 - d; c < c0 + d; c++) {
                 if (r > 0 && r < this.n && c > 0 && c < this.n) {

@@ -16,9 +16,9 @@ let sea;
 let view;
 let view3d;
 
-init(opts.N, opts.M, opts.D);
+init(opts.N, opts.D);
 
-function init(n, m, d) {
+function init(n, d) {
     // set sizes
     canvas1d.width = n;
     canvas1d.height = n;
@@ -37,7 +37,7 @@ function init(n, m, d) {
         playPauseButton.innerHTML = '■';
     }
     // create model
-    sea = new Sea(n, m);
+    sea = new Sea(n);
     // create view
     view = new View(sea);
     view3d = new View3d(sea, d);
@@ -49,7 +49,7 @@ function init(n, m, d) {
 // -------------- handlers ----------
 
 resetButton.onclick = function() {
-    init(opts.N, opts.M, opts.D);
+    init(opts.N, opts.D);
 };
 
 oscillatorsButton.onclick = function() {
@@ -92,7 +92,8 @@ optsButton.onclick = function() {
         optsArea.style.display = "block";
         helpArea.style.display = "block";
     } else {
-        opts.parse();
+        if (opts.parse())
+            init(opts.N, opts.D);
         optsArea.style.display = "none";
         helpArea.style.display = "none";
     }
@@ -100,7 +101,7 @@ optsButton.onclick = function() {
 
 // ------------------ keys handler -----------------------
 document.body.onkeydown = e => {
-    if (e.key === 's') {
+    if ('SsЫы'.includes(e.key)) {
         sea.step();
         view.draw();
         view3d.draw();
