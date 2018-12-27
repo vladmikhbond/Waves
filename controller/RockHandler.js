@@ -13,7 +13,7 @@ class RockHandler
             view.draw();
             view.drawRockLine(RockHandler.r0, RockHandler.c0, r, c, 3);
         } else if (RockHandler.button === 2) {
-            let canvasData = canvas.getContext("2d").getImageData(0, 0, N, N);
+            let canvasData = canvas.getContext("2d").getImageData(0, 0, opts.N, opts.N);
             sea.clearRocks(canvasData, r, c, 3);
             view.draw();
         }
@@ -22,7 +22,7 @@ class RockHandler
 
     static up()  {
         if (RockHandler.button === 1) {
-            let canvasData = canvas.getContext("2d").getImageData(0, 0, N, N);
+            let canvasData = canvas.getContext("2d").getImageData(0, 0, opts.N, opts.N);
             sea.rocksFromImg(canvasData);
             view.draw();
         } else if (RockHandler.button === 2){

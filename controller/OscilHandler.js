@@ -4,7 +4,7 @@ class OscilHandler
         let c = e.offsetX;
         let r = e.offsetY;
         if (e.buttons === 1) {
-            sea.addOscillator(r, c, OMEGA_MIN, 1);
+            sea.addOscillator(r, c, opts.OMEGA_MIN, 1);
         } else if (e.buttons === 2) {
             sea.removeOscillator(r, c);
         }
@@ -14,7 +14,7 @@ class OscilHandler
     static move(e) {
         let c = e.offsetX;
         let r = e.offsetY;
-        if (c < N && r < N ) {
+        if (c < opts.N && r < opts.N ) {
             sea.point.r = r;
             sea.point.c = c;
         }

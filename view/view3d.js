@@ -6,7 +6,7 @@ class View3d {
         this.n = sea.n;
         this.d = d;
 
-        this.camera = new THREE.  PerspectiveCamera( 75, 1, 0.1, 1000 );
+        this.camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 1000 );
         this.camera.position.set( this.n/2, this.n/2, 325 );
         this.camera.lookAt( this.n/2, this.n/2, 0 );
 
@@ -74,7 +74,7 @@ class View3d {
     {
         let d = this.d;
         let i = 2;
-        let k = Kvis3d;
+        let k = opts.Kvis3d;
         for (let r_ = 0; r_ < this.n - d; r_ += d) {
             let r = this.n - d - r_;
             for (let c = 0; c < this.n - d; c += d) {

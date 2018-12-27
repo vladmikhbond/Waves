@@ -1,14 +1,6 @@
-// скорость волн = 1 пиксель/тик
 
-var D = 10;  // triangle size for 3d visualize
-var N = D * 50 // 3 * 167 = 501
-var OMEGA_MIN = 0.2 /(2 * Math.PI); // 0.2 < OMEGA_MIN < 0.8
-var M = 1 / OMEGA_MIN;              // Margin = 1/omegaMin
-var W = 0.99;
-var Kvis = 2**9;                      // visualise coefficient
-var Kvis3d = 10;                      // visualise coefficient
-
-let canvas = document.getElementById("canvas1");
+let canvas = document.getElementById("canvas2d");
+let canvas3d = document.getElementById("canvas3d");
 let info = document.getElementById("info");
 let resetButton = document.getElementById("resetButton");
 let kvisRange = document.getElementById("kvisRange");
@@ -23,7 +15,7 @@ let sea;
 let view;
 let view3d;
 
-init(N, M, D);
+init(opts.N, opts.M, opts.D);
 
 function init(n, m, d) {
     canvas.width = n;
@@ -36,13 +28,10 @@ function init(n, m, d) {
         timerId = null;
         playPauseButton.innerHTML = '■';
     }
-
     sea = new Sea(n, m);
-
     view = new View(sea);
     view.draw();
-
-    view3d = new View3d(sea, D);
+    view3d = new View3d(sea, d);
     view3d.draw();
 }
 
@@ -68,20 +57,12 @@ playPauseButton.onclick = function() {
 
 optionsButton.onclick = function() {
     if (toolsArea.style.display !== "block") {
-        toolsArea.value = `"D": ${D},
-"N": ${N},
-"M": ${M | 0},
-"W": ${W},
-"OMEGA_MIN": ${OMEGA_MIN},
-"Kvis": ${Kvis},
-"Kvis3d": ${Kvis3d}`;
-
+        toolsArea.value = opts.stringify();
         let lineCount = (toolsArea.value.match(/\n/g) || []).length;
         toolsArea.rows = lineCount + 1;
         toolsArea.style.display = "block";
     } else {
-        let o = JSON.parse("{" + toolsArea.value + "}");
-        Object.assign(window, o);
+        opts.parse();
         toolsArea.style.display = "none";
     }
 };
@@ -99,12 +80,12 @@ document.body.onkeydown = e => {
 };
 
 resetButton.onclick = function() {
-    init(N, M, D);
-}
+    init(opts.N, opts.M, opts.D);
+};
 
 
 kvisRange.onchange = function() {
-    Kvis = 2 ** kvisRange.value;
+    opts.Kvis = 2 ** kvisRange.value;
     kvisRange.title = "Kvis = 2 ** " + kvisRange.value;
     view.draw();
 };

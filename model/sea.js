@@ -86,7 +86,7 @@ class Sea
                 } else {
                     // change v
                     o.v += o.f;
-                    o.v *= W;
+                    o.v *= opts.W;
                 }
                 // change x
                 o.x += o.v;
@@ -98,7 +98,7 @@ class Sea
     // замер энергии
     measure() {
         let r0 = this.point.r, c0 = this.point.c;
-        let e = 0, n = 0, d = M | 0;
+        let e = 0, n = 0, d = opts.M | 0;
         for (let r = r0 - d; r < r0 + d; r++) {
             for (let c = c0 - d; c < c0 + d; c++) {
                 if (r > 0 && r < this.n && c > 0 && c < this.n) {
