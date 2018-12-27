@@ -2,7 +2,7 @@ class View
 {
     constructor(sea) {
         this.sea = sea;
-        this.ctx = canvas.getContext('2d');
+        this.ctx = canvas2d.getContext('2d');
         this.canvasData = this.ctx.getImageData(0, 0, opts.N, opts.N);
     }
 
@@ -42,22 +42,31 @@ class View
             this.canvasData.data[idx + 3] = 0;  // alpha
         }
         this.ctx.putImageData(this.canvasData, 0, 0);
+
+        this.draw1();
     }
 
-    // draw_1d () {
-    //     this.ctx.lineWidth = 1;
-    //     this.ctx.strokeStyle = 'red';
-    //
-    //     let r = N / 2;
-    //     this.ctx.clearRect(0, 0, N, N);
-    //     this.ctx.beginPath();
-    //     for (let c = 0; c < N; c++) {
-    //         let h = this.sea.w[r][c].x;
-    //         this.ctx.moveTo(c, r);
-    //         this.ctx.lineTo(c, r + 30 * h);
-    //     }
-    //     this.ctx.stroke();
-    // }
+    draw1 () {
+        let r = this.sea.point.r;
+        let c = this.sea.point.c;
+
+        let ctx = canvas1d.getContext('2d');
+        ctx.clearRect(0, 0, opts.N, opts.N);
+        ctx.strokeStyle = 'gray';
+        ctx.lineWidth = 0.1;
+        ctx.strokeRect(0,r, opts.N-1, 0);
+        ctx.strokeRect(c,0, 0, opts.N-1);
+
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'blue';
+        ctx.beginPath();
+        for (let c = 0; c < opts.N; c++) {
+            let h = this.sea.w[r][c].x * kvisRange.value;
+            ctx.moveTo(c, r);
+            ctx.lineTo(c, r + 30 * h);
+        }
+        ctx.stroke();
+    }
 
     drawInfo() {
         playPauseButton.innerHTML = this.sea.chronos;

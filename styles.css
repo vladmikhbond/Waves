@@ -1,5 +1,14 @@
-#canvas {
+#canvas2d {
     background-color: cyan;
+    margin: 3px;
+}
+
+#canvas1d {
+    border: blue thin solid;
+    margin: 3px;
+}
+
+#canvas3d  {
     margin: 3px;
 }
 
@@ -15,9 +24,9 @@
     margin-top: 6px;
 }
 
-#toolsArea {
+#optsArea,
+#helpArea {
     display: none;
     width: 100%;
-    margin: 0px 54px 4px 16px;
-
+    margin-bottom: 4px;
 }

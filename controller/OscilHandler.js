@@ -14,6 +14,7 @@ class OscilHandler
     static move(e) {
         let c = e.offsetX;
         let r = e.offsetY;
+        // set sea.point
         if (c < opts.N && r < opts.N ) {
             sea.point.r = r;
             sea.point.c = c;
@@ -24,10 +25,10 @@ class OscilHandler
     }
 
     static set() {
-        canvas.onmousedown = OscilHandler.down;
-        canvas.onmousemove = OscilHandler.move;
-        canvas.onmouseup = OscilHandler.up;
-        canvas.oncontextmenu = e => {e.preventDefault();}
+        canvas2d.onmousedown = OscilHandler.down;
+        canvas2d.onmousemove = OscilHandler.move;
+        canvas2d.onmouseup = OscilHandler.up;
+        canvas2d.oncontextmenu = e => {e.preventDefault();}
     }
 }
 
