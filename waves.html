@@ -12,10 +12,14 @@
         <button type="button" class="btn btn-danger btn-sm" id="resetButton" title="Clear">C</button>
         <button type="button" class="btn btn-info btn-sm" id="optsButton" title="Options">۞</button>
         <input type="range" id="kvisRange" class="" step="1" min="1" max="30" value="9" title=" Kvis = 2**n "/>
+
         <div class="btn-group btn-group-sm" role="group">
             <label class="btn btn-primary active"><input type="radio" name="optradio" id="oscillatorsButton" checked>Oscil</label>
+            <label class="btn btn-primary"><input type="radio" name="optradio" id="rectButton">Rect</label>
+            <label class="btn btn-primary"><input type="radio" name="optradio" id="lineButton">Line</label>
             <label class="btn btn-primary"><input type="radio" name="optradio" id="rocksButton">Rock</label>
         </div>
+
         <button type="button" class="btn btn-success btn-sm" id="playPauseButton" title="Play/Pause">■</button>
     </div>
   <div class="row">
@@ -58,11 +62,12 @@ Kvis3d - константа визуализации для 3d (1 < Kvis3d < 20)
 <script src="model/opts.js"></script>
 <script src="model/sea.js"></script>
 <script src="model/oscillator.js"></script>
-<script src="model/isle.js"></script>
+
 <script src="view/view.js"></script>
 <script src="view/view3d.js"></script>
 <script src="controller/OscilHandler.js"></script>
-<script src="controller/RockHandler.js"></script>
+<script src="controller/Handlers.js"></script>
+<!--<script src="controller/RockHandler.js"></script>-->
 <script src="main.js"></script>
 </body>
 </html>

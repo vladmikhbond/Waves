@@ -5,6 +5,8 @@ let info = document.getElementById("info");
 let resetButton = document.getElementById("resetButton");
 let kvisRange = document.getElementById("kvisRange");
 let playPauseButton = document.getElementById("playPauseButton");
+let rectButton = document.getElementById("rectButton");
+let lineButton = document.getElementById("lineButton");
 let rocksButton = document.getElementById("rocksButton");
 let oscillatorsButton = document.getElementById("oscillatorsButton");
 let optsButton = document.getElementById("optsButton");
@@ -48,17 +50,13 @@ function init(n, d) {
 
 // -------------- handlers ----------
 
-resetButton.onclick = function() {
-    init(opts.N, opts.D);
-};
+resetButton.onclick = () => init(opts.N, opts.D);
 
-oscillatorsButton.onclick = function() {
-    OscilHandler.set();
-};
+oscillatorsButton.onclick = () => OscilHandler.set();
+rectButton.onclick = () => RectHandler.set();
+lineButton.onclick = () => LineHandler.set();
+rocksButton.onclick = () => RockHandler.set();
 
-rocksButton.onclick = function() {
-    RockHandler.set();
-};
 
 kvisRange.onchange = function() {
     opts.Kvis = 2 ** kvisRange.value;
