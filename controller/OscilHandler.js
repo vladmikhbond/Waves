@@ -3,7 +3,7 @@ class OscilHandler
     static down(e)  {
         let c = e.offsetX;
         let r = e.offsetY;
-        if (e.buttons === 1 && !sea.w[r][c].rock) {
+        if (e.buttons === 1 && sea.w[r][c].rock) {
             sea.addOscillator(r, c, opts.OMEGA, 1);
         } else if (e.buttons === 2) {
             sea.removeOscillator(r, c);

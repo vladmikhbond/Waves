@@ -12,7 +12,7 @@ class View
         for (let r = 0; r < opts.N; r++) {
             for (let c = 0; c < opts.N; c++) {
                 let idx = (c + r * opts.N) * 4;
-                if (this.sea.w[r][c].rock) {
+                if (!this.sea.w[r][c].rock) {
                     // draw rock
                     this.canvasData.data[idx    ] = 255;  // red
                     // this.canvasData.data[idx + 1] = 0;  // green

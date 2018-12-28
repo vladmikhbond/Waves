@@ -10,7 +10,7 @@ class Sea
         for (let r = 0; r < n; r++) {
             let row = [];
             for (let c = 0; c < n; c++) {
-                row.push({x: 0, f: 0, v: 0, rock: 0});
+                row.push({x: 0, f: 0, v: 0, rock: 1});
             }
             this.w.push(row);
         }
@@ -34,7 +34,7 @@ class Sea
             for (let c = 0; c < n; c++) {
                 let idx = (c + r * n) * 4;
                 if (canvasData.data[idx] === 255)  // red
-                    this.w[r][c].rock = 1;
+                    this.w[r][c].rock = 0;
             }
         }
     }
@@ -44,7 +44,7 @@ class Sea
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
                 if (isle.has(r, c))  // red
-                    this.w[r][c].rock = 1;
+                    this.w[r][c].rock = 0;
             }
         }
     }
@@ -56,7 +56,7 @@ class Sea
             for (let c = c0 - radius; c < c0 + radius; c++) {
                 let idx = (c + r * n) * 4;
                 if (canvasData.data[idx] === 255)  // red
-                    this.w[r][c].rock = 0;
+                    this.w[r][c].rock = 1;
             }
         }
     }
@@ -66,14 +66,14 @@ class Sea
 
         // oscillators
         for (let o of this.oscs) {
-            if (!this.w[o.r][o.c].rock)
+            if (this.w[o.r][o.c].rock)
                 o.next();
         }
         // расчет сил
         let n = this.n;
         for (let r = 1; r < n-1; r++) {
             for (let c = 1; c < n-1; c++) {
-                if (this.w[r][c].rock)
+                if (!this.w[r][c].rock)
                     continue;
                 this.w[r][c].f = (this.w[r-1][c].x + this.w[r+1][c].x +
                     this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) / 4 ;
@@ -91,14 +91,14 @@ class Sea
         // внутренние точки
         for (let r = 1; r < n-1; r++) {
             for (let c = 1; c < n-1; c++) {
-                let o = this.w[r][c];
-                if (o.rock)
+                let p = this.w[r][c];
+                if (!p.rock)
                     continue;
                 // change v
-                o.v += o.f;
-                o.v *= opts.W;
+                p.v += p.f;
+                p.v *= opts.W;
                  // change x
-                o.x += o.v;
+                p.x += p.v;
             }
         }
     }
