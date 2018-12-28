@@ -3,7 +3,10 @@ class RockHandler
     static down(e)  {
         RockHandler.c0 = e.offsetX;
         RockHandler.r0 = e.offsetY;
-        RockHandler.button = e.buttons;
+        RockHandler.button = e.buttons; // indicator
+        // isle
+        if (!RockHandler.isle)
+            RockHandler.isle = new Isle(RockHandler.r0, RockHandler.c0);
     }
 
     static move(e) {
@@ -14,7 +17,7 @@ class RockHandler
             view.drawRockLine(RockHandler.r0, RockHandler.c0, r, c, 3);
         } else if (RockHandler.button === 2) {
             let canvasData = canvas2d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
-            sea.clearRocks(canvasData, r, c, 3);
+            sea.clearRocksInCircle(canvasData, r, c, 3);
             view.draw();
         }
         // set sea.point
@@ -24,16 +27,28 @@ class RockHandler
         }
     }
 
-    static up()  {
+    static up(e)  {
         if (RockHandler.button === 1) {
             let canvasData = canvas2d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
-            sea.rocksFromImg(canvasData);
+            sea.getRocksFromCanvasData(canvasData);
             view.draw();
-        } else if (RockHandler.button === 2){
-            // e.preventDefault();
+            // isle
+            let c = e.offsetX;
+            let r = e.offsetY;
+            if (!RockHandler.isle.addShore(RockHandler.r0, RockHandler.c0, r, c)) {
+                RockHandler.isle = null;
+            } else
+
+            if (RockHandler.isle.closed) {
+                sea.isles.push(RockHandler.isle);
+                sea.getRocksFromIsle(RockHandler.isle);
+                RockHandler.isle = null;
+            }
         }
         RockHandler.button = null;
+        view.draw();
     }
+
 
     static set() {
         canvas2d.onmousedown = RockHandler.down;

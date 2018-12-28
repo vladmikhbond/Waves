@@ -4,6 +4,7 @@ class Sea
         this.chronos = -1;
         this.n = n;
         this.oscs = [];
+        this.isles = [];
         // water
         this.w = [];
         for (let r = 0; r < n; r++) {
@@ -27,10 +28,10 @@ class Sea
     }
 
 
-    rocksFromImg(canvasData) {
+    getRocksFromCanvasData(canvasData) {
         let n = this.n;
-        for (let r = 1; r < n-1; r++) {
-            for (let c = 1; c < n-1; c++) {
+        for (let r = 0; r < n; r++) {
+            for (let c = 0; c < n; c++) {
                 let idx = (c + r * n) * 4;
                 if (canvasData.data[idx] === 255)  // red
                     this.w[r][c].rock = 1;
@@ -38,7 +39,18 @@ class Sea
         }
     }
 
-    clearRocks(canvasData, r0, c0, radius) {
+    getRocksFromIsle(isle) {
+        let n = this.n;
+        for (let r = 0; r < n; r++) {
+            for (let c = 0; c < n; c++) {
+                if (isle.has(r, c))  // red
+                    this.w[r][c].rock = 1;
+            }
+        }
+    }
+
+
+    clearRocksInCircle(canvasData, r0, c0, radius) {
         let n = this.n;
         for (let r = r0 - radius; r < r0 + radius; r++) {
             for (let c = c0 - radius; c < c0 + radius; c++) {
@@ -54,7 +66,8 @@ class Sea
 
         // oscillators
         for (let o of this.oscs) {
-            o.next();
+            if (!this.w[o.r][o.c].rock)
+                o.next();
         }
         // расчет сил
         let n = this.n;
@@ -66,7 +79,6 @@ class Sea
                     this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) / 4 ;
             }
         }
-
         // расчет амплитуд
 
         // точки по периметру
@@ -89,8 +101,6 @@ class Sea
                 o.x += o.v;
             }
         }
-
-
     }
 
     // замер энергии
