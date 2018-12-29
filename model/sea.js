@@ -22,7 +22,7 @@ class Sea
         this.oscs.push(osc);
     }
 
-    removeOscillator(r, c) {
+    removeOscillatorNear(r, c) {
         let i = this.oscs.findIndex(o => Math.hypot(o.r - r, o.c - c) < 5);
         if (i !== -1) this.oscs.splice(i, 1);
     }
@@ -33,33 +33,23 @@ class Sea
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
                 let idx = (c + r * n) * 4;
-                if (canvasData.data[idx] === 255)  // red
-                    this.w[r][c].free = 0;
-            }
-        }
-    }
-
-    getRocksFromIsle(isle) {
-        let n = this.n;
-        for (let r = 0; r < n; r++) {
-            for (let c = 0; c < n; c++) {
-                if (isle.has(r, c))  // red
+                if (canvasData.data[idx] > 0)  // red
                     this.w[r][c].free = 0;
             }
         }
     }
 
 
-    clearRocksInCircle(canvasData, r0, c0, radius) {
-        let n = this.n;
-        for (let r = r0 - radius; r < r0 + radius; r++) {
-            for (let c = c0 - radius; c < c0 + radius; c++) {
-                let idx = (c + r * n) * 4;
-                if (canvasData.data[idx] === 255)  // red
-                    this.w[r][c].free = 1;
-            }
-        }
-    }
+    // clearRocksInCircle(canvasData, r0, c0, radius) {
+    //     let n = this.n;
+    //     for (let r = r0 - radius; r < r0 + radius; r++) {
+    //         for (let c = c0 - radius; c < c0 + radius; c++) {
+    //             let idx = (c + r * n) * 4;
+    //             if (canvasData.data[idx] > 0)  // red
+    //                 this.w[r][c].free = 1;
+    //         }
+    //     }
+    // }
 
     step() {
         this.chronos++;
@@ -79,8 +69,8 @@ class Sea
                     this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) / 4 ;
             }
         }
-        // расчет амплитуд
 
+        // расчет амплитуд
         // точки по периметру
         for (let t = 1; t < n-1; t++) {
             this.w[t][0].x = this.w[t][1].x - this.w[t][1].v;
@@ -103,12 +93,13 @@ class Sea
         }
     }
 
-    // замер энергии
-    measure() {
+    // замер плотности энергии (усреднение по площади круга)
+    //
+    energyMeasure(radius) {
         let r0 = this.point.r, c0 = this.point.c;
-        let e = 0, n = 0, d = 20;
-        for (let r = r0 - d; r < r0 + d; r++) {
-            for (let c = c0 - d; c < c0 + d; c++) {
+        let e = 0, n = 0;
+        for (let r = r0 - radius; r < r0 + radius; r++) {
+            for (let c = c0 - radius; c < c0 + radius; c++) {
                 if (r > 0 && r < this.n && c > 0 && c < this.n) {
                     let x = this.w[r][c].x;
                     let v = this.w[r][c].v;

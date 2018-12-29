@@ -1,11 +1,17 @@
-#canvas2d {
-    background-color: cyan;
+#canvas1d, #canvas2d {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #00000000;
     margin: 3px;
 }
 
 #canvas1d {
-    border: blue thin solid;
-    margin: 3px;
+    background-color: #00000000;
+}
+
+#canvas2d {
+    background-color: cyan;
 }
 
 #canvas3d  {
@@ -24,9 +30,11 @@
     margin-top: 6px;
 }
 
-#optsArea,
-#helpArea {
+#optsArea, #helpArea {
     display: none;
     width: 100%;
     margin-bottom: 4px;
+}
+#helpArea {
+    background-color: whitesmoke;
 }

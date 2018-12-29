@@ -7,7 +7,7 @@ let kvisRange = document.getElementById("kvisRange");
 let playPauseButton = document.getElementById("playPauseButton");
 let rectButton = document.getElementById("rectButton");
 let lineButton = document.getElementById("lineButton");
-let rocksButton = document.getElementById("rocksButton");
+// let rocksButton = document.getElementById("rocksButton");
 let oscillatorsButton = document.getElementById("oscillatorsButton");
 let optsButton = document.getElementById("optsButton");
 let optsArea = document.getElementById("optsArea");
@@ -22,13 +22,9 @@ init(opts.N, opts.D);
 
 function init(n, d) {
     // set sizes
-    canvas1d.width = n;
-    canvas1d.height = n;
-    canvas2d.width = n;
-    canvas2d.height = n;
+    canvas1d.width = canvas1d.height = canvas2d.width = canvas2d.height = n;
     optsArea.style.width = helpArea.style.width = n + 'px';
     canvas3d.style.display = opts["3d"] ? "block" : "none";
-    canvas1d.style.display = !opts["3d"] ? "block" : "none";
     // oscillators mode
     OscilHandler.set();
     oscillatorsButton.checked = true;
@@ -55,7 +51,7 @@ resetButton.onclick = () => init(opts.N, opts.D);
 oscillatorsButton.onclick = () => OscilHandler.set();
 rectButton.onclick = () => RectHandler.set();
 lineButton.onclick = () => LineHandler.set();
-rocksButton.onclick = () => RockHandler.set();
+// rocksButton.onclick = () => RockHandler.set();
 
 
 kvisRange.onchange = function() {
@@ -82,7 +78,8 @@ playPauseButton.onclick = function() {
     }
 };
 
-optsButton.onclick = function() {
+optsButton.onclick = function()
+{
     if (optsArea.style.display !== "block") {
         optsArea.value = opts.stringify();
         let lineCount = (optsArea.value.match(/\n/g) || []).length;
@@ -90,7 +87,8 @@ optsButton.onclick = function() {
         optsArea.style.display = "block";
         helpArea.style.display = "block";
     } else {
-        if (opts.parse())
+        let resetFlag = opts.parse();
+        if (resetFlag)
             init(opts.N, opts.D);
         optsArea.style.display = "none";
         helpArea.style.display = "none";
@@ -104,7 +102,7 @@ document.body.onkeydown = e => {
         view.draw();
         view3d.draw();
     }
-    info.innerHTML = `r=${sea.point.r}  c=${sea.point.c}  E=${sea.measure()}` ;
+    info.innerHTML = `r=${sea.point.r}  c=${sea.point.c}  E=${sea.energyMeasure(20)}` ;
 };
 
 

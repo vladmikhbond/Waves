@@ -6,7 +6,7 @@ class OscilHandler
         if (e.buttons === 1 && sea.w[r][c].free) {
             sea.addOscillator(r, c, opts.OMEGA, 1);
         } else if (e.buttons === 2) {
-            sea.removeOscillator(r, c);
+            sea.removeOscillatorNear(r, c);
         }
         view.draw();
     }
@@ -25,10 +25,10 @@ class OscilHandler
     }
 
     static set() {
-        canvas2d.onmousedown = OscilHandler.down;
-        canvas2d.onmousemove = OscilHandler.move;
-        canvas2d.onmouseup = OscilHandler.up;
-        canvas2d.oncontextmenu = e => {e.preventDefault();}
+        canvas1d.onmousedown = OscilHandler.down;
+        canvas1d.onmousemove = OscilHandler.move;
+        canvas1d.onmouseup = OscilHandler.up;
+        canvas1d.oncontextmenu = e => {e.preventDefault();}
     }
 }
 

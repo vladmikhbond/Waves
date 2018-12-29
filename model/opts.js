@@ -21,7 +21,7 @@ let opts = {
         let obj = JSON.parse("{" + optsArea.value + "}");
         obj.N = Math.round(obj.N / obj.D) * obj.D;
         obj.OMEGA = obj.OMEGA.toFixed(4);
-        let reset = this["3d"] != obj["3d"];
+        let reset = this["3d"] !== obj["3d"];
         Object.assign(this, obj);
         return reset;
     }
