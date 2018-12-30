@@ -1,9 +1,31 @@
+input[type="range"] {
+    margin-top: 10px;
+    width: 80px;
+}
+
+.btn-group {
+    margin-top: 8px;
+}
+
+#optsArea, #helpArea {
+    display: none;
+    width: 100%;
+    /*margin-bottom: 4px;*/
+}
+#helpArea {
+    background-color: whitesmoke;
+}
+
+
+
+canvas {
+    margin-top: -10px;
+}
+
 #canvas1d, #canvas2d {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #00000000;
-    margin: 3px;
 }
 
 #canvas1d {
@@ -14,27 +36,3 @@
     background-color: cyan;
 }
 
-#canvas3d  {
-    margin: 3px;
-}
-
-.dashboard {
-    margin-left: 5px;
-}
-
-.radio-inline {
-    margin-left: 5px;
-}
-
-.btn-group {
-    margin-top: 6px;
-}
-
-#optsArea, #helpArea {
-    display: none;
-    width: 100%;
-    margin-bottom: 4px;
-}
-#helpArea {
-    background-color: whitesmoke;
-}

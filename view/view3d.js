@@ -24,7 +24,6 @@ class View3d {
 
         let material = new THREE.MeshPhongMaterial( { color: 0xffFFFF } );
         this.ocean = new THREE.Mesh( this.geometry, material );
-        //this.ocean.rotation.x = -Math.PI/8;
         this.ocean.receiveShadow = true;
         this.ocean.castShadow = true;
 
@@ -33,7 +32,6 @@ class View3d {
         this.scene.add(light);
         this.scene.add( this.ocean );
     }
-
 
     initVertices() {
         let d = this.d;
@@ -69,9 +67,11 @@ class View3d {
         this.vertices = new Float32Array(a);
     }
 
-
     draw()
     {
+        this.ocean.rotation.x = -Math.PI * oceanRotation.value / 90 ;
+        this.camera.position.set(this.n/2, this.n/2, cameraHeight.value);
+
         let d = this.d;
         let i = 2;
         let k = opts.Kvis3d;

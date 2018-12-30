@@ -5,7 +5,7 @@ let opts = {
     W: 0.99,
     Kvis: 2**9,                     // visualise coefficient
     Kvis3d: 10,                     // visualise coefficient
-    "3d": false,
+    "3d": 1,
 
     stringify() {
         return `"D": ${this.D},
