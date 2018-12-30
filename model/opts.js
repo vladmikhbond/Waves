@@ -5,7 +5,8 @@ let opts = {
     W: 0.99,
     Kvis: 2**9,                     // visualise coefficient
     Kvis3d: 10,                     // visualise coefficient
-    "3d": 1,
+    _3d: 1,
+    _1d: 0,
 
     stringify() {
         return `"D": ${this.D},
@@ -14,15 +15,20 @@ let opts = {
 "OMEGA": ${this.OMEGA},
 "Kvis": ${this.Kvis},
 "Kvis3d": ${this.Kvis3d},
-"3d": ${this['3d']}`;
+"_3d": ${this._3d},
+"_1d": ${this._1d}`;
     },
 
     parse() {
         let obj = JSON.parse("{" + optsArea.value + "}");
         obj.N = Math.round(obj.N / obj.D) * obj.D;
         obj.OMEGA = obj.OMEGA.toFixed(4);
-        let reset = this["3d"] !== obj["3d"];
+
+        let resetNeeded =
+            this._3d !== obj._3d ||
+            this.N !== obj.N ||
+            this.D !== obj.D;
         Object.assign(this, obj);
-        return reset;
+        return resetNeeded;
     }
 };

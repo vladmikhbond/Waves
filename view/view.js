@@ -12,7 +12,6 @@ class View
         for (let r = 0; r < opts.N; r++) {
             for (let c = 0; c < opts.N; c++) {
                 let idx = (c + r * opts.N) * 4;
-
                 if (!this.sea.w[r][c].free) {
                     // draw free
                     this.canvasData.data[idx    ] = 1;  // red
@@ -45,8 +44,6 @@ class View
             this.canvasData.data[idx + 3 - (4 * opts.N) ] = 0;
         }
         this.ctx.putImageData(this.canvasData, 0, 0);
-
-        this.draw1();
     }
 
     draw1 () {
@@ -55,10 +52,6 @@ class View
 
         let ctx = canvas1d.getContext('2d');
         ctx.clearRect(0, 0, opts.N, opts.N);
-        // do not show 1d waves
-        if (r < 3)
-            return;
-
         ctx.strokeStyle = 'gray';
         ctx.lineWidth = 0.1;
         ctx.strokeRect(0,r, opts.N-1, 0);

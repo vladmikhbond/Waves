@@ -58,6 +58,8 @@ class Sea
         for (let o of this.oscs) {
             if (this.w[o.r][o.c].free)
                 o.next();
+            // if (this.chronos % 1 == 0)
+            //    o.c+=2;
         }
         // расчет сил
         let n = this.n;

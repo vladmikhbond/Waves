@@ -4,10 +4,10 @@ let canvas3d = document.getElementById("canvas3d");
 let info = document.getElementById("info");
 let resetButton = document.getElementById("resetButton");
 let kvisRange = document.getElementById("kvisRange");
+let kvis3dRange = document.getElementById("kvis3dRange");
 let playPauseButton = document.getElementById("playPauseButton");
 let rectButton = document.getElementById("rectButton");
 let lineButton = document.getElementById("lineButton");
-// let rocksButton = document.getElementById("rocksButton");
 let oscillatorsButton = document.getElementById("oscillatorsButton");
 let optsButton = document.getElementById("optsButton");
 let optsArea = document.getElementById("optsArea");
@@ -24,7 +24,7 @@ function init(n, d) {
     // set sizes
     canvas1d.width = canvas1d.height = canvas2d.width = canvas2d.height = n;
     optsArea.style.width = helpArea.style.width = n + 'px';
-    canvas3d.style.display = opts["3d"] ? "block" : "none";
+    canvas3d.style.display = opts._3d ? "block" : "none";
     // oscillators mode
     OscilHandler.set();
     oscillatorsButton.checked = true;
@@ -60,6 +60,11 @@ kvisRange.onchange = function() {
     view.draw();
 };
 
+kvis3dRange.onchange = function() {
+    opts.Kvis3d = kvis3dRange.value;
+    view3d.draw();
+};
+
 playPauseButton.onclick = function() {
     if (timerId) {
         // do pause
@@ -71,8 +76,11 @@ playPauseButton.onclick = function() {
         // start to play
         timerId = setInterval( function () {
             sea.step();
-            view3d.draw();
             view.draw();
+            if (opts._3d)
+                view3d.draw();
+            if (opts._1d)
+                view.draw1();
         }, 50);
         playPauseButton.innerHTML = '►';
     }

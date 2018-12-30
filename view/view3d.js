@@ -6,30 +6,30 @@ class View3d {
         this.n = sea.n;
         this.d = d;
 
-        this.camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 1000 );
-        this.camera.position.set( this.n/2, this.n/2, 325 );
-        this.camera.lookAt( this.n/2, this.n/2, 0 );
+        this.camera = new THREE.OrthographicCamera(-this.n/2, this.n/2, this.n/2,  -this.n/2, 1, 1000 );
+
+
+
 
         this.renderer = new THREE.WebGLRenderer({canvas: canvas3d});
         this.renderer.setSize(this.n, this.n);
         this.renderer.shadowMap.enabled = true;
 
-        let light = new THREE.DirectionalLight( 0x00ffff, 1.1 );
-        light.position.set( -this.n/2, 0, 200 );
-        light.castShadow = true;
-        this.initVertices();
+        this.light = new THREE.DirectionalLight( 0xffffff, 1.1 );
+        this.light.castShadow = true;
 
+        this.vertices = this.initVertices();
         this.geometry = new THREE.BufferGeometry();
         this.geometry.addAttribute( 'position', new THREE.BufferAttribute( this.vertices, 3 ) );
 
-        let material = new THREE.MeshPhongMaterial( { color: 0xffFFFF } );
+        let material = new THREE.MeshPhongMaterial( { color: 0x00FFFF } );
         this.ocean = new THREE.Mesh( this.geometry, material );
         this.ocean.receiveShadow = true;
         this.ocean.castShadow = true;
 
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color( 0xbfd1e5 );
-        this.scene.add(light);
+        this.scene.add(this.light);
         this.scene.add( this.ocean );
     }
 
@@ -64,13 +64,24 @@ class View3d {
                 a.push(r+d);
                 a.push(0);        }
         }
-        this.vertices = new Float32Array(a);
+        return new Float32Array(a);
     }
 
     draw()
     {
         this.ocean.rotation.x = -Math.PI * oceanRotation.value / 90 ;
-        this.camera.position.set(this.n/2, this.n/2, cameraHeight.value);
+
+        cameraPosition.value1 = Math.PI / 2;
+
+        let y = 100 * Math.sin(cameraPosition.value1);
+        let z = 100 * Math.cos(cameraPosition.value1);
+
+        this.camera.position.set(250, 250, 100);
+        this.camera.lookAt(250, 250, 0 );
+
+
+        this.light.position.set( 0, -this.n/2, lightHeight.value);
+
 
         let d = this.d;
         let i = 2;
