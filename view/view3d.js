@@ -6,7 +6,7 @@ class View3d {
         this.n = sea.n;
         this.d = d;
 
-        this.camera = new THREE.OrthographicCamera(-this.n/2, this.n/2, this.n/2,  -this.n/2, 1, 1000 );
+        this.camera = new THREE.OrthographicCamera(-this.n/2, this.n/2, this.n/2,  -this.n/2, -100, 1000 );
 
         this.renderer = new THREE.WebGLRenderer({canvas: canvas3d});
         this.renderer.setSize(this.n, this.n);
@@ -30,10 +30,10 @@ class View3d {
         this.scene.add( this.ocean );
 
         /// test cube
-        let geometry = new THREE.BoxGeometry( 50, 50, 50 );
-        let material2 = new THREE.MeshPhongMaterial( {color: 0x00ff00} );
+        let geometry = new THREE.BoxGeometry( 100, 100, 6 );
+        let material2 = new THREE.MeshPhongMaterial( {color: 0xff0000} );
         let cube = new THREE.Mesh( geometry, material2 );
-        cube.position.set(30, 30, 0);
+        cube.position.set(60, 60, 3);
         this.scene.add( cube );
 
 
@@ -87,24 +87,36 @@ class View3d {
 
 
         let d = this.d;
-        let i = 2;
+        let i = 0;
         let amp = amplitudeRange.value;
         for (let r_ = 0; r_ < this.n - d; r_ += d) {
             let r = this.n - d - r_;
             for (let c = 0; c < this.n - d; c += d) {
                 // 1
                 let v = this.vertices;
-                v[i] = this.sea.w[r][c].x * amp;
+                // v[i] = c;
+                // v[i+1] = r_;
+                v[i+2] = this.sea.w[r][c].x * amp;
                 // 2
-                v[i+3] = this.sea.w[r-d][c].x * amp;
+                // v[i+3] = c+d;
+                // v[i+4] = r_;
+                v[i+5] = this.sea.w[r-d][c].x * amp;
                 // 3
-                v[i+6] = this.sea.w[r][c + d].x * amp;
+                // v[i+6] = c;
+                // v[i+7] = r_+d;
+                v[i+8] = this.sea.w[r][c + d].x * amp;
                 // 3
-                v[i+9] = this.sea.w[r][c + d].x * amp;
+                // v[i+9] = c;
+                // v[i+10] = r_+d;
+                v[i+11] = this.sea.w[r][c + d].x * amp;
                 // 2
-                v[i+12] = this.sea.w[r-d][c].x * amp;
+                // v[i+12] = c+d;
+                // v[i+13] = r_;
+                v[i+14] = this.sea.w[r-d][c].x * amp;
                 // 4
-                v[i+15] = this.sea.w[r-d][c + d].x * amp;
+                // v[i+15] = c+d;
+                // v[i+16] = r_+d;
+                v[i+17] = this.sea.w[r-d][c + d].x * amp;
                 i += 18;
             }
         }
