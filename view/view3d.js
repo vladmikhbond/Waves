@@ -30,11 +30,11 @@ class View3d {
         this.scene.add( this.ocean );
 
         /// test cube
-        // let geometry = new THREE.BoxGeometry( 200, 200, 200 );
-        // let material2 = new THREE.MeshPhongMaterial( {color: 0x00ff00} );
-        // let cube = new THREE.Mesh( geometry, material2 );
-        // cube.position.set(200, 200, 0);
-        // this.scene.add( cube );
+        let geometry = new THREE.BoxGeometry( 50, 50, 50 );
+        let material2 = new THREE.MeshPhongMaterial( {color: 0x00ff00} );
+        let cube = new THREE.Mesh( geometry, material2 );
+        cube.position.set(30, 30, 0);
+        this.scene.add( cube );
 
 
     }
@@ -109,6 +109,7 @@ class View3d {
             }
         }
         this.geometry.computeVertexNormals();
+
         this.renderer.render( this.scene, this.camera );
     }
 }

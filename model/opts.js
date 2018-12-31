@@ -1,5 +1,5 @@
 let opts = {
-    D: 20,                           // triangle size for 3d visualize
+    D: 2,                           // triangle size for 3d visualize
     N: 500,                         // 3 * 167 = 501
     OMEGA: (0.2 /(2 * Math.PI)).toFixed(4),  // 0.2 < OMEGA < 0.8
     W: 0.99,
