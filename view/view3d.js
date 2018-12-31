@@ -8,9 +8,6 @@ class View3d {
 
         this.camera = new THREE.OrthographicCamera(-this.n/2, this.n/2, this.n/2,  -this.n/2, 1, 1000 );
 
-
-
-
         this.renderer = new THREE.WebGLRenderer({canvas: canvas3d});
         this.renderer.setSize(this.n, this.n);
         this.renderer.shadowMap.enabled = true;
@@ -31,6 +28,15 @@ class View3d {
         this.scene.background = new THREE.Color( 0xbfd1e5 );
         this.scene.add(this.light);
         this.scene.add( this.ocean );
+
+        /// test cube
+        // let geometry = new THREE.BoxGeometry( 200, 200, 200 );
+        // let material2 = new THREE.MeshPhongMaterial( {color: 0x00ff00} );
+        // let cube = new THREE.Mesh( geometry, material2 );
+        // cube.position.set(200, 200, 0);
+        // this.scene.add( cube );
+
+
     }
 
     initVertices() {
@@ -69,39 +75,36 @@ class View3d {
 
     draw()
     {
-        this.ocean.rotation.x = -Math.PI * oceanRotation.value / 90 ;
 
-        cameraPosition.value1 = Math.PI / 2;
-
-        let y = 100 * Math.sin(cameraPosition.value1);
-        let z = 100 * Math.cos(cameraPosition.value1);
-
-        this.camera.position.set(250, 250, 100);
-        this.camera.lookAt(250, 250, 0 );
+        let r = 500;
+        let y = r * Math.sin(cameraRange.value);
+        let z = r * Math.cos(cameraRange.value);
+        this.camera.position.set(250, 250 + y, z);
+        this.camera.lookAt(250, 250-y, -z );
 
 
-        this.light.position.set( 0, -this.n/2, lightHeight.value);
+        this.light.position.set( 0, -this.n/2, lightRange.value);
 
 
         let d = this.d;
         let i = 2;
-        let k = opts.Kvis3d;
+        let amp = amplitudeRange.value;
         for (let r_ = 0; r_ < this.n - d; r_ += d) {
             let r = this.n - d - r_;
             for (let c = 0; c < this.n - d; c += d) {
                 // 1
                 let v = this.vertices;
-                v[i] = this.sea.w[r][c].x * k;
+                v[i] = this.sea.w[r][c].x * amp;
                 // 2
-                v[i+3] = this.sea.w[r-d][c].x * k;
+                v[i+3] = this.sea.w[r-d][c].x * amp;
                 // 3
-                v[i+6] = this.sea.w[r][c + d].x * k;
+                v[i+6] = this.sea.w[r][c + d].x * amp;
                 // 3
-                v[i+9] = this.sea.w[r][c + d].x * k;
+                v[i+9] = this.sea.w[r][c + d].x * amp;
                 // 2
-                v[i+12] = this.sea.w[r-d][c].x * k;
+                v[i+12] = this.sea.w[r-d][c].x * amp;
                 // 4
-                v[i+15] = this.sea.w[r-d][c + d].x * k;
+                v[i+15] = this.sea.w[r-d][c + d].x * amp;
                 i += 18;
             }
         }

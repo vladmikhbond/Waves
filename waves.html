@@ -31,14 +31,12 @@
 
         <div class="col">
             <div >
-                <label>v
-                    <input id="kvis3dRange" type="range" step="1" min="1" max="100" value="10" title="Kvis3d"/></label>
-                <label>&nbsp;r
-                    <input id="oceanRotation" type="range" step="1" min="0" max="45" value="0" title="Ocean Rotation"/></label>
+                <label>Ampl
+                    <input id="amplitudeRange" type="range" step="10" min="1" max="100000" value="10"/></label>
                 <label>&nbsp;Cam
-                    <input id="cameraPosition" type="range" step="0.313" min="0" max="3.14" value="325" title="Camera Position"/></label>
-                <label>&nbsp;l
-                    <input id="lightHeight" type="range" step="10" min="50" max="1000" value="200" title="Light Height"/></label>
+                    <input id="cameraRange" type="range" step="0.01" min="-1.57" max="1.57" value="0"/></label>
+                <label>&nbsp;Light
+                    <input id="lightRange" type="range" step="10" min="10" max="200" value="100"/></label>
             </div>
         </div>
     </div>
@@ -53,7 +51,6 @@ N - сторона квадрата модели (должна быть крат
 W - коэффициент поглощения среды (0.0 < W <= 1.0)
 OMEGA - частота нового осциллятора
 Kvis - константа визуализации для 2d (2 < Kvis < 2**20)
-Kvis3d - константа визуализации для 3d (1 < Kvis3d < 20)
 _3d - трехмерное отображени
 _1d - одномерное отображение
 

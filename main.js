@@ -4,7 +4,6 @@ let canvas3d = document.getElementById("canvas3d");
 let info = document.getElementById("info");
 let resetButton = document.getElementById("resetButton");
 let kvisRange = document.getElementById("kvisRange");
-let kvis3dRange = document.getElementById("kvis3dRange");
 let playPauseButton = document.getElementById("playPauseButton");
 let rectButton = document.getElementById("rectButton");
 let lineButton = document.getElementById("lineButton");
@@ -12,6 +11,10 @@ let oscillatorsButton = document.getElementById("oscillatorsButton");
 let optsButton = document.getElementById("optsButton");
 let optsArea = document.getElementById("optsArea");
 let helpArea = document.getElementById("helpArea");
+let amplitudeRange = document.getElementById("amplitudeRange");
+let cameraRange = document.getElementById("cameraRange");
+let lightRange = document.getElementById("lightRange");
+
 
 let timerId;
 let sea;
@@ -60,10 +63,10 @@ kvisRange.onchange = function() {
     view.draw();
 };
 
-kvis3dRange.onchange = function() {
-    opts.Kvis3d = kvis3dRange.value;
-    view3d.draw();
-};
+// kvis3dRange.onchange = function() {
+//     opts.Kvis3d = kvis3dRange.value;
+//     view3d.draw();
+// };
 
 playPauseButton.onclick = function() {
     if (timerId) {
@@ -115,7 +118,11 @@ document.body.onkeydown = e => {
 
 
 
-
+canvas3d.onmousemove = function (e) {
+    let c = e.offsetX | 0;
+    let r = e.offsetY | 0;
+    info.innerHTML = sea.w[r][c].x;
+}
 
 
 

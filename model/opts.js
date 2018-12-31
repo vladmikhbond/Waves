@@ -1,10 +1,9 @@
 let opts = {
-    D: 2,                           // triangle size for 3d visualize
+    D: 20,                           // triangle size for 3d visualize
     N: 500,                         // 3 * 167 = 501
     OMEGA: (0.2 /(2 * Math.PI)).toFixed(4),  // 0.2 < OMEGA < 0.8
     W: 0.99,
     Kvis: 2**9,                     // visualise coefficient
-    Kvis3d: 10,                     // visualise coefficient
     _3d: 1,
     _1d: 0,
 
@@ -14,7 +13,6 @@ let opts = {
 "W": ${this.W},
 "OMEGA": ${this.OMEGA},
 "Kvis": ${this.Kvis},
-"Kvis3d": ${this.Kvis3d},
 "_3d": ${this._3d},
 "_1d": ${this._1d}`;
     },
