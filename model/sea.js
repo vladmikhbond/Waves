@@ -54,6 +54,13 @@ class Sea
     step() {
         this.chronos++;
 
+        // for (let r = 0; r < this.n; r++) {
+        //     for (let c = 0; c < this.n; c++) {
+        //         this.w[r][c].x = c**2 / 1000 ;
+        //     }
+        // }
+        // return;
+
         // oscillators
         for (let o of this.oscs) {
             if (this.w[o.r][o.c].free)
@@ -74,11 +81,11 @@ class Sea
 
         // расчет амплитуд
         // точки по периметру
-        for (let t = 1; t < n-1; t++) {
-            this.w[t][0].x = this.w[t][1].x - this.w[t][1].v;
-            this.w[t][n-1].x = this.w[t][n-2].x - this.w[t][n-2].v;
-            this.w[0][t].x = this.w[1][t].x - this.w[1][t].v;
-            this.w[n-1][t].x = this.w[n-2][t].x - this.w[n-2][t].v;
+        for (let p = 1; p < n-1; p++) {
+            this.w[p][0].x = this.w[p][1].x - this.w[p][1].v;
+            this.w[p][n-1].x = this.w[p][n-2].x - this.w[p][n-2].v;
+            this.w[0][p].x = this.w[1][p].x - this.w[1][p].v;
+            this.w[n-1][p].x = this.w[n-2][p].x - this.w[n-2][p].v;
         }
         // внутренние точки
         for (let r = 1; r < n-1; r++) {

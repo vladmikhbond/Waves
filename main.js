@@ -11,7 +11,6 @@ let oscillatorsButton = document.getElementById("oscillatorsButton");
 let optsButton = document.getElementById("optsButton");
 let optsArea = document.getElementById("optsArea");
 let helpArea = document.getElementById("helpArea");
-let amplitudeRange = document.getElementById("amplitudeRange");
 let cameraRange = document.getElementById("cameraRange");
 let lightRange = document.getElementById("lightRange");
 
@@ -54,19 +53,7 @@ resetButton.onclick = () => init(opts.N, opts.D);
 oscillatorsButton.onclick = () => OscilHandler.set();
 rectButton.onclick = () => RectHandler.set();
 lineButton.onclick = () => LineHandler.set();
-// rocksButton.onclick = () => RockHandler.set();
 
-
-kvisRange.onchange = function() {
-    opts.Kvis = 2 ** kvisRange.value;
-    kvisRange.title = "Kvis = 2 ** " + kvisRange.value;
-    view.draw();
-};
-
-// kvis3dRange.onchange = function() {
-//     opts.Kvis3d = kvis3dRange.value;
-//     view3d.draw();
-// };
 
 playPauseButton.onclick = function() {
     if (timerId) {
@@ -74,7 +61,6 @@ playPauseButton.onclick = function() {
         clearInterval(timerId);
         timerId = null;
         playPauseButton.innerHTML = '■';
-        view.drawInfo();
     } else {
         // start to play
         timerId = setInterval( function () {
@@ -89,8 +75,7 @@ playPauseButton.onclick = function() {
     }
 };
 
-optsButton.onclick = function()
-{
+optsButton.onclick = function() {
     if (optsArea.style.display !== "block") {
         optsArea.value = opts.stringify();
         let lineCount = (optsArea.value.match(/\n/g) || []).length;
@@ -106,24 +91,42 @@ optsButton.onclick = function()
     }
 };
 
+
+// ------------------ range handlers -----------------------
+
+kvisRange.onchange = function() {
+    optz.Kvis = 2 ** kvisRange.value;
+    optz.Kvis3d = 2 * kvisRange.value;
+    kvisRange.title = "Kvis = 2 ** " + kvisRange.value;
+    view.draw();
+};
+
+cameraRange.onchange = function() {
+    let r = opts.N;
+    optz.cameraY = r * Math.sin(cameraRange.value);
+    optz.cameraZ = r * Math.cos(cameraRange.value);
+    view3d.draw();
+};
+
+lightRange.onchange = function() {
+    optz.lightX = lightRange.value * opts.N / 2;
+    view3d.draw();
+};
+
+
 // ------------------ keys handler -----------------------
+
 document.body.onkeydown = e => {
     if ('SsЫы'.includes(e.key)) {
         sea.step();
         view.draw();
         view3d.draw();
     }
-    info.innerHTML = `r=${sea.point.r}  c=${sea.point.c}  E=${sea.energyMeasure(20)}` ;
+    if ('MmЬь'.includes(e.key)) {
+        let energy = sea.energyMeasure(20).toFixed(10);
+        info.innerHTML = `r=${sea.point.r}  c=${sea.point.c}  E=${energy}` ;
+    }
 };
-
-
-
-canvas3d.onmousemove = function (e) {
-    let c = e.offsetX | 0;
-    let r = e.offsetY | 0;
-    info.innerHTML = sea.w[r][c].x;
-}
-
 
 
 

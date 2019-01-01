@@ -3,7 +3,6 @@ let opts = {
     N: 500,                         // 3 * 167 = 501
     OMEGA: (0.2 /(2 * Math.PI)).toFixed(4),  // 0.2 < OMEGA < 0.8
     W: 0.99,
-    Kvis: 2**9,                     // visualise coefficient
     _3d: 1,
     _1d: 0,
 
@@ -12,7 +11,6 @@ let opts = {
 "N": ${this.N},
 "W": ${this.W},
 "OMEGA": ${this.OMEGA},
-"Kvis": ${this.Kvis},
 "_3d": ${this._3d},
 "_1d": ${this._1d}`;
     },
@@ -30,3 +28,13 @@ let opts = {
         return resetNeeded;
     }
 };
+
+
+let optz = {
+    Kvis: 2**9,                     // visualise coefficient
+    Kvis3d: 2*9,
+    cameraY: 0,
+    cameraZ: opts.N * Math.cos(cameraRange.value),
+    lightX: lightRange.value * opts.N / 2,
+};
+

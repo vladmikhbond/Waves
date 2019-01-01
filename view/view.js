@@ -20,7 +20,7 @@ class View
                     this.canvasData.data[idx + 3] = 255;  // alpha
                 } else {
                     // define alpha
-                    let color = this.sea.w[r][c].x * opts.Kvis | 0;
+                    let color = this.sea.w[r][c].x * optz.Kvis | 0;
                     const maxColor = 127;
                     if (color > maxColor) color = maxColor;
                     if (color < -maxColor) color = -maxColor;
@@ -68,29 +68,11 @@ class View
         ctx.stroke();
     }
 
-    drawInfo() {
-        playPauseButton.innerHTML = this.sea.chronos;
-        info.innerHTML = this.sea.point.e;
-    }
-    
-    // drawRockLine(r0, c0, r, c, lineWidth) {
-    //     this.ctx.lineWidth = lineWidth;
-    //     this.ctx.strokeStyle = 'red';
-    //     this.ctx.beginPath();
-    //     this.ctx.moveTo(c0, r0);
-    //     this.ctx.lineTo(c, r);
-    //     this.ctx.stroke();
+    // drawInfo() {
+    //     playPauseButton.innerHTML = this.sea.chronos;
+    //     info.innerHTML = this.sea.point.e;
     // }
-    //
-    // drawCircle(r0, c0, radius) {
-    //     this.ctx.lineWidth = 2;
-    //     this.ctx.strokeStyle = 'orange';
-    //     this.ctx.beginPath();
-    //     this.ctx.ellipse(c0, r0, radius, radius, 0, 0, 2*Math.PI );
-    //     this.ctx.stroke();
-    // }
+
 
 }
-
-
 

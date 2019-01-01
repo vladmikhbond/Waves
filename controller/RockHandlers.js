@@ -1,7 +1,7 @@
 class RectHandler
 {
     static down(e)  {
-        RectHandler.o = {type: "rect", c0: e.offsetX, r0: e.offsetY};
+        RectHandler.o = {type: "rect", c0: e.offsetX, r0: e.offsetY, w: 0, h: 0};
     }
 
     static move(e) {
@@ -21,8 +21,14 @@ class RectHandler
             let canvasData = canvas1d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
             sea.getRocksFromCanvasData(canvasData);
             sea.isles.push(RectHandler.o);
-            RectHandler.o = null;
+            //
             view.draw();
+            view3d.addIsle(RectHandler.o);
+            view3d.draw();
+            let ctx = canvas1d.getContext('2d');
+            ctx.clearRect(0, 0, opts.N, opts.N);
+
+            RectHandler.o = null;
         }
     }
 
@@ -62,8 +68,15 @@ class LineHandler
             let canvasData = canvas1d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
             sea.getRocksFromCanvasData(canvasData);
             sea.isles.push(LineHandler.o);
-            LineHandler.o = null;
+
+            //
             view.draw();
+            // view3d.addIsle(LineHandler.o);
+            view3d.draw();
+            let ctx = canvas1d.getContext('2d');
+            ctx.clearRect(0, 0, opts.N, opts.N);
+
+            LineHandler.o = null;
         }
     }
 

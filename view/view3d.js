@@ -6,94 +6,100 @@ class View3d {
         this.n = sea.n;
         this.d = d;
 
-        this.camera = new THREE.OrthographicCamera(-this.n/2, this.n/2, this.n/2,  -this.n/2, -100, 1000 );
+        // scene
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color( 0xbfd1e5 );
 
+        // cam
+        this.camera = new THREE.OrthographicCamera(-this.n/2, this.n/2, this.n/2, -this.n/2, 1, 1000 );
+
+        // lights
+        this.light = new THREE.DirectionalLight( 0xffffff, 1.1 );
+        this.light.castShadow = true;
+        this.scene.add(this.light);
+
+        // geometry
+        this.geometry = new THREE.BufferGeometry();
+        let attr = new THREE.BufferAttribute( this.initVertices(), 3 );
+        attr.dytamic = true;
+        this.geometry.addAttribute( 'position', attr );
+
+        // see
+        let seaMaterial = new THREE.MeshPhongMaterial( { color: 0x00FFFF } );
+        let seaMesh = new THREE.Mesh( this.geometry, seaMaterial );
+        seaMesh.receiveShadow = true;
+        seaMesh.castShadow = true;
+        this.scene.add(seaMesh);
+
+        // renderer
         this.renderer = new THREE.WebGLRenderer({canvas: canvas3d});
         this.renderer.setSize(this.n, this.n);
         this.renderer.shadowMap.enabled = true;
+    }
 
-        this.light = new THREE.DirectionalLight( 0xffffff, 1.1 );
-        this.light.castShadow = true;
-
-        this.vertices = this.initVertices();
-        this.geometry = new THREE.BufferGeometry();
-        this.geometry.addAttribute( 'position', new THREE.BufferAttribute( this.vertices, 3 ) );
-
-        let material = new THREE.MeshPhongMaterial( { color: 0x00FFFF } );
-        this.ocean = new THREE.Mesh( this.geometry, material );
-        this.ocean.receiveShadow = true;
-        this.ocean.castShadow = true;
-
-        this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color( 0xbfd1e5 );
-        this.scene.add(this.light);
-        this.scene.add( this.ocean );
-
-        /// test cube
-        let geometry = new THREE.BoxGeometry( 100, 100, 6 );
-        let material2 = new THREE.MeshPhongMaterial( {color: 0xff0000} );
-        let cube = new THREE.Mesh( geometry, material2 );
-        cube.position.set(60, 60, 3);
-        this.scene.add( cube );
-
-
+    addIsle(isle) {
+        if (isle.type === 'rect') {
+            let geometry = new THREE.BoxGeometry(isle.w, isle.h, 4);
+            let isleMaterial = new THREE.MeshPhongMaterial({color: 0xff0000});
+            let mesh = new THREE.Mesh(geometry, isleMaterial);
+            mesh.position.x = isle.c0 + isle.w / 2;
+            mesh.position.y = this.n - isle.r0 - isle.h / 2;
+            mesh.receiveShadow = true;
+            mesh.castShadow = true;
+            this.scene.add(mesh);
+        }
     }
 
     initVertices() {
         let d = this.d;
-        let a = [];
+        let v = [];
         for (let r = 0; r < this.n - d; r += d ) {
             for (let c = 0; c < this.n - d; c += d ) {
                 // 1
-                a.push(c);
-                a.push(r);
-                a.push(0);
+                v.push(c);
+                v.push(r);
+                v.push(0);
                 // 2
-                a.push(c+d);
-                a.push(r);
-                a.push(0);
+                v.push(c+d);
+                v.push(r);
+                v.push(0);
                 // 3
-                a.push(c);
-                a.push(r+d);
-                a.push(0);
+                v.push(c);
+                v.push(r+d);
+                v.push(0);
 
                 //3
-                a.push(c);
-                a.push(r+d);
-                a.push(0);
+                v.push(c);
+                v.push(r+d);
+                v.push(0);
                 // 2
-                a.push(c+d);
-                a.push(r);
-                a.push(0);
+                v.push(c+d);
+                v.push(r);
+                v.push(0);
                 // 4
-                a.push(c+d);
-                a.push(r+d);
-                a.push(0);        }
+                v.push(c+d);
+                v.push(r+d);
+                v.push(0);        }
         }
-        return new Float32Array(a);
+        return new Float32Array(v);
     }
 
-    draw()
-    {
+    draw() {
+        let amp = optz.Kvis3d;
 
-        let r = 500;
-        let y = r * Math.sin(cameraRange.value);
-        let z = r * Math.cos(cameraRange.value);
-        this.camera.position.set(250, 250 + y, z);
-        this.camera.lookAt(250, 250-y, -z );
+        let half = this.n / 2 | 0;
+        this.camera.position.set(half,  half + optz.cameraY, optz.cameraZ);
+        this.camera.lookAt(half,  half, 0);
 
+        this.light.position.set(optz.lightX, half, this.n );
 
-        this.light.position.set( 0, -this.n/2, lightRange.value);
-
-
+        let v = this.geometry.getAttribute('position').array;
         let d = this.d;
         let i = 0;
-        let amp = amplitudeRange.value;
         for (let r_ = 0; r_ < this.n - d; r_ += d) {
             let r = this.n - d - r_;
             for (let c = 0; c < this.n - d; c += d) {
                 // 1
-                let v = this.vertices;
                 // v[i] = c;
                 // v[i+1] = r_;
                 v[i+2] = this.sea.w[r][c].x * amp;
@@ -120,8 +126,8 @@ class View3d {
                 i += 18;
             }
         }
+        this.geometry.getAttribute('position').needsUpdate = true;
         this.geometry.computeVertexNormals();
-
         this.renderer.render( this.scene, this.camera );
     }
 }
