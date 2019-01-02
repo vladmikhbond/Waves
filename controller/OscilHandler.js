@@ -15,10 +15,8 @@ class OscilHandler
         let c = e.offsetX;
         let r = e.offsetY;
         // set sea.point
-        if (c < opts.N && r < opts.N ) {
-            sea.point.r = r;
-            sea.point.c = c;
-        }
+        sea.point.r = r;
+        sea.point.c = c;
      }
 
     static up() {
