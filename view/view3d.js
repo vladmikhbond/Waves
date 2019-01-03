@@ -38,16 +38,28 @@ class View3d {
     }
 
     addIsle(isle) {
+        let isleMaterial = new THREE.MeshPhongMaterial({color: 0x00a000});
+        let mesh = null;
+
         if (isle.type === 'rect') {
             let geometry = new THREE.BoxGeometry(isle.w, isle.h, 4);
-            let isleMaterial = new THREE.MeshPhongMaterial({color: 0xff0000});
-            let mesh = new THREE.Mesh(geometry, isleMaterial);
+            mesh = new THREE.Mesh(geometry, isleMaterial);
             mesh.position.x = isle.c0 + isle.w / 2;
             mesh.position.y = this.n - isle.r0 - isle.h / 2;
-            mesh.receiveShadow = true;
-            mesh.castShadow = true;
-            this.scene.add(mesh);
+
+        } else if (isle.type === 'line') {
+            let hypot = Math.hypot(isle.r - isle.r0, isle.c - isle.c0);
+            let geometry = new THREE.BoxGeometry(hypot, isle.width, 4);
+            mesh = new THREE.Mesh(geometry, isleMaterial);
+            mesh.position.x = (isle.c0 + isle.c) / 2;
+            mesh.position.y = this.n - (isle.r0 + isle.r) / 2;
+            let alpha = Math.atan2(isle.r - isle.r0, isle.c - isle.c0);
+            mesh.rotation.z = -alpha;
         }
+
+        mesh.receiveShadow = true;
+        mesh.castShadow = true;
+        this.scene.add(mesh);
     }
 
     initVertices() {

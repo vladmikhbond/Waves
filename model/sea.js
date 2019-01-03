@@ -54,19 +54,10 @@ class Sea
     step() {
         this.chronos++;
 
-        // for (let r = 0; r < this.n; r++) {
-        //     for (let c = 0; c < this.n; c++) {
-        //         this.w[r][c].x = c**2 / 1000 ;
-        //     }
-        // }
-        // return;
-
         // oscillators
         for (let o of this.oscs) {
             if (this.w[o.r][o.c].free)
                 o.next();
-            // if (this.chronos % 1 == 0)
-            //    o.c+=2;
         }
         // расчет сил
         let n = this.n;
@@ -79,8 +70,8 @@ class Sea
             }
         }
 
-        // расчет амплитуд
-        // точки по периметру
+        // расчет отклонений
+        // точки на периметре
         for (let p = 1; p < n-1; p++) {
             this.w[p][0].x = this.w[p][1].x - this.w[p][1].v;
             this.w[p][n-1].x = this.w[p][n-2].x - this.w[p][n-2].v;
@@ -102,17 +93,18 @@ class Sea
         }
     }
 
-    // замер плотности энергии (усреднение по площади круга)
+    // замер плотности энергии (усреднение по площади квадрата)
     //
     energyMeasure(radius) {
         let r0 = this.point.r, c0 = this.point.c;
         let e = 0, n = 0;
-        for (let r = r0 - radius; r < r0 + radius; r++) {
-            for (let c = c0 - radius; c < c0 + radius; c++) {
+        for (let r = r0 - radius + 1; r < r0 + radius; r++) {
+            for (let c = c0 - radius + 1; c < c0 + radius; c++) {
                 if (r > 0 && r < this.n && c > 0 && c < this.n) {
-                    let x = this.w[r][c].x;
+                    let dxr = this.w[r][c].x - this.w[r-1][c].x;
+                    let dxc = this.w[r][c].x - this.w[r][c-1].x;
                     let v = this.w[r][c].v;
-                    e += Math.abs(x) + v * v / 2;
+                    e += dxr**2 / 4 + dxc**2 / 4 + v**2 / 2;
                     n++;
                 }
             }

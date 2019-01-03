@@ -31,10 +31,11 @@ let opts = {
 
 
 let optz = {
-    Kvis: 2**9,                     // visualise coefficient
-    Kvis3d: 2*9,
+    Kvis: 2**9,                     // 2d visualise coefficient
+    Kvis3d: 2*9,                    // 3d visualise coefficient
     cameraY: 0,
     cameraZ: opts.N * Math.cos(cameraRange.value),
     lightX: lightRange.value * opts.N / 2,
+    lineIsleWidth: 5,               // width of the line isle
 };
 

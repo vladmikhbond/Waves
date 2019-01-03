@@ -43,7 +43,7 @@ class RectHandler
 class LineHandler
 {
     static down(e)  {
-        LineHandler.o = {type: "line", c0: e.offsetX, r0: e.offsetY};
+        LineHandler.o = {type: "line", c0: e.offsetX, r0: e.offsetY, width: optz.lineIsleWidth};
     }
 
     static move(e) {
@@ -55,7 +55,7 @@ class LineHandler
             ctx.strokeStyle = "gray";
             ctx.clearRect(0, 0, opts.N, opts.N);
 
-            ctx.lineWidth = 5;
+            ctx.lineWidth = LineHandler.o.width;
             ctx.beginPath();
             ctx.moveTo(LineHandler.o.c0, LineHandler.o.r0);
             ctx.lineTo(LineHandler.o.c, LineHandler.o.r);
@@ -64,14 +64,21 @@ class LineHandler
     }
 
     static up()  {
-        if (LineHandler.o) {
+        let isle = LineHandler.o;
+        if (isle) {
+            // normalize line isle
+            if (isle.c < isle.c0) {
+                [isle.c, isle.c0] = [isle.c0, isle.c];
+                [isle.r, isle.r0] = [isle.r0, isle.r];
+            }
+
             let canvasData = canvas1d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
             sea.getRocksFromCanvasData(canvasData);
-            sea.isles.push(LineHandler.o);
+            sea.isles.push(isle);
 
             //
             view.draw();
-            // view3d.addIsle(LineHandler.o);
+            view3d.addIsle(isle);
             view3d.draw();
             let ctx = canvas1d.getContext('2d');
             ctx.clearRect(0, 0, opts.N, opts.N);

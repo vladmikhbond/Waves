@@ -7,7 +7,7 @@ class View
     }
 
     draw () {
-        const ROCK_COLOR = 160;
+        const ROCK_COLOR = 160; // 0xa0
 
         for (let r = 0; r < opts.N; r++) {
             for (let c = 0; c < opts.N; c++) {
