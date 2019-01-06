@@ -7,13 +7,13 @@ let kvisRange = document.getElementById("kvisRange");
 let playPauseButton = document.getElementById("playPauseButton");
 let rectButton = document.getElementById("rectButton");
 let lineButton = document.getElementById("lineButton");
+let meterButton = document.getElementById("meterButton");
 let oscillatorsButton = document.getElementById("oscillatorsButton");
 let optsButton = document.getElementById("optsButton");
 let optsArea = document.getElementById("optsArea");
 let helpArea = document.getElementById("helpArea");
 let cameraRange = document.getElementById("cameraRange");
 let lightRange = document.getElementById("lightRange");
-
 
 let timerId;
 let sea;
@@ -46,6 +46,18 @@ function init(n, d) {
     view3d.draw();
 }
 
+function mainStep() {
+    sea.step();
+
+    view.draw();
+    if (opts._3d)
+        view3d.draw();
+    if (opts._1d)
+        view.draw1();
+
+    infoTotalEnergy();
+}
+
 // -------------- handlers ----------
 
 resetButton.onclick = () => init(opts.N, opts.D);
@@ -53,6 +65,7 @@ resetButton.onclick = () => init(opts.N, opts.D);
 oscillatorsButton.onclick = () => OscilHandler.set();
 rectButton.onclick = () => RectHandler.set();
 lineButton.onclick = () => LineHandler.set();
+meterButton.onclick = () => MeterHandler.set();
 
 
 playPauseButton.onclick = function() {
@@ -63,14 +76,7 @@ playPauseButton.onclick = function() {
         playPauseButton.innerHTML = '■';
     } else {
         // start to play
-        timerId = setInterval( function () {
-            sea.step();
-            view.draw();
-            if (opts._3d)
-                view3d.draw();
-            if (opts._1d)
-                view.draw1();
-        }, 50);
+        timerId = setInterval(mainStep, 50);
         playPauseButton.innerHTML = '►';
     }
 };
@@ -121,12 +127,17 @@ document.body.onkeydown = e => {
         sea.step();
         view.draw();
         view3d.draw();
+        infoTotalEnergy();
     }
     if ('MmЬь'.includes(e.key)) {
-        let energy = sea.energyMeasure(20).toFixed(10);
+        let energy = sea.energyDensity(20).toFixed(10);
         info.innerHTML = `r=${sea.point.r}  c=${sea.point.c}  E=${energy}` ;
     }
 };
 
+// ---------------------- just info ----------------------------
 
-
+function infoTotalEnergy() {
+    let total = sea.energyTotal();
+    info.innerHTML = `Pot = ${total.eP.toFixed(5)}  Cin = ${total.eC.toFixed(5)}` ;
+}

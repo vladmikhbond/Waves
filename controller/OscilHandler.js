@@ -12,12 +12,7 @@ class OscilHandler
     }
 
     static move(e) {
-        let c = e.offsetX;
-        let r = e.offsetY;
-        // set sea.point
-        sea.point.r = r;
-        sea.point.c = c;
-     }
+    }
 
     static up() {
     }

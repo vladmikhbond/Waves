@@ -2,14 +2,16 @@ let opts = {
     D: 2,                           // triangle size for 3d visualize
     N: 500,                         // 3 * 167 = 501
     OMEGA: (0.2 /(2 * Math.PI)).toFixed(4),  // 0.2 < OMEGA < 0.8
-    W: 0.99,
-    _3d: 1,
+    W: 1,
+    R: 0,
+    _3d: 0,
     _1d: 0,
 
     stringify() {
         return `"D": ${this.D},
 "N": ${this.N},
 "W": ${this.W},
+"R": ${this.R},
 "OMEGA": ${this.OMEGA},
 "_3d": ${this._3d},
 "_1d": ${this._1d}`;
@@ -36,6 +38,7 @@ let optz = {
     cameraY: 0,
     cameraZ: opts.N * Math.cos(cameraRange.value),
     lightX: lightRange.value * opts.N / 2,
-    lineIsleWidth: 5,               // width of the line isle
+    lineIsleWidth: 1,               // width of the line isle
+    meterRadius: 20,
 };
 
