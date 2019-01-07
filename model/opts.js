@@ -6,6 +6,7 @@ let opts = {
     R: 0,
     _3d: 0,
     _1d: 0,
+    W_ROCK: 1,
 
     stringify() {
         return `"D": ${this.D},
@@ -14,7 +15,8 @@ let opts = {
 "R": ${this.R},
 "OMEGA": ${this.OMEGA},
 "_3d": ${this._3d},
-"_1d": ${this._1d}`;
+"_1d": ${this._1d},
+"W_ROCK": ${this.W_ROCK}`;
     },
 
     parse() {
