@@ -124,10 +124,7 @@ lightRange.onchange = function() {
 
 document.body.onkeydown = e => {
     if ('SsЫы'.includes(e.key)) {
-        sea.step();
-        view.draw();
-        view3d.draw();
-        infoTotalEnergy();
+        mainStep()
     }
     if ('MmЬь'.includes(e.key)) {
         let energy = sea.energyDensity(20).toFixed(10);
@@ -141,3 +138,10 @@ function infoTotalEnergy() {
     let total = sea.energyTotal();
     info.innerHTML = `Pot = ${total.eP.toFixed(5)}  Cin = ${total.eC.toFixed(5)}` ;
 }
+
+canvas1d.addEventListener('mousemove', function(e) {
+    sea.point.c = e.offsetX;
+    sea.point.r = e.offsetY;
+    let o = sea.w[sea.point.r][sea.point.c];
+    info.innerHTML = `c=${e.offsetX} r=${e.offsetY} X = ${o.x.toFixed(3)}  V = ${o.v.toFixed(3)}` ;
+})
