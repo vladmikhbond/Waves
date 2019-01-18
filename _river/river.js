@@ -1,4 +1,5 @@
 
+let opts = {N: 200, W: 1, Kf: 1};
 
 class River
 {
@@ -31,19 +32,20 @@ class River
 
         // oscillators
         for (let o of this.oscs) {
-            if (this.w[o.x].free)
+            if (this.w[o.r].free)
                 o.next();
         }
         // расчет сил
         let n = this.n;
         for (let r = 1; r < n-1; r++) {
-            this.w[r].f = (this.w[r-1].x + this.w[r+1].x - this.w[r].x * 2) / 2 ;
+            this.w[r].f = (this.w[r-1].x + this.w[r+1].x - this.w[r].x * 2) / 2 * opts.Kf;
         }
 
         // расчет отклонений
 
         // точки на периметре
-        if (false) {
+        let reflect = true;
+        if (!reflect) {
             // полное отражение от границ
             this.w[0].x = this.w[n-1].x = 0;
         } else {
@@ -56,7 +58,7 @@ class River
         for (let r = 1; r < n-1; r++) {
                  // change v
                 this.w[r].v += this.w[r].f;
-                this.w[r].v *= 1.0;                ///////
+                this.w[r].v *= opts.W;                ///////
                 // change x
                 this.w[r].x += this.w[r].v;
         }

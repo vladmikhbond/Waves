@@ -15,7 +15,7 @@ let playPauseButton = document.getElementById("playPauseButton");
 // let cameraRange = document.getElementById("cameraRange");
 // let lightRange = document.getElementById("lightRange");
 
-let opts = {N: 200, W: 1.0};
+
 
 let timerId;
 let river;
@@ -35,7 +35,7 @@ function init(n) {
     }
     // create model
     river = new River(n);
-    river.addOscillator(opts.N / 2, 0.013, 1);
+    river.addOscillator(opts.N / 2, 0.013, 5);
     // create view
     view = new View(river);
     // initial drawing

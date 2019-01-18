@@ -1,14 +1,18 @@
 class Oscillator {
-    constructor(x, o, a, river) {
-        this.x = x;
-        this.omega = o;
-        this.ampl = a;
+    constructor(r, omega, ampl, river) {
+        this.r = r;
+        this.omega = omega;
+        this.ampl = ampl;
         this.river = river;
     }
 
     next() {
-        this.river.w[this.x].x =
-            Math.sin(2 * Math.PI * this.omega * this.river.chronos) * this.ampl;
+        if (this.ampl ) {
+            this.river.w[this.r].x = this.ampl;
+            this.ampl = 0;
+        }
+        // this.river.w[this.r].x =
+        //     Math.sin(2 * Math.PI * this.omega * this.river.chronos) * this.ampl;
     }
 
 }
