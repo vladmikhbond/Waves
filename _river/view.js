@@ -26,12 +26,11 @@ class View
             ctx.lineTo(x, y + 30 * h);
         }
         ctx.stroke();
+
+        // info
+        info.innerHTML = this.river.chronos;
     }
 
-    // drawInfo() {
-    //     playPauseButton.innerHTML = this.sea.chronos;
-    //     info.innerHTML = this.sea.point.e;
-    // }
 
 
 }

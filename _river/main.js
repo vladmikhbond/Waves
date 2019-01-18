@@ -1,7 +1,7 @@
 
 let canvas1 = document.getElementById("canvas1");
 
-// let info = document.getElementById("info");
+let info = document.getElementById("info");
 // let resetButton = document.getElementById("resetButton");
 // let kvisRange = document.getElementById("kvisRange");
 let playPauseButton = document.getElementById("playPauseButton");
@@ -35,7 +35,14 @@ function init(n) {
     }
     // create model
     river = new River(n);
-    river.addOscillator(opts.N / 2, 0.013, 5);
+
+    /////
+    let osc = new Oscillator(2, 0.1, 0.01);
+    //let osc = new Impuls(2, 2);
+    river.addOscillator(osc);
+    river.w[1].free  = 0;
+    /////
+
     // create view
     view = new View(river);
     // initial drawing
