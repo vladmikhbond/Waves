@@ -34,14 +34,14 @@ class River
             if (this.w[o.r].free)
                 o.next();
         }
-        // расчет сил
+        // расчет ускорений (f)
         let n = this.n;
         // крайние точки
-        this.w[0].f = (this.w[1].x - this.w[0].x) * opts.Kf;
-        this.w[n-1].f = (this.w[n-2].x - this.w[n-1].x) * opts.Kf;
+        this.w[0].f = (this.w[1].x - this.w[0].x) * opts.Kf / this.w[0].m;
+        this.w[n-1].f = (this.w[n-2].x - this.w[n-1].x) * opts.Kf / this.w[n-1].m;
         // внутренние точки
         for (let r = 1; r < n-1; r++) {
-            this.w[r].f = (this.w[r-1].x + this.w[r+1].x - this.w[r].x * 2) * opts.Kf;
+            this.w[r].f = (this.w[r-1].x + this.w[r+1].x - this.w[r].x * 2) * opts.Kf / this.w[r].m;
         }
 
         // расчет отклонений
@@ -60,8 +60,10 @@ class River
         for (let r = 1; r < n-1; r++) {
             if (!this.w[r].free)
                 continue;
-             // change v
-            this.w[r].v += this.w[r].f / this.w[r].m * opts.W ;
+            // change v
+            this.w[r].v += this.w[r].f ;
+            // energy dissipation
+            this.w[r].v *= opts.W;
             // change x
             this.w[r].x += this.w[r].v;
         }

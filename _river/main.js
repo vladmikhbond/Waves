@@ -1,21 +1,6 @@
-
 let canvas1 = document.getElementById("canvas1");
-
 let info = document.getElementById("info");
-// let resetButton = document.getElementById("resetButton");
-// let kvisRange = document.getElementById("kvisRange");
 let playPauseButton = document.getElementById("playPauseButton");
-// let rectButton = document.getElementById("rectButton");
-// let lineButton = document.getElementById("lineButton");
-// let meterButton = document.getElementById("meterButton");
-// let oscillatorsButton = document.getElementById("oscillatorsButton");
-// let optsButton = document.getElementById("optsButton");
-// let optsArea = document.getElementById("optsArea");
-// let helpArea = document.getElementById("helpArea");
-// let cameraRange = document.getElementById("cameraRange");
-// let lightRange = document.getElementById("lightRange");
-
-
 
 let timerId;
 let river;
@@ -37,10 +22,11 @@ function init(n) {
     river = new River(n);
 
     /////
-    let osc = new Oscillator(2, 0.1, 0.01);
-    //let osc = new Impuls(2, 2);
+    let osc = new Oscillator(opts.N / 2, 1, 0.01);
+    //let osc = new Meandr(opts.N / 2, 1, 0.01);
+    //let osc = new Impuls(opts.N / 2, 2);
     river.addOscillator(osc);
-    river.w[1].free  = 0;
+    //river.w[1].free  = 0;
     /////
 
     // create view
@@ -56,14 +42,6 @@ function mainStep() {
 
 // -------------- handlers ----------
 
-// resetButton.onclick = () => init(opts.N, opts.D);
-//
-// oscillatorsButton.onclick = () => OscilHandler.set();
-// rectButton.onclick = () => RectHandler.set();
-// lineButton.onclick = () => LineHandler.set();
-// meterButton.onclick = () => MeterHandler.set();
-
-
 playPauseButton.onclick = function() {
     if (timerId) {
         // do pause
@@ -78,14 +56,6 @@ playPauseButton.onclick = function() {
 };
 
 
-// ------------------ range handlers -----------------------
-
-// kvisRange.onchange = function() {
-//     optz.Kvis = 2 ** kvisRange.value;
-//     optz.Kvis3d = 2 * kvisRange.value;
-//     kvisRange.title = "Kvis = 2 ** " + kvisRange.value;
-//     view.draw();
-// };
 
 
 // ------------------ keys handler -----------------------

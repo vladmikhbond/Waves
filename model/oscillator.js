@@ -8,12 +8,12 @@ class Oscillator {
     }
 
     next() {
-        if (this.ampl ) {
-            this.sea.w[this.r][this.c].x = 1;
-            this.ampl = 0;
-        }
+        // if (this.ampl ) {
+        //     this.sea.w[this.r][this.c].x = 1;
+        //     this.ampl = 0;
+        // }
 
-        // this.sea.w[this.r][this.c].x =
-        //     Math.sin(2 * Math.PI * this.omega * this.sea.chronos) * this.ampl;
+        this.sea.w[this.r][this.c].x =
+            Math.sin(2 * Math.PI * this.omega * this.sea.chronos) * this.ampl;
     }
 }
