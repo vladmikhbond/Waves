@@ -8,10 +8,17 @@ class River
         // water
         this.w = [];
         for (let r = 0; r < n; r++) {
-            // node object
-            this.w.push({free: 1, m: 1, x: 0, f: 0, v: 0, });
+            // node object: km = Kf / m
+            this.w.push({free: 1, w: 1, km: opts.Kf, x: 0, a: 0, v: 0, });
         }
-        this.point = 0;
+
+        let w = 1;
+        for (let i = 0; i < opts.merge; i++) {
+            let r1 = opts.merge - i, r2 = n - opts.merge + i;
+            w -= 0.001;
+            this.w[r1].w = this.w[r2].w = w;
+        }
+
     }
 
     addOscillator(osc) {
@@ -27,43 +34,46 @@ class River
 
     step() {
         this.chronos++;
-        let reflection = false;
 
         // oscillators
         for (let o of this.oscs) {
             if (this.w[o.r].free)
                 o.next();
         }
-        // расчет ускорений (f)
+        // расчет ускорений
         let n = this.n;
         // крайние точки
-        this.w[0].f = (this.w[1].x - this.w[0].x) * opts.Kf / this.w[0].m;
-        this.w[n-1].f = (this.w[n-2].x - this.w[n-1].x) * opts.Kf / this.w[n-1].m;
+        this.w[0].a = (this.w[1].x - this.w[0].x) * this.w[0].km;
+        this.w[n-1].a = (this.w[n-2].x - this.w[n-1].x) * this.w[n-1].km;
         // внутренние точки
         for (let r = 1; r < n-1; r++) {
-            this.w[r].f = (this.w[r-1].x + this.w[r+1].x - this.w[r].x * 2) * opts.Kf / this.w[r].m;
+            this.w[r].a = (this.w[r-1].x + this.w[r+1].x - this.w[r].x * 2) * this.w[r].km;
         }
 
         // расчет отклонений
 
+        let reflection = 0;
+
         // крайние точки
-         if (reflection) {
+        if (reflection) {
             // полное отражение от границ
             this.w[0].x = this.w[n-1].x = 0;
         } else {
             // поглощение границами (неполное)
-            this.w[0].x = this.w[1].x - this.w[1].v;
-            this.w[n-1].x = this.w[n-2].x - this.w[n-2].v;
+             this.w[0].x = this.w[1].x - this.w[1].v;
+             this.w[n-1].x = this.w[n-2].x - this.w[n-2].v;
+             this.w[0].v = 0;
+             this.w[n-1].v = 0;
         }
 
-        // внутренние точки
+        // все точки
         for (let r = 1; r < n-1; r++) {
             if (!this.w[r].free)
                 continue;
             // change v
-            this.w[r].v += this.w[r].f ;
+            this.w[r].v += this.w[r].a ;
             // energy dissipation
-            this.w[r].v *= opts.W;
+            this.w[r].v *= this.w[r].w;
             // change x
             this.w[r].x += this.w[r].v;
         }

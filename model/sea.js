@@ -10,7 +10,7 @@ class Sea
         for (let r = 0; r < n; r++) {
             let row = [];
             for (let c = 0; c < n; c++) {
-                row.push({x: 0, f: 0, v: 0, free: 1});
+                row.push({x: 0, a: 0, v: 0, free: 1});
             }
             this.w.push(row);
         }
@@ -64,7 +64,7 @@ class Sea
         for (let r = 1; r < n-1; r++) {
             for (let c = 1; c < n-1; c++)
             {
-                this.w[r][c].f = (this.w[r-1][c].x + this.w[r+1][c].x +
+                this.w[r][c].a = (this.w[r-1][c].x + this.w[r+1][c].x +
                     this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) / 4 ;
             }
         }
@@ -89,7 +89,7 @@ class Sea
         for (let r = 1; r < n-1; r++) {
             for (let c = 1; c < n-1; c++) {
                 // change v
-                this.w[r][c].v += this.w[r][c].f;
+                this.w[r][c].v += this.w[r][c].a;
                 this.w[r][c].v *= opts.W;
                  // change x
                 this.w[r][c].x += this.w[r][c].v;
