@@ -8,7 +8,7 @@ class Oscillator {
 
     next() {
         this.owner.w[this.r].x =
-            Math.sin(2 * Math.PI * this.omega * this.owner.chronos) * this.ampl;
+            Math.sin(this.omega * this.owner.chronos) * this.ampl;
     }
 }
 
