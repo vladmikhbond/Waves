@@ -8,8 +8,8 @@ class River
         // water
         this.w = [];
         for (let r = 0; r < n; r++) {
-            // node object: km = Kf / m
-            this.w.push({free: 1, w: 1, km: opts.Kf, x: 0, a: 0, v: 0, });
+            // node object: km = Km / m
+            this.w.push({free: 1, w: 1, km: opts.Km, x: 0, a: 0, v: 0, });
         }
 
         let w = 1;
