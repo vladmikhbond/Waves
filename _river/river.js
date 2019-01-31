@@ -8,15 +8,15 @@ class River
         // water
         this.w = [];
         for (let r = 0; r < n; r++) {
-            // node object: km = Km / m
-            this.w.push({free: 1, w: 1, km: opts.Km, x: 0, a: 0, v: 0, });
+            // km = K / m (модуль упругости, деленный на массу)
+            this.w.push({free: 1, w: opts.W, km: opts.Km, x: 0, a: 0, v: 0, });
         }
 
-        let w = 1;
+        let w = opts.W;
         for (let i = 0; i < opts.merge; i++) {
-            let r1 = opts.merge - i, r2 = n - opts.merge + i;
+            let r = n - opts.merge + i;
             w -= 0.001;
-            this.w[r1].w = this.w[r2].w = w;
+            this.w[r].w = w;
         }
 
     }

@@ -16,11 +16,19 @@ class View
         ctx.lineWidth = 0.5;
 
         ctx.beginPath();
-        ctx.moveTo(n05, 0); ctx.lineTo(n05, this.n);
+        // Ox axis
         ctx.moveTo(0, n05); ctx.lineTo(this.n, n05);
-
-        ctx.moveTo(opts.merge, 0); ctx.lineTo(opts.merge, this.n);
+        // merge v. line
         ctx.moveTo(this.n - opts.merge, 0); ctx.lineTo(this.n - opts.merge, this.n);
+        // osc.ampl lines
+        let osc = this.river.oscs[0];
+        if (osc) {
+            let h = n05 - osc.ampl * 30
+            ctx.moveTo(0, h); ctx.lineTo(this.n, h);
+            h = n05 + osc.ampl * 30
+            ctx.moveTo(0, h); ctx.lineTo(this.n, h);
+        }
+
         ctx.stroke();
 
         ctx.lineWidth = 1;
