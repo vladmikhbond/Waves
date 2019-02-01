@@ -15,8 +15,7 @@ class View
         ctx.clearRect(0, 0, this.n, this.n);
         ctx.strokeStyle = 'gray';
         ctx.lineWidth = 0.5;
-        ctx.setLineDash([5, 3]);
-
+        ctx.setLineDash([1, 1]);
 
         ctx.beginPath();
         // Ox axis
@@ -36,13 +35,15 @@ class View
         ctx.setLineDash([]);
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'red';
-        ctx.beginPath();
-        for (let x = 0; x < opts.N; x++) {
-            let h = this.river.w[x].x;
-            ctx.moveTo(x, n05);
-            ctx.lineTo(x, n05 + V_SCALE * h);
+
+        for (let col = 0; col < opts.N; col+=2) {
+            let h = this.river.w[col].x;
+            ctx.beginPath();
+            ctx.moveTo(col, n05);
+            ctx.lineTo(col, n05 - V_SCALE * h);
+            ctx.stroke();
         }
-        ctx.stroke();
+
 
         // info
         info.innerHTML = this.river.chronos;

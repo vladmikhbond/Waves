@@ -5,7 +5,7 @@ let opts = {
     W: 1,
     R: 0,
     _3d: 0,
-    _1d: 0,
+    _1d: 1,
     W_ROCK: 1,
 
     stringify() {

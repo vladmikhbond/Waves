@@ -22,7 +22,7 @@ function init(n) {
     river = new River(n);
 
     /////
-    let osc = new Oscillator(0, 0.5, 0.1);
+    let osc = new Oscillator(0, 1, 0.1);
     //let osc = new Meandr(0, 1, 0.01);
     //let osc = new Impuls(opts.N / 2, 2);
     river.addOscillator(osc);
