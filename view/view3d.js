@@ -10,6 +10,7 @@ class View3d {
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color( 0xbfd1e5 );
 
+
         // cam
         this.camera = new THREE.OrthographicCamera(-this.n/2, this.n/2, this.n/2, -this.n/2, 1, 1000 );
 
@@ -18,28 +19,31 @@ class View3d {
         this.light.castShadow = true;
         this.scene.add(this.light);
 
-        // geometry
+        // geometry & attributes
         this.geometry = new THREE.BufferGeometry();
+        //
         let vertices = this.initVertices();
         let positionAttr = new THREE.BufferAttribute( vertices, 3 );
         positionAttr.dytamic = true;
         this.geometry.addAttribute( 'position', positionAttr );
-
+        //
         let normalAttr = new THREE.BufferAttribute(new Float32Array(vertices.length), 3);
         normalAttr.dytamic = true;
         this.geometry.addAttribute( 'normal', normalAttr );
 
-        // see
+        // sea
         let seaMaterial = new THREE.MeshPhongMaterial( { color: 0x00FFFF } );
         let seaMesh = new THREE.Mesh( this.geometry, seaMaterial );
-        seaMesh.receiveShadow = true;
-        seaMesh.castShadow = true;
+        seaMesh.matrix.scale(new THREE.Vector3(1, -1, 1));
+        // seaMesh.receiveShadow = true;
+        // seaMesh.castShadow = true;
         this.scene.add(seaMesh);
+
 
         // renderer
         this.renderer = new THREE.WebGLRenderer({canvas: canvas3d});
         this.renderer.setSize(this.n, this.n);
-        this.renderer.shadowMap.enabled = true;
+        //this.renderer.shadowMap.enabled = true;
     }
 
     addIsle(isle) {
@@ -100,6 +104,8 @@ class View3d {
     }
 
     draw() {
+        let startTime = new Date();
+
         let amp = optz.Kvis3d;
 
         let half = this.n / 2 | 0;
@@ -120,9 +126,9 @@ class View3d {
                 // 3
                 v[i+8] = this.sea.w[r+d][c].x * amp;
                 // 3
-                v[i+11] = this.sea.w[r+d][c].x * amp;
+                v[i+11] = v[i+8];
                 // 2
-                v[i+14] = this.sea.w[r][c+d].x * amp;
+                v[i+14] = v[i+5];
                 // 4
                 v[i+17] = this.sea.w[r+d][c+d].x * amp;
                 i += 18;
@@ -150,8 +156,7 @@ class View3d {
             d2.subVectors( v3, v1 );
             d1.cross(d2);
             d1.normalize();
-
-            n[i] = d1.x;
+            n[i  ] = d1.x;
             n[i+1] = d1.y;
             n[i+2] = d1.z;
             n[i+3] = d1.x;
@@ -161,13 +166,11 @@ class View3d {
             n[i+7] = d1.y;
             n[i+8] = d1.z;
 
-
             d1.subVectors( v3, v4 );
             d2.subVectors( v2, v4 );
             d1.cross(d2);
             d1.normalize();
-
-            n[i+9] = d1.x;
+            n[i+ 9] = d1.x;
             n[i+10] = d1.y;
             n[i+11] = d1.z;
             n[i+12] = d1.x;
@@ -179,9 +182,13 @@ class View3d {
         }
 
         this.geometry.getAttribute('normal').needsUpdate = true;
-
         this.geometry.getAttribute('position').needsUpdate = true;
-        //this.geometry.computeVertexNormals();
+
         this.renderer.render( this.scene, this.camera );
+
+        //// time
+        console.log(`draw_3d: ${new Date().valueOf() - startTime.valueOf()}`);
+
+
     }
 }
