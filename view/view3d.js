@@ -68,30 +68,18 @@ class View3d {
         for (let r = 0; r < this.n - d; r += d ) {
             for (let c = 0; c < this.n - d; c += d ) {
                 // 1
-                v.push(c);
-                v.push(r);
-                v.push(0);
+                v.push(c, r, 0);
                 // 2
-                v.push(c+d);
-                v.push(r);
-                v.push(0);
+                v.push(c + d, r, 0);
                 // 3
-                v.push(c);
-                v.push(r+d);
-                v.push(0);
-
-                //3
-                v.push(c);
-                v.push(r+d);
-                v.push(0);
+                v.push(c, r + d, 0);
+                // 3
+                v.push(c, r + d, 0);
                 // 2
-                v.push(c+d);
-                v.push(r);
-                v.push(0);
+                v.push(c + d, r, 0);
                 // 4
-                v.push(c+d);
-                v.push(r+d);
-                v.push(0);        }
+                v.push(c + d, r + d, 0);
+            }
         }
         return new Float32Array(v);
     }
