@@ -18,11 +18,7 @@ input[type="range"] {
 
 
 
-canvas {
-    margin-top: -10px;
-}
-
-#canvas1d, #canvas2d {
+#canvas1d, #canvas2d{
     position: absolute;
     top: 0;
     left: 0;

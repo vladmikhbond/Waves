@@ -49,8 +49,7 @@ function init(n, d) {
 function mainStep() {
     let t1 = new Date();  // timing
     sea.step();
-    console.log(`model_step: ${new Date().valueOf() - t1.valueOf()}`);
-
+    console.log(`model: ${new Date().valueOf() - t1.valueOf()}`);
 
     let t2 = new Date();  // timing
     view.draw();
@@ -62,13 +61,14 @@ function mainStep() {
         console.log(`draw_3d: ${new Date().valueOf() - t3.valueOf()}`);
     }
 
+    let t4 = new Date();  // timing
     if (opts._1d) {
         view.draw1();
     }
-
+    console.log(`others: ${new Date().valueOf() - t4.valueOf()}`);
     infoTotalEnergy();
     // timing
-    console.log(`mainStep: ${new Date().valueOf() - t1.valueOf()}`);
+    console.log(`--------- All: ${new Date().valueOf() - t1.valueOf()}`);
 
 }
 
@@ -88,10 +88,13 @@ playPauseButton.onclick = function() {
         clearInterval(timerId);
         timerId = null;
         playPauseButton.innerHTML = '■';
+        canvas2d.style.display = "block"
     } else {
         // start to play
         timerId = setInterval(mainStep, 50);
         playPauseButton.innerHTML = '►';
+
+        canvas2d.style.display = "none"
     }
 };
 
