@@ -47,15 +47,29 @@ function init(n, d) {
 }
 
 function mainStep() {
+    let t1 = new Date();  // timing
     sea.step();
+    console.log(`model_step: ${new Date().valueOf() - t1.valueOf()}`);
 
+
+    let t2 = new Date();  // timing
     view.draw();
-    if (opts._3d)
+    console.log(`draw_2d: ${new Date().valueOf() - t2.valueOf()}`);
+
+    if (opts._3d) {
+        let t3 = new Date();  // timing
         view3d.draw();
-    if (opts._1d)
+        console.log(`draw_3d: ${new Date().valueOf() - t3.valueOf()}`);
+    }
+
+    if (opts._1d) {
         view.draw1();
+    }
 
     infoTotalEnergy();
+    // timing
+    console.log(`mainStep: ${new Date().valueOf() - t1.valueOf()}`);
+
 }
 
 // -------------- handlers ----------

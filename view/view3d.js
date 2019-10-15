@@ -32,9 +32,13 @@ class View3d {
         this.geometry.addAttribute( 'normal', normalAttr );
 
         // sea
-        let seaMaterial = new THREE.MeshPhongMaterial( { color: 0x00FFFF } );
+        //let seaMaterial = new THREE.MeshPhongMaterial( { color: 0x00FFFF } );
+        let seaMaterial = new THREE.MeshNormalMaterial();
+
         let seaMesh = new THREE.Mesh( this.geometry, seaMaterial );
-        seaMesh.matrix.scale(new THREE.Vector3(1, -1, 1));
+        seaMesh.scale.y = -1;
+        seaMesh.position.y += opts.N;
+
         // seaMesh.receiveShadow = true;
         // seaMesh.castShadow = true;
         this.scene.add(seaMesh);
@@ -50,24 +54,26 @@ class View3d {
         let isleMaterial = new THREE.MeshPhongMaterial({color: 0x00a000});
         let mesh = null;
 
-        if (isle.type === 'rect') {
+        if (isle.type === 'rect')
+        {
             let geometry = new THREE.BoxGeometry(isle.w, isle.h, 4);
             mesh = new THREE.Mesh(geometry, isleMaterial);
             mesh.position.x = isle.c0 + isle.w / 2;
-            mesh.position.y = this.n - isle.r0 - isle.h / 2;
-
-        } else if (isle.type === 'line') {
+            mesh.position.y = opts.N - isle.r0 - isle.h / 2;
+        }
+        else if (isle.type === 'line')
+        {
             let hypot = Math.hypot(isle.r - isle.r0, isle.c - isle.c0);
             let geometry = new THREE.BoxGeometry(hypot, isle.width, 4);
             mesh = new THREE.Mesh(geometry, isleMaterial);
             mesh.position.x = (isle.c0 + isle.c) / 2;
-            mesh.position.y = this.n - (isle.r0 + isle.r) / 2;
+            mesh.position.y = opts.N - (isle.r0 + isle.r) / 2;
             let alpha = Math.atan2(isle.r - isle.r0, isle.c - isle.c0);
             mesh.rotation.z = -alpha;
         }
 
-        mesh.receiveShadow = true;
-        mesh.castShadow = true;
+        // mesh.receiveShadow = true;
+        // mesh.castShadow = true;
         this.scene.add(mesh);
     }
 
@@ -104,8 +110,6 @@ class View3d {
     }
 
     draw() {
-        let startTime = new Date();
-
         let amp = optz.Kvis3d;
 
         let half = this.n / 2 | 0;
@@ -185,10 +189,5 @@ class View3d {
         this.geometry.getAttribute('position').needsUpdate = true;
 
         this.renderer.render( this.scene, this.camera );
-
-        //// time
-        console.log(`draw_3d: ${new Date().valueOf() - startTime.valueOf()}`);
-
-
     }
 }
