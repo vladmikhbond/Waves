@@ -26,7 +26,7 @@ function init(n, d) {
     // set sizes
     canvas1d.width = canvas1d.height = canvas2d.width = canvas2d.height = n;
     optsArea.style.width = helpArea.style.width = n + 'px';
-    canvas3d.style.display = opts._3d ? "block" : "none";
+    canvas3d.style.display = "block";
     // oscillators mode
     OscilHandler.set();
     oscillatorsButton.checked = true;
@@ -55,16 +55,16 @@ function mainStep() {
     view.draw();
     console.log(`draw_2d: ${new Date().valueOf() - t2.valueOf()}`);
 
-    if (opts._3d) {
-        let t3 = new Date();  // timing
-        view3d.draw();
-        console.log(`draw_3d: ${new Date().valueOf() - t3.valueOf()}`);
-    }
+
+    let t3 = new Date();  // timing
+    view3d.draw();
+    console.log(`draw_3d: ${new Date().valueOf() - t3.valueOf()}`);
+
 
     let t4 = new Date();  // timing
-    if (opts._1d) {
-        view.draw1();
-    }
+
+    view.draw1();
+
     console.log(`others: ${new Date().valueOf() - t4.valueOf()}`);
     infoTotalEnergy();
     // timing

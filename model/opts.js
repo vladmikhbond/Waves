@@ -1,55 +1,50 @@
 class Options
 {
     constructor() {
-        this.D = 2; // triangle size for 3d visualize
-        this.N = 500;                         // 3 * 167 = 501
-        this.OMEGA = (0.2 /(2 * Math.PI)).toFixed(4);  // 0.2 < OMEGA < 0.8
+        this.D = 2;
+        this.N = 500;  // 3 * 167 = 501
+        this.OMEGA = (0.2 /(2 * Math.PI)).toFixed(4);
         this.W = 1;
         this.R = 0;
-        this._3d = 1;
-        this._1d = 1;
         this.W_ROCK = 1;
     }
 
     stringify() {
-        return `"D": ${this.D},
-"N": ${this.N},
-"W": ${this.W},
-"R": ${this.R},
-"OMEGA": ${this.OMEGA},
-"_3d": ${this._3d},
-"_1d": ${this._1d},
-"W_ROCK": ${this.W_ROCK}`;
+        return `D = ${this.D} -- triangle size for 3d visualize
+N = ${this.N} -- сторона квадрата модели (должна быть кратна D)
+W = ${this.W} -- поглощение средой (0 < W <= 1, v *= W )
+R = ${this.R} -- =1 отражение от границ, =0 - поглощение границами
+OMEGA = ${this.OMEGA} -- частота нового осциллятора (от 0.001 до 0.1)
+W_ROCK = ${this.W_ROCK} -- "поглощение" скалами (0 < W_ROCK <= 1)
+`;
     }
 
     parse() {
-        let obj = JSON.parse("{" + optsArea.value + "}");
-        obj.N = Math.round(obj.N / obj.D) * obj.D;
-        obj.OMEGA = obj.OMEGA.toFixed(4);
+        let txt = optsArea.value.trim();
+        let lines = txt.split('\n');
+        let regex = /\s*(\w+)\s*=\s*([\w\.]+)\s*/;
+        for (let line of lines) {
+            let found = line.match(regex);
+            if (found) {
+                this[found[1]] = +found[2];
+            }
+        }
+        this.N = Math.round(this.N / this.D) * this.D;
+        this.OMEGA = this.OMEGA.toFixed(4);
+        return false;
 
-        let resetNeeded =
-            this._3d !== obj._3d ||
-            this.N !== obj.N ||
-            this.D !== obj.D;
-        Object.assign(this, obj);
-        return resetNeeded;
+
+         // let resetNeeded =
+        //     this._3d !== obj._3d ||
+        //     this.N !== obj.N ||
+        //     this.D !== obj.D;
+        // return resetNeeded;
     }
 
 }
 
 
 let opts = new Options();
-{
-    // D: 2,                           // triangle size for 3d visualize
-    // N: 500,                         // 3 * 167 = 501
-    // OMEGA: (0.2 /(2 * Math.PI)).toFixed(4),  // 0.2 < OMEGA < 0.8
-    // W: 1,
-    // R: 0,
-    // _3d: 1,
-    // _1d: 1,
-    // W_ROCK: 1,
-
-};
 
 
 let optz = {
