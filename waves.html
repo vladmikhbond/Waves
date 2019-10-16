@@ -9,11 +9,9 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col">
-            <div>
+        <div>
             <button id="resetButton"  type="button" class="btn btn-danger btn-sm" title="Clear">C</button>
             <button id="optsButton" type="button" class="btn btn-info btn-sm" title="Options">۞</button>
-            <label><input id="kvisRange" type="range" step="1" min="1" max="30" value="9" title=" Kvis = 2**n "/></label>
 
             <div class="btn-group btn-group-sm" role="group">
                 <label class="btn btn-primary active">
@@ -27,47 +25,56 @@
             </div>
 
             <button type="button" class="btn btn-success btn-sm" id="playPauseButton" title="Play/Pause">■</button>
-            </div>
 
+            <label> <input id="_1dButton" type="checkbox">1d</label>
+            <label> <input id="_2dButton" type="checkbox">2d</label>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col">
-            <div >
-                <label>&nbsp;Cam
-                    <input id="cameraRange" type="range" step="0.01" min="-1.57" max="0" value="0"/></label>
-                <label>&nbsp;Light
-                    <input id="lightRange" type="range" step="0.1" min="-5" max="5" value="-2"/></label>
-                <span id="info" style="margin-left: 20px"></span>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
-      <div class="col">
           <label><textarea id="optsArea"></textarea></label>
-      </div>
     </div>
 
     <div class="row">
-      <div class="col">
-          <label><textarea id="helpArea">
-КЛАВИШИ:
-   s - step - один шаг модели
-   any (в режиме Oscil) - замер мощности в точке курсора мыши
+
+          <label><textarea id="helpArea"> КЛАВИШИ:
+    s - step - один шаг модели
+    any (в режиме Oscil) - замер мощности в точке курсора мыши
           </textarea></label>
-      </div>
-  </div>
-  <div class="row">
-        <div class="col">
-            <div style="position: relative">
-                <canvas id="canvas2d"></canvas>
-                <canvas id="canvas1d"></canvas>
-                <canvas id="canvas3d"></canvas>
-            </div>
+    </div>
+
+    <div class="row">
+        <div style="position: relative">
+            <canvas id="canvas2d"></canvas>
+            <canvas id="canvas1d"></canvas>
+            <canvas id="canvas3d"></canvas>
         </div>
     </div>
+
+    <div class="row">
+        <div >
+            <label>&nbsp;Cam
+                <input id="cameraRange" type="range" step="0.01" min="-1.57" max="0" value="0"/></label>
+            <label>&nbsp;Light
+                <input id="lightRange" type="range" step="0.1" min="-5" max="5" value="-2"/></label>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div >
+            <label>Amp<input id="kvisRange" type="range" step="1" min="1" max="30" value="9" title=" Kvis = 2**n "/></label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div >
+            <span id="info" style="margin-left: 20px"></span>
+        </div>
+    </div>
+
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
