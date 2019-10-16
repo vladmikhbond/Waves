@@ -32,8 +32,8 @@ class View3d {
         this.geometry.addAttribute( 'normal', normalAttr );
 
         // sea
-        //let seaMaterial = new THREE.MeshPhongMaterial( { color: 0x00FFFF } );
-        let seaMaterial = new THREE.MeshNormalMaterial();
+        let seaMaterial = new THREE.MeshPhongMaterial( { color: 0x00FFFF } );
+        //let seaMaterial = new THREE.MeshNormalMaterial();
 
         let seaMesh = new THREE.Mesh( this.geometry, seaMaterial );
         seaMesh.scale.y = -1;

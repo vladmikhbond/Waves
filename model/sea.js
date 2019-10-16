@@ -78,10 +78,13 @@ class Sea
                 this.w[p][0].x = this.w[p][n-1].x = this.w[0][p].x = this.w[n-1][p].x = 0;
             } else {
                 // поглощение границами (неполное)
+                // left
                 this.w[p][0].x   = this.w[p][1].x   - this.w[p][1].v;
-
+                // right
                 this.w[p][n-1].x = this.w[p][n-2].x - this.w[p][n-2].v;
+                // up
                 this.w[0][p].x   = this.w[1][p].x   - this.w[1][p].v;
+                // down
                 this.w[n-1][p].x = this.w[n-2][p].x - this.w[n-2][p].v;
             }
         }
