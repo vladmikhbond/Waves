@@ -1,12 +1,15 @@
-let opts = {
-    D: 2,                           // triangle size for 3d visualize
-    N: 500,                         // 3 * 167 = 501
-    OMEGA: (0.2 /(2 * Math.PI)).toFixed(4),  // 0.2 < OMEGA < 0.8
-    W: 1,
-    R: 0,
-    _3d: 1,
-    _1d: 1,
-    W_ROCK: 1,
+class Options
+{
+    constructor() {
+        this.D = 2; // triangle size for 3d visualize
+        this.N = 500;                         // 3 * 167 = 501
+        this.OMEGA = (0.2 /(2 * Math.PI)).toFixed(4);  // 0.2 < OMEGA < 0.8
+        this.W = 1;
+        this.R = 0;
+        this._3d = 1;
+        this._1d = 1;
+        this.W_ROCK = 1;
+    }
 
     stringify() {
         return `"D": ${this.D},
@@ -17,7 +20,7 @@ let opts = {
 "_3d": ${this._3d},
 "_1d": ${this._1d},
 "W_ROCK": ${this.W_ROCK}`;
-    },
+    }
 
     parse() {
         let obj = JSON.parse("{" + optsArea.value + "}");
@@ -31,6 +34,21 @@ let opts = {
         Object.assign(this, obj);
         return resetNeeded;
     }
+
+}
+
+
+let opts = new Options();
+{
+    // D: 2,                           // triangle size for 3d visualize
+    // N: 500,                         // 3 * 167 = 501
+    // OMEGA: (0.2 /(2 * Math.PI)).toFixed(4),  // 0.2 < OMEGA < 0.8
+    // W: 1,
+    // R: 0,
+    // _3d: 1,
+    // _1d: 1,
+    // W_ROCK: 1,
+
 };
 
 
