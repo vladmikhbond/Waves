@@ -15,6 +15,10 @@ let helpArea = document.getElementById("helpArea");
 let cameraRange = document.getElementById("cameraRange");
 let lightRange = document.getElementById("lightRange");
 let _2dCheckBox = document.getElementById("_2dCheckBox");
+let tools2d = document.getElementById("tools2d");
+let tools3d = document.getElementById("tools3d");
+let radios = document.getElementsByName("optradio");
+
 
 
 
@@ -29,8 +33,13 @@ function init(n, d) {
     // set sizes
     canvas2d.width = canvas2d.height = n;
     optsArea.style.width = helpArea.style.width = n + 'px';
+    canvas2d.style.display = "block";
+    tools2d.style.display = "inline";
+    _2dCheckBox.checked = 1;
     canvas3d.style.display = "none";
     tools3d.style.display = "none";
+    for (let r of radios) r.disabled = false;
+
     // oscillators mode
     OscilHandler.set();
     oscillatorsButton.checked = true;
@@ -110,25 +119,28 @@ optsButton.onclick = function() {
     if (optsArea.style.display !== "block") {
         optsArea.value = opts.stringify();
         let lineCount = (optsArea.value.match(/\n/g) || []).length;
-        // helpArea.rows = optsArea.rows = lineCount + 1;
         optsArea.style.display = "block";
-        // helpArea.style.display = "block";
-    } else {
+     } else {
         let resetFlag = opts.parse();
         if (resetFlag)
             init(opts.N, opts.D);
         optsArea.style.display = "none";
-        // helpArea.style.display = "none";
     }
 };
 
 _2dCheckBox.onchange = function() {
     if (_2dCheckBox.checked) {
-        canvas2d.style.display = tools2d.style.display = "block";
-        canvas3d.style.display = tools3d.style.display = "none";
+        canvas2d.style.display = "block";
+        canvas3d.style.display = "none";
+        tools3d.style.display = "none";
+        tools2d.style.display = "inline";
+        for (let r of radios) r.disabled = false;
     } else {
-        canvas2d.style.display = tools2d.style.display = "none";
-        canvas3d.style.display = tools3d.style.display = "block";
+        canvas2d.style.display = "none";
+        canvas3d.style.display = "block";
+        tools3d.style.display = "inline";
+        tools2d.style.display = "none";
+        for (let r of radios) r.disabled = true;
     }
 };
 

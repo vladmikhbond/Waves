@@ -1,0 +1,5 @@
+
+
+- control 1d-picture with slider
+
+objects: Isle, Oscillator,    select & change objects

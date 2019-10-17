@@ -8,6 +8,7 @@
 </head>
 <body>
 <div class="container">
+<!-- upper buttons-->
     <div class="row">
         <div>
             <button id="resetButton"  type="button" class="btn btn-danger btn-sm" title="Clear">C</button>
@@ -30,7 +31,7 @@
         </div>
     </div>
 
-
+<!-- text areas -->
     <div class="row">
           <label><textarea id="optsArea"></textarea></label>
     </div>
@@ -42,6 +43,7 @@
           </textarea></label>
     </div>
 
+<!-- canvases -->
     <div class="row">
         <div style="position: relative">
             <canvas id="canvas2d"></canvas>
@@ -49,20 +51,20 @@
         </div>
     </div>
 
-    <div class="row" id="tools3d">
-        <div >
-            <label>&nbsp;Cam
+<!-- lower sliders -->
+    <div class="row">
+        <span >
+            <label>Amp<input id="kvisRange" type="range" step="1" min="1" max="30" value="9" title=" Kvis = 2**n "/></label>
+        </span>
+        <span id="tools3d">
+           <label>&nbsp;Cam
                 <input id="cameraRange" type="range" step="0.01" min="-1.57" max="0" value="0"/></label>
             <label>&nbsp;Light
                 <input id="lightRange" type="range" step="0.1" min="-5" max="5" value="-2"/></label>
-
-        </div>
-    </div>
-
-    <div class="row" id="tools2d">
-        <div >
-            <label>Amp<input id="kvisRange" type="range" step="1" min="1" max="30" value="9" title=" Kvis = 2**n "/></label>
-        </div>
+        </span>
+        <span id="tools2d">
+            <label>1d<input id="_1dRange" type="range" step="1" min="0" max="100" value="0" title="1d waves"/></label>
+        </span>
     </div>
 
     <div class="row">
