@@ -46,12 +46,12 @@ class View
         this.ctx.putImageData(this.canvasData, 0, 0);
     }
 
-    draw1 () {
+    draw1d () {
         let r = this.sea.point.r;
         let c = this.sea.point.c;
 
-        let ctx = canvas1d.getContext('2d');
-        ctx.clearRect(0, 0, opts.N, opts.N);
+        let ctx = canvas2d.getContext('2d');
+        // ctx.clearRect(0, 0, opts.N, opts.N);
         ctx.strokeStyle = 'gray';
         ctx.lineWidth = 0.1;
         ctx.strokeRect(0,r, opts.N-1, 0);

@@ -9,9 +9,9 @@ class MeterHandler
             MeterHandler.o.w = e.offsetX - MeterHandler.o.c0;
             MeterHandler.o.h = e.offsetY - MeterHandler.o.r0;
 
-            let ctx = canvas1d.getContext('2d');
+            let ctx = canvas2d.getContext('2d');
             ctx.fillStyle = "gray";
-            ctx.clearRect(0, 0, opts.N, opts.N);
+            view.draw();
             ctx.fillRect(MeterHandler.o.c0, MeterHandler.o.r0, MeterHandler.o.w, MeterHandler.o.h);
         }
     }
@@ -21,17 +21,17 @@ class MeterHandler
             let energy = sea.energyDensity(MeterHandler.o);
             info.innerHTML = `energyDensity=${energy}` ;
 
-            let ctx = canvas1d.getContext('2d');
-            ctx.clearRect(0, 0, opts.N, opts.N);
+            // let ctx = canvas2d.getContext('2d');
+            view.draw();
             MeterHandler.o = null;
         }
     }
 
     static set() {
-        canvas1d.onmousedown = MeterHandler.down;
-        canvas1d.onmousemove = MeterHandler.move;
-        canvas1d.onmouseup = MeterHandler.up;
-        canvas1d.oncontextmenu = e => {e.preventDefault();}
+        canvas2d.onmousedown = MeterHandler.down;
+        canvas2d.onmousemove = MeterHandler.move;
+        canvas2d.onmouseup = MeterHandler.up;
+        canvas2d.oncontextmenu = e => {e.preventDefault();}
     }
 }
 

@@ -18,10 +18,10 @@ class OscilHandler
     }
 
     static set() {
-        canvas1d.onmousedown = OscilHandler.down;
-        canvas1d.onmousemove = OscilHandler.move;
-        canvas1d.onmouseup = OscilHandler.up;
-        canvas1d.oncontextmenu = e => {e.preventDefault();}
+        canvas2d.onmousedown = OscilHandler.down;
+        canvas2d.onmousemove = OscilHandler.move;
+        canvas2d.onmouseup = OscilHandler.up;
+        canvas2d.oncontextmenu = e => {e.preventDefault();}
     }
 }
 

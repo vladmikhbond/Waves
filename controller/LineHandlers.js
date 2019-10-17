@@ -9,10 +9,9 @@ class LineHandler
             LineHandler.o.c = e.offsetX;
             LineHandler.o.r = e.offsetY;
 
-            let ctx = canvas1d.getContext('2d');
+            let ctx = canvas2d.getContext('2d');
+            view.draw();
             ctx.strokeStyle = "white";
-            ctx.clearRect(0, 0, opts.N, opts.N);
-
             ctx.lineWidth = LineHandler.o.width;
             ctx.beginPath();
             ctx.moveTo(LineHandler.o.c0, LineHandler.o.r0);
@@ -30,26 +29,21 @@ class LineHandler
                 [isle.r, isle.r0] = [isle.r0, isle.r];
             }
 
-            let canvasData = canvas1d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
+            let canvasData = canvas2d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
             sea.getRocksFromCanvasData(canvasData);
             sea.isles.push(isle);
-
             //
             view.draw();
             view3d.addIsle(isle);
-            view3d.draw();
-            let ctx = canvas1d.getContext('2d');
-            ctx.clearRect(0, 0, opts.N, opts.N);
-
             LineHandler.o = null;
         }
     }
 
     static set() {
-        canvas1d.onmousedown = LineHandler.down;
-        canvas1d.onmousemove = LineHandler.move;
-        canvas1d.onmouseup = LineHandler.up;
-        canvas1d.oncontextmenu = e => { e.preventDefault(); }
+        canvas2d.onmousedown = LineHandler.down;
+        canvas2d.onmousemove = LineHandler.move;
+        canvas2d.onmouseup = LineHandler.up;
+        canvas2d.oncontextmenu = e => { e.preventDefault(); }
     }
 }
 

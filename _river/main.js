@@ -77,7 +77,7 @@ document.body.onkeydown = e => {
 //     info.innerHTML = `Pot = ${total.eP.toFixed(5)}  Cin = ${total.eC.toFixed(5)}` ;
 // }
 
-// canvas1d.addEventListener('mousemove', function(e) {
+// canvas2d.addEventListener('mousemove', function(e) {
 //     sea.point.c = e.offsetX;
 //     sea.point.r = e.offsetY;
 //     let o = sea.w[sea.point.r][sea.point.c];

@@ -1,5 +1,4 @@
 let canvas2d = document.getElementById("canvas2d");
-let canvas1d = document.getElementById("canvas1d");
 let canvas3d = document.getElementById("canvas3d");
 let info = document.getElementById("info");
 let resetButton = document.getElementById("resetButton");
@@ -14,6 +13,9 @@ let optsArea = document.getElementById("optsArea");
 let helpArea = document.getElementById("helpArea");
 let cameraRange = document.getElementById("cameraRange");
 let lightRange = document.getElementById("lightRange");
+let _2dCheckBox = document.getElementById("_2dCheckBox");
+
+
 
 let timerId;
 let sea;
@@ -24,7 +26,7 @@ init(opts.N, opts.D);
 
 function init(n, d) {
     // set sizes
-    canvas1d.width = canvas1d.height = canvas2d.width = canvas2d.height = n;
+    canvas2d.width = canvas2d.height = n;
     optsArea.style.width = helpArea.style.width = n + 'px';
     canvas3d.style.display = "block";
     // oscillators mode
@@ -62,10 +64,9 @@ function mainStep() {
 
 
     let t4 = new Date();  // timing
-
-    view.draw1();
-
+    view.draw1d();
     console.log(`others: ${new Date().valueOf() - t4.valueOf()}`);
+
     infoTotalEnergy();
     // timing
     console.log(`--------- All: ${new Date().valueOf() - t1.valueOf()}`);
@@ -88,13 +89,10 @@ playPauseButton.onclick = function() {
         clearInterval(timerId);
         timerId = null;
         playPauseButton.innerHTML = '■';
-        canvas2d.style.display = "block"
     } else {
         // start to play
         timerId = setInterval(mainStep, 50);
         playPauseButton.innerHTML = '►';
-
-        canvas2d.style.display = "none"
     }
 };
 
@@ -111,6 +109,16 @@ optsButton.onclick = function() {
             init(opts.N, opts.D);
         optsArea.style.display = "none";
         helpArea.style.display = "none";
+    }
+};
+
+_2dCheckBox.onchange = function() {
+    if (_2dCheckBox.checked) {
+        canvas2d.style.display = "block";
+        canvas3d.style.display = "none";
+    } else {
+        canvas2d.style.display = "none";
+        canvas3d.style.display = "block";
     }
 };
 
@@ -156,9 +164,9 @@ function infoTotalEnergy() {
     info.innerHTML = `Pot = ${total.eP.toFixed(5)}  Cin = ${total.eC.toFixed(5)}` ;
 }
 
-canvas1d.addEventListener('mousemove', function(e) {
-    sea.point.c = e.offsetX;
-    sea.point.r = e.offsetY;
-    let o = sea.w[sea.point.r][sea.point.c];
-    info.innerHTML = `c=${e.offsetX} r=${e.offsetY} X = ${o.x.toFixed(3)}  V = ${o.v.toFixed(3)}` ;
-})
+// canvas2d.addEventListener('mousemove', function(e) {
+//     sea.point.c = e.offsetX;
+//     sea.point.r = e.offsetY;
+//     let o = sea.w[sea.point.r][sea.point.c];
+//     info.innerHTML = `c=${e.offsetX} r=${e.offsetY} X = ${o.x.toFixed(3)}  V = ${o.v.toFixed(3)}` ;
+// });

@@ -18,17 +18,10 @@ input[type="range"] {
 
 
 
-#canvas1d, #canvas2d{
+#canvas2d{
     position: absolute;
     top: 0;
     left: 0;
-}
-
-#canvas1d {
-    background-color: #00000000;
-}
-
-#canvas2d {
     background-color: cyan;
 }
 
