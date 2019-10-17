@@ -25,8 +25,8 @@
             </div>
 
             <button type="button" class="btn btn-success btn-sm" id="playPauseButton" title="Play/Pause">■</button>
-
-            <label> <input id="_2dCheckBox" type="checkbox" checked>2d</label>
+            <label class="btn btn-sm btn-info top8px" > <input id="_2dCheckBox" type="checkbox" checked>2d</label>
+            <button type="button" class="btn btn-info btn-sm" id="helpButton" title="Help">?</button>
         </div>
     </div>
 
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="tools3d">
         <div >
             <label>&nbsp;Cam
                 <input id="cameraRange" type="range" step="0.01" min="-1.57" max="0" value="0"/></label>
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="tools2d">
         <div >
             <label>Amp<input id="kvisRange" type="range" step="1" min="1" max="30" value="9" title=" Kvis = 2**n "/></label>
         </div>

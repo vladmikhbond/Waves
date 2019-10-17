@@ -4,6 +4,7 @@ let info = document.getElementById("info");
 let resetButton = document.getElementById("resetButton");
 let kvisRange = document.getElementById("kvisRange");
 let playPauseButton = document.getElementById("playPauseButton");
+let helpButton = document.getElementById("helpButton");
 let rectButton = document.getElementById("rectButton");
 let lineButton = document.getElementById("lineButton");
 let meterButton = document.getElementById("meterButton");
@@ -28,7 +29,8 @@ function init(n, d) {
     // set sizes
     canvas2d.width = canvas2d.height = n;
     optsArea.style.width = helpArea.style.width = n + 'px';
-    canvas3d.style.display = "block";
+    canvas3d.style.display = "none";
+    tools3d.style.display = "none";
     // oscillators mode
     OscilHandler.set();
     oscillatorsButton.checked = true;
@@ -96,29 +98,37 @@ playPauseButton.onclick = function() {
     }
 };
 
+helpButton.onclick = function() {
+    if (helpArea.style.display !== "block") {
+        helpArea.style.display = "block";
+    } else {
+        helpArea.style.display = "none";
+    }
+};
+
 optsButton.onclick = function() {
     if (optsArea.style.display !== "block") {
         optsArea.value = opts.stringify();
         let lineCount = (optsArea.value.match(/\n/g) || []).length;
-        helpArea.rows = optsArea.rows = lineCount + 1;
+        // helpArea.rows = optsArea.rows = lineCount + 1;
         optsArea.style.display = "block";
-        helpArea.style.display = "block";
+        // helpArea.style.display = "block";
     } else {
         let resetFlag = opts.parse();
         if (resetFlag)
             init(opts.N, opts.D);
         optsArea.style.display = "none";
-        helpArea.style.display = "none";
+        // helpArea.style.display = "none";
     }
 };
 
 _2dCheckBox.onchange = function() {
     if (_2dCheckBox.checked) {
-        canvas2d.style.display = "block";
-        canvas3d.style.display = "none";
+        canvas2d.style.display = tools2d.style.display = "block";
+        canvas3d.style.display = tools3d.style.display = "none";
     } else {
-        canvas2d.style.display = "none";
-        canvas3d.style.display = "block";
+        canvas2d.style.display = tools2d.style.display = "none";
+        canvas3d.style.display = tools3d.style.display = "block";
     }
 };
 
