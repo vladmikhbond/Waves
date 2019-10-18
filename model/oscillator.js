@@ -1,4 +1,4 @@
-class Oscillator {
+export class Oscillator {
     constructor(r, c, o, a, sea) {
         this.r = r;
         this.c = c;

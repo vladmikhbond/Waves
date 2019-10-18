@@ -1,4 +1,4 @@
-class LineHandler
+export class LineHandler
 {
     static down(e)  {
         LineHandler.o = {type: "line", c0: e.offsetX, r0: e.offsetY, width: optz.lineIsleWidth};

@@ -44,10 +44,10 @@ W_ROCK = ${this.W_ROCK} -- "поглощение" скалами (0 < W_ROCK <= 
 }
 
 
-let opts = new Options();
+export let opts = new Options();
 
 
-let optz = {
+export let optz = {
     Kvis: 2**9,                     // 2d visualise coefficient
     Kvis3d: 2*9,                    // 3d visualise coefficient
     cameraY: 0,

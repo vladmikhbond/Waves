@@ -1,4 +1,4 @@
-class MeterHandler
+export class MeterHandler
 {
     static down(e)  {
         MeterHandler.o = {c0: e.offsetX, r0: e.offsetY, w: 0, h: 0};

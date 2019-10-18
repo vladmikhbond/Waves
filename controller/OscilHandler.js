@@ -1,4 +1,6 @@
-class OscilHandler
+import {opts, optz} from '../model/opts.js';
+
+export class OscilHandler
 {
     static down(e)  {
         let c = e.offsetX;

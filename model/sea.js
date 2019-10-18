@@ -1,4 +1,8 @@
-class Sea
+import {opts} from './opts.js';
+import {Oscillator} from './oscillator.js';
+
+
+export class Sea
 {
     constructor(n) {
         this.chronos = -1;

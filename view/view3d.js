@@ -1,6 +1,6 @@
-//import * as THREE from "/lib/lib";
+import {opts, optz} from '../model/opts.js';
 
-class View3d {
+export class View3d {
     constructor(sea, d) {
         this.sea = sea;
         this.n = sea.n;
