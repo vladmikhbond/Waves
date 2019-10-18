@@ -2,7 +2,10 @@ import {opts, optz} from '../model/opts.js';
 
 export class OscilHandler
 {
+
+
     static down(e)  {
+        let sea = OscilHandler.sea;
         let c = e.offsetX;
         let r = e.offsetY;
         if (e.buttons === 1 && sea.w[r][c].free) {
@@ -10,7 +13,7 @@ export class OscilHandler
         } else if (e.buttons === 2) {
             sea.removeOscillatorNear(r, c);
         }
-        view.draw();
+        OscilHandler.view.draw();
     }
 
     static move(e) {
@@ -19,7 +22,9 @@ export class OscilHandler
     static up() {
     }
 
-    static set() {
+    static set(sea, view) {
+        OscilHandler.sea = sea;
+        OscilHandler.view = view;
         canvas2d.onmousedown = OscilHandler.down;
         canvas2d.onmousemove = OscilHandler.move;
         canvas2d.onmouseup = OscilHandler.up;

@@ -6,17 +6,21 @@ import {View} from './view/view.js';
 import {View3d} from './view/view3d.js';
 import {Sea} from './model/sea.js';
 import {opts, optz} from './model/opts.js';
-
+import {radios} from './globals.js';
 
 let timerId;
 
+export let sea;
+export let view;
+export let view3d;
 
-init(opts.N, opts.D);
 
-function init(n, d) {
+init();
+
+function init() {
     // set sizes
-    canvas2d.width = canvas2d.height = n;
-    optsArea.style.width = helpArea.style.width = n + 'px';
+    canvas2d.width = canvas2d.height = opts.N;
+    optsArea.style.width = helpArea.style.width = opts.N + 'px';
     canvas2d.style.display = "block";
     tools2d.style.display = "inline";
     _2dCheckBox.checked = 1;
@@ -24,8 +28,14 @@ function init(n, d) {
     tools3d.style.display = "none";
     for (let r of radios) r.disabled = false;
 
+    // create model
+    sea = new Sea(opts.N);
+    // create view
+    view = new View(sea);
+    view3d = new View3d(sea, opts.D);
+
     // oscillators mode
-    OscilHandler.set();
+    OscilHandler.set(sea, view);
     oscillatorsButton.checked = true;
     // pause mode
     if (timerId) {
@@ -33,11 +43,6 @@ function init(n, d) {
         timerId = null;
         playPauseButton.innerHTML = '■';
     }
-    // create model
-    sea = new Sea(n);
-    // create view
-    view = new View(sea);
-    view3d = new View3d(sea, d);
     // initial drawing
     view.draw();
     view3d.draw();
@@ -72,7 +77,7 @@ function mainStep() {
 
 resetButton.onclick = () => init(opts.N, opts.D);
 
-oscillatorsButton.onclick = () => OscilHandler.set();
+oscillatorsButton.onclick = () => OscilHandler.set(sea, view);
 rectButton.onclick = () => RectHandler.set();
 lineButton.onclick = () => LineHandler.set();
 meterButton.onclick = () => MeterHandler.set();
