@@ -1,4 +1,5 @@
 import {opts} from '../model/opts.js';
+import {Isle} from '../model/isle.js';
 
 export class RectHandler
 {
@@ -13,24 +14,25 @@ export class RectHandler
     }
 
     static down(e)  {
-        RectHandler.o = {type: "rect", c0: e.offsetX, r0: e.offsetY, w: 0, h: 0};
+        RectHandler.isle = new Isle({type: "rect", c: e.offsetX, r: e.offsetY, w: 0, h: 0});
     }
 
     static move(e) {
-        if (RectHandler.o) {
-            RectHandler.o.w = e.offsetX - RectHandler.o.c0;
-            RectHandler.o.h = e.offsetY - RectHandler.o.r0;
+        let isle = RectHandler.isle;
+        if (isle) {
+            isle.w = e.offsetX - isle.c0;
+            isle.h = e.offsetY - isle.r0;
 
             let ctx = canvas2d.getContext('2d');
             RectHandler.view.draw();
             ctx.fillStyle = "lightblue";
-            ctx.fillRect(RectHandler.o.c0, RectHandler.o.r0, RectHandler.o.w, RectHandler.o.h);
+            ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
         }
     }
 
     static up()  {
         let sea = RectHandler.sea;
-        let isle = RectHandler.o;
+        let isle = RectHandler.isle;
         if (isle) {
             let canvasData = canvas2d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
             sea.getRocksFromCanvasData(canvasData);
@@ -38,7 +40,7 @@ export class RectHandler
             //
             RectHandler.view.draw();
             RectHandler.view3d.addIsle(isle);
-            RectHandler.o = null;
+            RectHandler.isle = null;
         }
     }
 

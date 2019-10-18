@@ -1,4 +1,5 @@
 import {opts, optz} from '../model/opts.js';
+import {Isle} from '../model/isle.js';
 
 export class LineHandler
 {
@@ -13,27 +14,27 @@ export class LineHandler
     }
 
     static down(e)  {
-        LineHandler.o = {type: "line", c0: e.offsetX, r0: e.offsetY, width: optz.lineIsleWidth};
+        LineHandler.isle = new Isle({type: "line", c: e.offsetX, r: e.offsetY, width: optz.lineIsleWidth});
     }
 
     static move(e) {
-        if (LineHandler.o) {
-            LineHandler.o.c = e.offsetX;
-            LineHandler.o.r = e.offsetY;
+        if (LineHandler.isle) {
+            LineHandler.isle.c = e.offsetX;
+            LineHandler.isle.r = e.offsetY;
 
             let ctx = canvas2d.getContext('2d');
             LineHandler.view.draw();
             ctx.strokeStyle = "white";
-            ctx.lineWidth = LineHandler.o.width;
+            ctx.lineWidth = LineHandler.isle.width;
             ctx.beginPath();
-            ctx.moveTo(LineHandler.o.c0, LineHandler.o.r0);
-            ctx.lineTo(LineHandler.o.c, LineHandler.o.r);
+            ctx.moveTo(LineHandler.isle.c0, LineHandler.isle.r0);
+            ctx.lineTo(LineHandler.isle.c, LineHandler.isle.r);
             ctx.stroke();
          }
     }
 
     static up()  {
-        let isle = LineHandler.o;
+        let isle = LineHandler.isle;
         if (isle) {
             // normalize line isle
             if (isle.c < isle.c0) {
@@ -47,7 +48,7 @@ export class LineHandler
             //
             LineHandler.view.draw();
             LineHandler.view3d.addIsle(isle);
-            LineHandler.o = null;
+            LineHandler.isle = null;
         }
     }
 

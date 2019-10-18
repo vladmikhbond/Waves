@@ -80,6 +80,6 @@ document.body.onkeydown = e => {
 // canvas2d.addEventListener('mousemove', function(e) {
 //     sea.point.c = e.offsetX;
 //     sea.point.r = e.offsetY;
-//     let o = sea.w[sea.point.r][sea.point.c];
-//     info.innerHTML = `c=${e.offsetX} r=${e.offsetY} X = ${o.x.toFixed(3)}  V = ${o.v.toFixed(3)}` ;
+//     let isle = sea.w[sea.point.r][sea.point.c];
+//     info.innerHTML = `c=${e.offsetX} r=${e.offsetY} X = ${isle.x.toFixed(3)}  V = ${isle.v.toFixed(3)}` ;
 // })

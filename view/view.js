@@ -1,6 +1,5 @@
 import {opts, optz} from '../model/opts.js';
 
-
 export class View
 {
     constructor(sea) {
