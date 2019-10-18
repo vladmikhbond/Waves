@@ -77,10 +77,10 @@ function mainStep() {
 
 resetButton.onclick = () => init(opts.N, opts.D);
 
-oscillatorsButton.onclick = () => OscilHandler.set(sea, view);
-rectButton.onclick = () => RectHandler.set();
-lineButton.onclick = () => LineHandler.set();
-meterButton.onclick = () => MeterHandler.set();
+oscillatorsButton.onclick = () => OscilHandler.set(sea, view, view3d);
+rectButton.onclick = () => RectHandler.set(sea, view, view3d);
+lineButton.onclick = () => LineHandler.set(sea, view, view3d);
+meterButton.onclick = () => MeterHandler.set(sea, view, view3d);
 
 
 playPauseButton.onclick = function() {

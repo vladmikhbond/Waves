@@ -1,8 +1,15 @@
-import {opts, optz} from '../model/opts.js';
+import {opts} from '../model/opts.js';
 
 export class OscilHandler
 {
-
+    static set(sea, view) {
+        OscilHandler.sea = sea;
+        OscilHandler.view = view;
+        canvas2d.onmousedown = OscilHandler.down;
+        canvas2d.onmousemove = OscilHandler.move;
+        canvas2d.onmouseup = OscilHandler.up;
+        canvas2d.oncontextmenu = e => {e.preventDefault();}
+    }
 
     static down(e)  {
         let sea = OscilHandler.sea;
@@ -22,13 +29,5 @@ export class OscilHandler
     static up() {
     }
 
-    static set(sea, view) {
-        OscilHandler.sea = sea;
-        OscilHandler.view = view;
-        canvas2d.onmousedown = OscilHandler.down;
-        canvas2d.onmousemove = OscilHandler.move;
-        canvas2d.onmouseup = OscilHandler.up;
-        canvas2d.oncontextmenu = e => {e.preventDefault();}
-    }
 }
 
