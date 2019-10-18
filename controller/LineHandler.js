@@ -19,8 +19,8 @@ export class LineHandler
 
     static move(e) {
         if (LineHandler.isle) {
-            LineHandler.isle.c = e.offsetX;
-            LineHandler.isle.r = e.offsetY;
+            LineHandler.isle_c = e.offsetX;
+            LineHandler.isle_r = e.offsetY;
 
             let ctx = canvas2d.getContext('2d');
             LineHandler.view.draw();
@@ -28,7 +28,7 @@ export class LineHandler
             ctx.lineWidth = LineHandler.isle.width;
             ctx.beginPath();
             ctx.moveTo(LineHandler.isle.c0, LineHandler.isle.r0);
-            ctx.lineTo(LineHandler.isle.c, LineHandler.isle.r);
+            ctx.lineTo(LineHandler.isle_c, LineHandler.isle_r);
             ctx.stroke();
          }
     }
@@ -37,9 +37,9 @@ export class LineHandler
         let isle = LineHandler.isle;
         if (isle) {
             // normalize line isle
-            if (isle.c < isle.c0) {
-                [isle.c, isle.c0] = [isle.c0, isle.c];
-                [isle.r, isle.r0] = [isle.r0, isle.r];
+            if (LineHandler.isle_c < isle.c0) {
+                isle.c0 = LineHandler.isle_c;
+                isle.r0 = LineHandler.isle_r;
             }
 
             let canvasData = canvas2d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
