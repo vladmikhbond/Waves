@@ -46,6 +46,23 @@ export class View
             this.canvasData.data[idx + 3 - (4 * opts.N) ] = 0;
         }
         this.ctx.putImageData(this.canvasData, 0, 0);
+
+        // draw selected
+        let isle = this.sea.selected;
+        if (isle) {
+            if ( isle.type == 'rect') {
+                this.ctx.fillStyle = "lightblue";
+                this.ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
+            } else if ( isle.type == 'line') {
+                this.ctx.strokeStyle = "white";
+                this.ctx.lineWidth = isle.width;
+                this.ctx.beginPath();
+                this.ctx.moveTo(isle.c0, isle.r0);
+                this.ctx.lineTo(isle.w, isle.h);
+                this.ctx.stroke();
+
+            }
+        }
     }
 
     draw1d () {

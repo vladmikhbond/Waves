@@ -9,6 +9,7 @@ export class Sea
         this.n = n;
         this.oscs = [];
         this.isles = [];
+        this.selected = null;
         // water
         this.w = [];
         for (let r = 0; r < n; r++) {

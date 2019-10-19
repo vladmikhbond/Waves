@@ -1,4 +1,6 @@
 import {opts} from '../model/opts.js';
+import {Isle} from '../model/isle.js';
+
 
 export class PointerHandler
 {
@@ -15,7 +17,13 @@ export class PointerHandler
         let sea = PointerHandler.sea;
         let c = e.offsetX;
         let r = e.offsetY;
-        alert(c + "     " + r)
+        sea.selected = null;
+        for (let o of sea.isles) {
+            if (o.hasPoint(c, r)) {
+                sea.selected = o;
+                break;
+            }
+        }
         PointerHandler.view.draw();
     }
 

@@ -36,13 +36,15 @@ export class LineHandler
     static up()  {
         let isle = LineHandler.isle;
         if (isle) {
+            isle.w = Math.abs(isle.c0 - LineHandler.isle_c);
+            isle.h = Math.abs(isle.r0 - LineHandler.isle_r);
             // normalize line isle
             if (LineHandler.isle_c < isle.c0) {
                 isle.c0 = LineHandler.isle_c;
                 isle.r0 = LineHandler.isle_r;
             }
-
-            let canvasData = canvas2d.getContext("2d").getImageData(0, 0, opts.N, opts.N);
+            let n = LineHandler.sea.n;
+            let canvasData = canvas2d.getContext("2d").getImageData(0, 0, n, n);
             LineHandler.sea.getRocksFromCanvasData(canvasData);
             LineHandler.sea.isles.push(isle);
             //
