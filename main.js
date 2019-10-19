@@ -2,6 +2,7 @@ import {OscilHandler} from './controller/OscilHandler.js';
 import {RectHandler} from './controller/RectHandler.js';
 import {LineHandler} from './controller/LineHandler.js';
 import {MeterHandler} from './controller/MeterHandler.js';
+import {PointerHandler} from './controller/PointerHandler.js';
 import {View} from './view/view.js';
 import {View3d} from './view/view3d.js';
 import {Sea} from './model/sea.js';
@@ -81,6 +82,7 @@ oscillatorsButton.onclick = () => OscilHandler.set(sea, view, view3d);
 rectButton.onclick = () => RectHandler.set(sea, view, view3d);
 lineButton.onclick = () => LineHandler.set(sea, view, view3d);
 meterButton.onclick = () => MeterHandler.set(sea, view, view3d);
+pointerButton.onclick = () => PointerHandler.set(sea, view, view3d);
 
 
 playPauseButton.onclick = function() {

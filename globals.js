@@ -8,6 +8,7 @@ export let helpButton = document.getElementById("helpButton");
 export let rectButton = document.getElementById("rectButton");
 export let lineButton = document.getElementById("lineButton");
 export let meterButton = document.getElementById("meterButton");
+export let pointerButton = document.getElementById("pointerButton");
 export let oscillatorsButton = document.getElementById("oscillatorsButton");
 export let optsButton = document.getElementById("optsButton");
 export let optsArea = document.getElementById("optsArea");
