@@ -19,8 +19,8 @@ export class LineHandler
 
     static move(e) {
         if (LineHandler.isle) {
-            LineHandler.isle_c = e.offsetX;
-            LineHandler.isle_r = e.offsetY;
+            LineHandler.isle.w = e.offsetX;
+            LineHandler.isle.h = e.offsetY;
 
             let ctx = canvas2d.getContext('2d');
             LineHandler.view.draw();
@@ -28,7 +28,7 @@ export class LineHandler
             ctx.lineWidth = LineHandler.isle.width;
             ctx.beginPath();
             ctx.moveTo(LineHandler.isle.c0, LineHandler.isle.r0);
-            ctx.lineTo(LineHandler.isle_c, LineHandler.isle_r);
+            ctx.lineTo(LineHandler.isle.w, LineHandler.isle.h);
             ctx.stroke();
          }
     }
@@ -36,13 +36,8 @@ export class LineHandler
     static up()  {
         let isle = LineHandler.isle;
         if (isle) {
-            isle.w = Math.abs(isle.c0 - LineHandler.isle_c);
-            isle.h = Math.abs(isle.r0 - LineHandler.isle_r);
-            // normalize line isle
-            if (LineHandler.isle_c < isle.c0) {
-                isle.c0 = LineHandler.isle_c;
-                isle.r0 = LineHandler.isle_r;
-            }
+            isle.w -= isle.c0;
+            isle.h -= isle.r0;
             let n = LineHandler.sea.n;
             let canvasData = canvas2d.getContext("2d").getImageData(0, 0, n, n);
             LineHandler.sea.getRocksFromCanvasData(canvasData);

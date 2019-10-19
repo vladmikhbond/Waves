@@ -58,7 +58,7 @@ export class View
                 this.ctx.lineWidth = isle.width;
                 this.ctx.beginPath();
                 this.ctx.moveTo(isle.c0, isle.r0);
-                this.ctx.lineTo(isle.w, isle.h);
+                this.ctx.lineTo(isle.c0 + isle.w, isle.r0 + isle.h);
                 this.ctx.stroke();
 
             }
