@@ -38,9 +38,7 @@ export class LineHandler
         if (isle) {
             isle.w -= isle.c0;
             isle.h -= isle.r0;
-            let n = LineHandler.sea.n;
-            let canvasData = canvas2d.getContext("2d").getImageData(0, 0, n, n);
-            LineHandler.sea.getRocksFromCanvasData(canvasData);
+            LineHandler.sea.getRocksFromCanvasData();
             LineHandler.sea.isles.push(isle);
             //
             LineHandler.view.draw();

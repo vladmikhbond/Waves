@@ -32,13 +32,6 @@ W_ROCK = ${this.W_ROCK} -- "поглощение" скалами (0 < W_ROCK <= 
         this.N = Math.round(this.N / this.D) * this.D;
         this.OMEGA = this.OMEGA.toFixed(4);
         return false;
-
-
-         // let resetNeeded =
-        //     this._3d !== obj._3d ||
-        //     this.N !== obj.N ||
-        //     this.D !== obj.D;
-        // return resetNeeded;
     }
 
 }

@@ -108,12 +108,22 @@ helpButton.onclick = function() {
 
 optsButton.onclick = function() {
     if (optsArea.style.display !== "block") {
-        optsArea.value = opts.stringify();
+        //
+        if (sea.selected) {
+            optsArea.value = sea.selected.stringify();
+        } else {
+            optsArea.value = opts.stringify();
+        }
         optsArea.style.display = "block";
-     } else {
-        let resetFlag = opts.parse();
-        if (resetFlag)
-            init(opts.N, opts.D);
+    } else {
+        //
+        if (sea.selected) {
+            sea.selected.parse(optsArea.value.trim());
+            sea.getRocksFromCanvasData();
+            view.draw();
+        } else {
+            opts.parse();
+        }
         optsArea.style.display = "none";
     }
 };

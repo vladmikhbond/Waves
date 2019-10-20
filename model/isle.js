@@ -25,9 +25,27 @@ export class Isle
                 return Math.abs((c1 - c) * (r1 - r2) + (r1 - r) * (c1 - c2) ) < 500  ||
                     Math.abs((c1 - c) * (r1 - r2) - (r1 - r) * (c1 - c2) ) < 500;
         }
-
-
     }
 
+    stringify() {
+        return `type = ${this.type} -- 
+c0 = ${this.c0} --             
+r0 = ${this.r0} -- 
+w = ${this.w} -- width
+h = ${this.h} -- height
+`;
+    }
+
+    parse(txt) {
+        let lines = txt.split('\n');
+        let regex = /\s*(\w+)\s*=\s*([\w\.]+)\s*/;
+        for (let line of lines.slice(1)) {
+            let found = line.match(regex);
+            if (found) {
+                this[found[1]] = found[1] == 'type' ? found[2] : +found[2];
+            }
+        }
+        return false;
+    }
 
 }

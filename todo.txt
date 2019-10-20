@@ -1,5 +1,9 @@
-
+todo
 
 - control 1d-picture with slider
+- select & change objects
 
-objects: Isle, Oscillator,    select & change objects
+Принципы
+========
+Узлы модели могут быть связанными (скалы) или свободными (вода)
+Связанность определяется при помощи рисования всех скал на спец канвасе и последующем анализе массива данных канваса.

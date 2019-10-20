@@ -33,28 +33,35 @@ export class Sea
     }
 
 
-    getRocksFromCanvasData(canvasData) {
+    getRocksFromCanvasData() {
         let n = this.n;
+        // create canvas
+        let canvas = document.createElement('canvas');
+        canvas.width = canvas.height = n;
+        let ctx = canvas.getContext("2d");
+        // draw rocks
+        for (let isle of this.isles) {
+            if (isle.type == 'rect') {
+                ctx.fillStyle = "red";
+                ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
+            } else if ( isle.type == 'line') {
+                ctx.strokeStyle = "red";
+                ctx.lineWidth = isle.width;
+                ctx.beginPath();
+                ctx.moveTo(isle.c0, isle.r0);
+                ctx.lineTo(isle.c0 + isle.w, isle.r0 + isle.h);
+                ctx.stroke();
+            }
+        }
+        // extract freedom from data
+        let canvasData = ctx.getImageData(0, 0, n, n);
         for (let r = 0; r < n; r++) {
             for (let c = 0; c < n; c++) {
                 let idx = (c + r * n) * 4;
-                if (canvasData.data[idx] > 0)  // red
-                    this.w[r][c].free = 0;
+                this.w[r][c].free = canvasData.data[idx] > 0 ? 0 : 1;
             }
         }
     }
-
-
-    // clearRocksInCircle(canvasData, r0, c0, radius) {
-    //     let n = this.n;
-    //     for (let r = r0 - radius; r < r0 + radius; r++) {
-    //         for (let c = c0 - radius; c < c0 + radius; c++) {
-    //             let idx = (c + r * n) * 4;
-    //             if (canvasData.data[idx] > 0)  // red
-    //                 this.w[r][c].free = 1;
-    //         }
-    //     }
-    // }
 
     step() {
         this.chronos++;

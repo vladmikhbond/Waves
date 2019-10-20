@@ -34,10 +34,8 @@ export class RectHandler
         let sea = RectHandler.sea;
         let isle = RectHandler.isle;
         if (isle) {
-            let n = RectHandler.sea.n;
-            let canvasData = canvas2d.getContext("2d").getImageData(0, 0, n, n);
-            sea.getRocksFromCanvasData(canvasData);
             sea.isles.push(isle);
+            sea.getRocksFromCanvasData();
             //
             RectHandler.view.draw();
             RectHandler.view3d.addIsle(isle);

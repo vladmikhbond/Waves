@@ -14,13 +14,7 @@ export class View
         for (let r = 0; r < opts.N; r++) {
             for (let c = 0; c < opts.N; c++) {
                 let idx = (c + r * opts.N) * 4;
-                if (!this.sea.w[r][c].free) {
-                    // draw free
-                    this.canvasData.data[idx    ] = 1;  // red
-                    this.canvasData.data[idx + 1] = ROCK_COLOR;  // green
-                    // this.canvasData.data[idx + 2] = 0;  // blue
-                    this.canvasData.data[idx + 3] = 255;  // alpha
-                } else {
+                if (this.sea.w[r][c].free) {
                     // define alpha
                     let color = this.sea.w[r][c].x * optz.Kvis | 0;
                     const maxColor = 127;
@@ -29,7 +23,7 @@ export class View
                     color += 127;
                     // draw water
                     this.canvasData.data[idx    ] = 0;  // red
-                    // this.canvasData.data[idx + 1] = 0;  // green
+                    this.canvasData.data[idx + 1] = 0;  // green
                     this.canvasData.data[idx + 2] = 100;  // blue
                     this.canvasData.data[idx + 3] = color;  // alpha
                 }
@@ -47,20 +41,19 @@ export class View
         }
         this.ctx.putImageData(this.canvasData, 0, 0);
 
-        // draw selected
-        let isle = this.sea.selected;
-        if (isle) {
-            if ( isle.type == 'rect') {
-                this.ctx.fillStyle = "lightblue";
+        // draw rocks (isles)
+        for (let isle of this.sea.isles) {
+            let color = isle == this.sea.selected ? "white" : "green";
+            if (isle.type == 'rect') {
+                this.ctx.fillStyle = color;
                 this.ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
-            } else if ( isle.type == 'line') {
-                this.ctx.strokeStyle = "white";
-                this.ctx.lineWidth = isle.width;
+            } else if (isle.type == 'line') {
+                this.ctx.strokeStyle = color;
+                this.ctx.lineWidth = 5; //isle.width;
                 this.ctx.beginPath();
                 this.ctx.moveTo(isle.c0, isle.r0);
                 this.ctx.lineTo(isle.c0 + isle.w, isle.r0 + isle.h);
                 this.ctx.stroke();
-
             }
         }
     }
@@ -86,12 +79,6 @@ export class View
         }
         ctx.stroke();
     }
-
-    // drawInfo() {
-    //     playPauseButton.innerHTML = this.sea.chronos;
-    //     info.innerHTML = this.sea.point.e;
-    // }
-
 
 }
 
