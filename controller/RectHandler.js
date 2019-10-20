@@ -34,6 +34,8 @@ export class RectHandler
         let sea = RectHandler.sea;
         let isle = RectHandler.isle;
         if (isle) {
+            if (isle.isSmall)
+                return;
             sea.isles.push(isle);
             sea.getRocksFromCanvasData();
             //

@@ -1,6 +1,9 @@
-export class Isle
-{
-    constructor({type, c, r, w, h }) {
+import {Obj} from './obj.js';
+
+export class Isle extends Obj {
+
+    constructor({type, c, r, w, h }, sea) {
+        super(r, c, sea);
         this.type = type;
         this.c0 = c;
         this.r0 = r;
@@ -36,16 +39,7 @@ h = ${this.h} -- height
 `;
     }
 
-    parse(txt) {
-        let lines = txt.split('\n');
-        let regex = /\s*(\w+)\s*=\s*([\w\.]+)\s*/;
-        for (let line of lines.slice(1)) {
-            let found = line.match(regex);
-            if (found) {
-                this[found[1]] = found[1] == 'type' ? found[2] : +found[2];
-            }
-        }
-        return false;
+    get isSmall() {
+        return Math.hypot(this.w, this.h) < 3;
     }
-
 }

@@ -18,7 +18,7 @@ export class PointerHandler
         let c = e.offsetX;
         let r = e.offsetY;
         sea.selected = null;
-        for (let o of sea.isles) {
+        for (let o of sea.isles.concat(sea.oscs)) {
             if (o.hasPoint(c, r)) {
                 sea.selected = o;
                 break;

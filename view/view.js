@@ -29,17 +29,15 @@ export class View
                 }
             }
         }
-        // draw oscillators
-        for (let o of this.sea.oscs) {
-            let idx = (o.c + o.r * opts.N) * 4;
-            // alpha
-            this.canvasData.data[idx + 3] = 0;
-            this.canvasData.data[idx + 3 + 4] = 0;
-            this.canvasData.data[idx + 3 - 4] = 0;
-            this.canvasData.data[idx + 3 + (4 * opts.N) ] = 0;
-            this.canvasData.data[idx + 3 - (4 * opts.N) ] = 0;
-        }
+
         this.ctx.putImageData(this.canvasData, 0, 0);
+
+        // draw oscillators
+        for (let osc of this.sea.oscs) {
+            let color = osc == this.sea.selected ? "white" : "red";
+            this.ctx.fillStyle = color;
+            this.ctx.fillRect(osc.c - 1, osc.r - 1, 3, 3);
+        }
 
         // draw rocks (isles)
         for (let isle of this.sea.isles) {

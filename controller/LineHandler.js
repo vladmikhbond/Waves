@@ -38,6 +38,8 @@ export class LineHandler
         if (isle) {
             isle.w -= isle.c0;
             isle.h -= isle.r0;
+            if (isle.isSmall)
+                return;
             LineHandler.sea.getRocksFromCanvasData();
             LineHandler.sea.isles.push(isle);
             //
