@@ -63,12 +63,12 @@ export class View3d {
         }
         else if (isle.type === 'line')
         {
-            let hypot = Math.hypot(isle.r - isle.r0, isle.c - isle.c0);
-            let geometry = new THREE.BoxGeometry(hypot, isle.width, 4);
+            let hypot = Math.hypot(isle.w, isle.h);
+            let geometry = new THREE.BoxGeometry(hypot, 5, 4);   // todo: isle line width
             mesh = new THREE.Mesh(geometry, isleMaterial);
-            mesh.position.x = (isle.c0 + isle.c) / 2;
-            mesh.position.y = opts.N - (isle.r0 + isle.r) / 2;
-            let alpha = Math.atan2(isle.r - isle.r0, isle.c - isle.c0);
+            mesh.position.x = isle.c0 + isle.w / 2;
+            mesh.position.y = opts.N - (isle.r0 + isle.h / 2);
+            let alpha = Math.atan2(isle.h , isle.w);
             mesh.rotation.z = -alpha;
         }
 

@@ -1,5 +1,6 @@
 todo
-bug - in 3d not draw lines
+
+- ширина линии острова
 - webpack implement
 - subclassing of isle
 - Из всех объектов одит может быть выбранным. Выбранный объект удаляется клавишей Del
