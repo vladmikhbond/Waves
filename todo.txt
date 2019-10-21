@@ -1,8 +1,9 @@
 todo
-
+- после перемещения не обновляются острова в 3d
+- subclassing of isle
 - ширина линии острова
 - webpack implement
-- subclassing of isle
+
 - Из всех объектов одит может быть выбранным. Выбранный объект удаляется клавишей Del
 - control 1d-picture with slider
 - select & change objects
