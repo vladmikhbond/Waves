@@ -141,6 +141,7 @@ _2dCheckBox.onchange = function() {
         tools3d.style.display = "inline";
         tools2d.style.display = "none";
         for (let r of radios) r.disabled = true;
+        view3d.draw();
     }
 };
 

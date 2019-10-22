@@ -1,5 +1,5 @@
 import {opts, optz} from '../model/opts.js';
-import {Isle} from '../model/isle.js';
+import {IsleL} from '../model/isle.js';
 
 export class LineHandler
 {
@@ -14,7 +14,7 @@ export class LineHandler
     }
 
     static down(e)  {
-        LineHandler.isle = new Isle({type: "line", c: e.offsetX, r: e.offsetY, width: optz.lineIsleWidth});
+        LineHandler.isle = new IsleL({c: e.offsetX, r: e.offsetY, width: optz.lineIsleWidth});
     }
 
     static move(e) {

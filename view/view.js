@@ -1,4 +1,5 @@
 import {opts, optz} from '../model/opts.js';
+import {IsleL, IsleR} from "../model/isle.js";
 
 export class View
 {
@@ -42,16 +43,19 @@ export class View
         // draw rocks (isles)
         for (let isle of this.sea.isles) {
             let color = isle == this.sea.selected ? "white" : "green";
-            if (isle.type == 'rect') {
-                this.ctx.fillStyle = color;
-                this.ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
-            } else if (isle.type == 'line') {
+            if (isle instanceof IsleL)
+            {
                 this.ctx.strokeStyle = color;
                 this.ctx.lineWidth = 5; //isle.width;
                 this.ctx.beginPath();
                 this.ctx.moveTo(isle.c0, isle.r0);
                 this.ctx.lineTo(isle.c0 + isle.w, isle.r0 + isle.h);
                 this.ctx.stroke();
+            }
+            else if (isle instanceof IsleR)
+            {
+                this.ctx.fillStyle = color;
+                this.ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
             }
         }
     }

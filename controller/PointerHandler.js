@@ -1,5 +1,5 @@
 import {opts} from '../model/opts.js';
-import {Isle} from '../model/isle.js';
+import {IsleR} from '../model/isle.js';
 
 
 export class PointerHandler

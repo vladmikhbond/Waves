@@ -1,5 +1,5 @@
 import {opts} from '../model/opts.js';
-import {Isle} from '../model/isle.js';
+import {IsleR} from '../model/isle.js';
 
 export class RectHandler
 {
@@ -14,7 +14,7 @@ export class RectHandler
     }
 
     static down(e)  {
-        RectHandler.isle = new Isle({type: "rect", c: e.offsetX, r: e.offsetY, w: 0, h: 0});
+        RectHandler.isle = new IsleR({c: e.offsetX, r: e.offsetY});
     }
 
     static move(e) {

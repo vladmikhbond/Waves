@@ -1,4 +1,5 @@
 import {opts, optz} from '../model/opts.js';
+import {IsleR, IsleL} from "../model/isle.js";
 
 export class View3d {
     constructor(sea, d) {
@@ -54,14 +55,7 @@ export class View3d {
         let isleMaterial = new THREE.MeshPhongMaterial({color: 0x00a000});
         let mesh = null;
 
-        if (isle.type === 'rect')
-        {
-            let geometry = new THREE.BoxGeometry(isle.w, isle.h, 4);
-            mesh = new THREE.Mesh(geometry, isleMaterial);
-            mesh.position.x = isle.c0 + isle.w / 2;
-            mesh.position.y = opts.N - isle.r0 - isle.h / 2;
-        }
-        else if (isle.type === 'line')
+        if (isle instanceof IsleL)
         {
             let hypot = Math.hypot(isle.w, isle.h);
             let geometry = new THREE.BoxGeometry(hypot, 5, 4);   // todo: isle line width
@@ -70,6 +64,13 @@ export class View3d {
             mesh.position.y = opts.N - (isle.r0 + isle.h / 2);
             let alpha = Math.atan2(isle.h , isle.w);
             mesh.rotation.z = -alpha;
+        }
+        else if (isle instanceof IsleR)
+        {
+            let geometry = new THREE.BoxGeometry(isle.w, isle.h, 4);
+            mesh = new THREE.Mesh(geometry, isleMaterial);
+            mesh.position.x = isle.c0 + isle.w / 2;
+            mesh.position.y = opts.N - isle.r0 - isle.h / 2;
         }
 
         // mesh.receiveShadow = true;

@@ -1,6 +1,6 @@
 import {opts} from './opts.js';
 import {Oscillator} from './oscillator.js';
-
+import {IsleR, IsleL} from "../model/isle.js";
 
 export class Sea
 {
@@ -41,16 +41,16 @@ export class Sea
         let ctx = canvas.getContext("2d");
         // draw rocks
         for (let isle of this.isles) {
-            if (isle.type == 'rect') {
-                ctx.fillStyle = "red";
-                ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
-            } else if ( isle.type == 'line') {
+            if (isle instanceof IsleL) {
                 ctx.strokeStyle = "red";
                 ctx.lineWidth = isle.width;
                 ctx.beginPath();
                 ctx.moveTo(isle.c0, isle.r0);
                 ctx.lineTo(isle.c0 + isle.w, isle.r0 + isle.h);
                 ctx.stroke();
+            } else if (isle instanceof IsleR) {
+                ctx.fillStyle = "red";
+                ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
             }
         }
         // extract freedom from data
