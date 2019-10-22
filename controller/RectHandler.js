@@ -33,16 +33,13 @@ export class RectHandler
     static up()  {
         let sea = RectHandler.sea;
         let isle = RectHandler.isle;
-        if (isle) {
-            if (isle.isSmall)
-                return;
+        if (isle && !isle.isSmall) {
             sea.isles.push(isle);
             sea.getRocksFromCanvasData();
-            //
-            RectHandler.view.draw();
             RectHandler.view3d.addIsle(isle);
-            RectHandler.isle = null;
         }
+        RectHandler.isle = null;
+        RectHandler.view.draw();
     }
 
 

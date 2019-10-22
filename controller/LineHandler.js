@@ -35,18 +35,15 @@ export class LineHandler
 
     static up()  {
         let isle = LineHandler.isle;
-        if (isle) {
+        if (isle && !isle.isSmall) {
             isle.w -= isle.c0;
             isle.h -= isle.r0;
-            if (isle.isSmall)
-                return;
             LineHandler.sea.getRocksFromCanvasData();
             LineHandler.sea.isles.push(isle);
-            //
-            LineHandler.view.draw();
             LineHandler.view3d.addIsle(isle);
-            LineHandler.isle = null;
         }
+        LineHandler.isle = null;
+        LineHandler.view.draw();
     }
 
 }
