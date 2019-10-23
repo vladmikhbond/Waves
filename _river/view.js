@@ -8,8 +8,7 @@ class View
 
 
     draw () {
-        const V_SCALE = 30;
-        let n05 = this.n / 2 | 0;
+        let zeroLevel = 100;
 
         let ctx = canvas1.getContext('2d');
         ctx.clearRect(0, 0, this.n, this.n);
@@ -19,15 +18,16 @@ class View
 
         ctx.beginPath();
         // Ox axis
-        ctx.moveTo(0, n05); ctx.lineTo(this.n, n05);
-        // merge v. line
-        ctx.moveTo(this.n - opts.merge, 0); ctx.lineTo(this.n - opts.merge, this.n);
+        ctx.moveTo(0, zeroLevel); ctx.lineTo(this.n, zeroLevel);
+        // margin v. line
+        ctx.moveTo(this.n - opts.margin, 0); ctx.lineTo(this.n - opts.margin, this.n);
+
         // osc.ampl lines
         let osc = this.river.oscs[0];
         if (osc) {
-            let h = n05 - osc.ampl * V_SCALE;
+            let h = zeroLevel - osc.ampl * opts.V_SCALE;
             ctx.moveTo(0, h); ctx.lineTo(this.n, h);
-            h = n05 + osc.ampl * V_SCALE;
+            h = zeroLevel + osc.ampl * opts.V_SCALE;
             ctx.moveTo(0, h); ctx.lineTo(this.n, h);
         }
         ctx.stroke();
@@ -39,8 +39,8 @@ class View
         for (let col = 0; col < opts.N; col+=2) {
             let h = this.river.w[col].x;
             ctx.beginPath();
-            ctx.moveTo(col, n05);
-            ctx.lineTo(col, n05 - V_SCALE * h);
+            ctx.moveTo(col, zeroLevel);
+            ctx.lineTo(col, zeroLevel - opts.V_SCALE * h);
             ctx.stroke();
         }
 

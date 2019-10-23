@@ -13,8 +13,8 @@ class River
         }
 
         let w = opts.W;
-        for (let i = 0; i < opts.merge; i++) {
-            let r = n - opts.merge + i;
+        for (let i = 0; i < opts.margin; i++) {
+            let r = n - opts.margin + i;
             w -= 0.001;
             this.w[r].w = w;
         }
@@ -40,6 +40,7 @@ class River
             if (this.w[o.r].free)
                 o.next();
         }
+
         // расчет ускорений
         let n = this.n;
         // крайние точки

@@ -22,11 +22,8 @@ function init(n) {
     river = new River(n);
 
     /////
-    let osc = new Oscillator(0, 1, 0.1);
-    //let osc = new Meandr(0, 1, 0.01);
-    //let osc = new Impuls(opts.N / 2, 2);
+    let osc = new Oscillator({r: 101, omega: 0.1});
     river.addOscillator(osc);
-    //river.w[1].free  = 0;
     /////
 
     // create view
