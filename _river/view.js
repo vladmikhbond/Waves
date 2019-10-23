@@ -34,9 +34,9 @@ class View
 
         ctx.setLineDash([]);
         ctx.lineWidth = 1;
-        ctx.strokeStyle = 'red';
 
-        for (let col = 0; col < opts.N; col+=2) {
+        for (let col = 0; col < opts.N; col++) {
+            ctx.strokeStyle = col === osc.r ? 'black' : 'red';
             let h = this.river.w[col].x;
             ctx.beginPath();
             ctx.moveTo(col, zeroLevel);

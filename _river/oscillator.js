@@ -7,10 +7,10 @@ class Oscillator {
     }
 
     next() {
+        if (this.r < opts.N && this.owner.chronos % 3 == 0)
+            this.r += opts.oscV;
         this.owner.w[this.r].x =
             Math.sin(this.omega * this.owner.chronos) * this.ampl;
-        if (this.r < opts.N)
-            this.r += opts.oscV;
     }
 }
 

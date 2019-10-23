@@ -28,7 +28,9 @@ class River
 
     removeOscillatorNear(x) {
         let i = this.oscs.findIndex(o => Math.abs(o.x - x) < 5);
-        if (i !== -1) this.oscs.splice(i, 1);
+        if (i !== -1) {
+            this.oscs.splice(i, 1);
+        }
     }
 
 
@@ -36,10 +38,8 @@ class River
         this.chronos++;
 
         // oscillators
-        for (let o of this.oscs) {
-            if (this.w[o.r].free)
-                o.next();
-        }
+        let osc = this.oscs[0];
+        osc.next();
 
         // расчет ускорений
         let n = this.n;
@@ -69,7 +69,7 @@ class River
 
         // все точки
         for (let r = 1; r < n-1; r++) {
-            if (!this.w[r].free)
+            if ( r === osc.r)
                 continue;
             // change v
             this.w[r].v += this.w[r].a ;
