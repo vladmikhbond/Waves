@@ -61,15 +61,17 @@ export class View
     }
 
     draw1d () {
-        let r = this.sea.point.r;
-        let c = this.sea.point.c;
+        let r = this.sea._1dRow;
+        //let c = this.sea.point.c;
+        if (r == 0)
+            return;
 
         let ctx = canvas2d.getContext('2d');
         // ctx.clearRect(0, 0, opts.N, opts.N);
         ctx.strokeStyle = 'gray';
         ctx.lineWidth = 0.1;
-        ctx.strokeRect(0,r, opts.N-1, 0);
-        ctx.strokeRect(c,0, 0, opts.N-1);
+        ctx.strokeRect(0, r, opts.N-1, 0);
+        //ctx.strokeRect(c, 0, 0, opts.N-1);
 
         ctx.lineWidth = 1;
         ctx.strokeStyle = 'red';

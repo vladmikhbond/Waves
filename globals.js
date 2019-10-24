@@ -15,6 +15,7 @@ export let optsArea = document.getElementById("optsArea");
 export let helpArea = document.getElementById("helpArea");
 export let cameraRange = document.getElementById("cameraRange");
 export let lightRange = document.getElementById("lightRange");
+export let _1dRange = document.getElementById("_1dRange");
 export let _2dCheckBox = document.getElementById("_2dCheckBox");
 export let tools2d = document.getElementById("tools2d");
 export let tools3d = document.getElementById("tools3d");

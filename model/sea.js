@@ -20,6 +20,7 @@ export class Sea
             this.w.push(row);
         }
         this.point = {r: 0, c: 0};
+        this._1dRow = 0;
     }
 
     addOscillator(r, c, omega, ampl) {
@@ -72,7 +73,7 @@ export class Sea
                 o.next();
         }
 
-        // === расчет сил (только внутренние точки)
+        // расчет сил (только внутренние точки)
         let n = this.n;
         for (let r = 1; r < n-1; r++) {
             for (let c = 1; c < n-1; c++)
@@ -82,7 +83,7 @@ export class Sea
             }
         }
 
-        // === расчет отклонений
+        // расчет отклонений
         // периферийные точки
         for (let p = 1; p < n-1; p++) {
             if (opts.R) {

@@ -155,6 +155,12 @@ kvisRange.onchange = function() {
     view.draw();
 };
 
+_1dRange.onchange = function() {
+    sea._1dRow =  opts.N  - _1dRange.value * opts.N / 100;
+    view.draw();
+    view.draw1d();
+};
+
 cameraRange.onchange = function() {
     let r = opts.N;
     optz.cameraY = r * Math.sin(cameraRange.value);
