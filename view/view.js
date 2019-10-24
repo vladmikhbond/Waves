@@ -63,7 +63,7 @@ export class View
     draw1d () {
         let r = this.sea._1dRow;
         //let c = this.sea.point.c;
-        if (r == 0)
+        if (r <= 0 || r >= opts.N)
             return;
 
         let ctx = canvas2d.getContext('2d');

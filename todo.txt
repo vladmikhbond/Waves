@@ -1,6 +1,6 @@
 todo
-- после перемещения не обновляются острова в 3d
-- subclassing of isle
+
+- предельные значения k/m и omega
 - ширина линии острова
 - webpack implement
 

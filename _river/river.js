@@ -49,7 +49,7 @@ class River
 
         let reflection = 0;
 
-        // крайние точки
+        // периферийные точки
         if (reflection) {
             // полное отражение от границ
             this.w[0].x = 0;
