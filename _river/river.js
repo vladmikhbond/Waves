@@ -39,17 +39,13 @@ class River
         let osc = this.oscs[0];
         osc.next();
 
-        // расчет ускорений
         let n = this.n;
-        // крайние точки
-        this.w[0].a = (this.w[1].x - this.w[0].x) * this.w[0].km;
-        this.w[n-1].a = (this.w[n-2].x - this.w[n-1].x) * this.w[n-1].km;
-        // внутренние точки
+        // === расчет сил (только внутренние точки)
         for (let r = 1; r < n-1; r++) {
             this.w[r].a = (this.w[r-1].x + this.w[r+1].x - this.w[r].x * 2) * this.w[r].km;
         }
 
-        // расчет отклонений
+        // === расчет отклонений
 
         let reflection = 0;
 
@@ -58,16 +54,13 @@ class River
             // полное отражение от границ
             this.w[0].x = 0;
             this.w[n-1].x = 0;
- //           this.w[0].x = Math.sin(opts.omega * this.chronos - 100) * this.ampl;
         } else {
             // поглощение границами (неполное)
              this.w[0].x = this.w[1].x
              this.w[n-1].x = this.w[n-2].x
-             this.w[0].v = 0;
-             this.w[n-1].v = 0;
         }
 
-        // все точки
+        // внутренние точки
         for (let r = 1; r < n-1; r++) {
             if ( r === osc.r)
                 continue;

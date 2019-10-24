@@ -71,7 +71,8 @@ export class Sea
             if (this.w[o.r][o.c].free)
                 o.next();
         }
-        // расчет сил
+
+        // === расчет сил (только внутренние точки)
         let n = this.n;
         for (let r = 1; r < n-1; r++) {
             for (let c = 1; c < n-1; c++)
@@ -81,13 +82,15 @@ export class Sea
             }
         }
 
-        // расчет отклонений
-
-        // точки на периметре
+        // === расчет отклонений
+        // периферийные точки
         for (let p = 1; p < n-1; p++) {
             if (opts.R) {
                 // полное отражение от границ
-                this.w[p][0].x = this.w[p][n-1].x = this.w[0][p].x = this.w[n-1][p].x = 0;
+                this.w[p][0].x = 0;
+                this.w[p][n-1].x = 0;
+                this.w[0][p].x = 0;
+                this.w[n-1][p].x = 0;
             } else {
                 // поглощение границами (неполное)
                 // left
@@ -100,6 +103,7 @@ export class Sea
                 this.w[n-1][p].x = this.w[n-2][p].x - this.w[n-2][p].v;
             }
         }
+
         // внутренние точки
         for (let r = 1; r < n-1; r++) {
             for (let c = 1; c < n-1; c++) {
@@ -120,10 +124,10 @@ export class Sea
                     this.w[r][c].v *= opts.W * opts.W_ROCK;
                     this.w[r][c].x += this.w[r][c].v;
                 }
-
-
             }
         }
+
+
     }
 
     // замер плотности энергии в области {c0, r0, w, h}
