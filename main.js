@@ -35,10 +35,10 @@ function init() {
     view = new View(sea);
     view3d = new View3d(sea, opts.D);
 
-    // oscillators mode
+    // set oscillators mode
     OscilHandler.set(sea, view);
     oscillatorsButton.checked = true;
-    // pause mode
+    // set pause mode
     if (timerId) {
         clearInterval(timerId);
         timerId = null;
@@ -190,7 +190,7 @@ document.body.onkeydown = e => {
 
 function infoTotalEnergy() {
     let total = sea.energyTotal();
-    info.innerHTML = `Pot = ${total.eP.toFixed(5)}  Cin = ${total.eC.toFixed(5)}` ;
+    info.innerHTML = `T: ${sea.chronos}<p>Pot: ${total.eP.toFixed(2)} <p>Kin: ${total.eC.toFixed(2)}  <p>Sum: ${(total.eP + total.eC).toFixed(2)}` ;
 }
 
 // canvas2d.addEventListener('mousemove', function(e) {

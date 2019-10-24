@@ -86,23 +86,17 @@ export class Sea
         // расчет отклонений
         // периферийные точки
         for (let p = 1; p < n-1; p++) {
-            if (opts.R) {
-                // полное отражение от границ
-                this.w[p][0].x = 0;
-                this.w[p][n-1].x = 0;
-                this.w[0][p].x = 0;
-                this.w[n-1][p].x = 0;
-            } else {
-                // поглощение границами (неполное)
-                // left
-                this.w[p][0].x   = this.w[p][1].x   - this.w[p][1].v;
-                // right
-                this.w[p][n-1].x = this.w[p][n-2].x - this.w[p][n-2].v;
-                // up
-                this.w[0][p].x   = this.w[1][p].x   - this.w[1][p].v;
-                // down
-                this.w[n-1][p].x = this.w[n-2][p].x - this.w[n-2][p].v;
-            }
+            // поглощение границами (неполное)
+            // left
+            const k = 1;  // is k = 1 optimum ?
+            this.w[p][0].x   = this.w[p][1].x   - this.w[p][1].v * k ;
+            // right
+            this.w[p][n-1].x = this.w[p][n-2].x - this.w[p][n-2].v * k ;
+            // up
+            this.w[0][p].x   = this.w[1][p].x   - this.w[1][p].v * k ;
+            // down
+            this.w[n-1][p].x = this.w[n-2][p].x - this.w[n-2][p].v * k ;
+
         }
 
         // внутренние точки
@@ -155,8 +149,8 @@ export class Sea
                 let dxr = this.w[r][c].x - this.w[r-1][c].x;
                 let dxc = this.w[r][c].x - this.w[r][c-1].x;
                 let v = this.w[r][c].v;
-                eP += (dxr**2 + dxc**2)/4;
-                eC += v**2;
+                eP += (dxr**2 + dxc**2)/2;
+                eC += v**2/2;
             }
         }
         return {eP, eC};
