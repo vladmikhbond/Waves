@@ -7,8 +7,12 @@ class Oscillator {
     }
 
     next() {
-        if (this.r < opts.N && this.owner.chronos % 3 == 0)
+        // changt position
+        let contrVelo = 8;
+        if (this.r < opts.N - contrVelo && this.owner.chronos % contrVelo == 0)
             this.r += opts.oscV;
+
+
         this.owner.w[this.r].x =
             Math.sin(this.omega * this.owner.chronos) * this.ampl;
     }

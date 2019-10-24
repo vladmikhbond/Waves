@@ -12,11 +12,9 @@ class River
             this.w.push({free: 1, w: opts.W, km: opts.Km, x: 0, a: 0, v: 0, });
         }
 
-        let w = opts.W;
         for (let i = 0; i < opts.margin; i++) {
             let r = n - opts.margin + i;
-            w -= 0.001;
-            this.w[r].w = w;
+            this.w[r].w = opts.W;
         }
 
     }
@@ -58,11 +56,13 @@ class River
         // крайние точки
         if (reflection) {
             // полное отражение от границ
-            this.w[0].x = this.w[n-1].x = 0;
+            this.w[0].x = 0;
+            this.w[n-1].x = 0;
+ //           this.w[0].x = Math.sin(opts.omega * this.chronos - 100) * this.ampl;
         } else {
             // поглощение границами (неполное)
-             this.w[0].x = this.w[1].x - this.w[1].v;
-             this.w[n-1].x = this.w[n-2].x - this.w[n-2].v;
+             this.w[0].x = this.w[1].x
+             this.w[n-1].x = this.w[n-2].x
              this.w[0].v = 0;
              this.w[n-1].v = 0;
         }
