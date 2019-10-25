@@ -3,20 +3,14 @@ import {Obj} from './obj.js';
 export class Oscillator extends Obj {
     constructor(r, c, o, a, sea) {
         super(r, c, sea);
-        this.vr = 0;
-        this.vc = 0;
         this.omega = o;
         this.ampl = a;
+        this.phase = 0; // фаза
     }
 
     next() {
         this.sea.w[this.r][this.c].x =
-            Math.sin(2 * Math.PI * this.omega * this.sea.chronos) * this.ampl;
-        // moving
-        if (this.sea.chronos % 10 == 0) {
-            this.c += this.vc;
-            this.r += this.vr;
-        }
+            Math.sin(2 * Math.PI * this.omega * this.sea.chronos + this.phase) * this.ampl;
     }
 
     hasPoint(c, r) {
@@ -25,12 +19,11 @@ export class Oscillator extends Obj {
     }
 
     stringify() {
-        return `c = ${this.c} --             
-r = ${this.r} -- 
-vc = ${this.vc} --             
-vr = ${this.vr} -- 
+        return `c = ${this.c} -- column            
+r = ${this.r} -- row
 omega = ${this.omega} -- 
 ampl = ${this.ampl} -- 
+phase = ${this.phase} -- фаза            
 `;
     }
 

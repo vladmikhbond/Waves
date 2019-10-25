@@ -2,8 +2,9 @@ class Options
 {
     constructor() {
         this.D = 2;
-        this.N = 500;  // 3 * 167 = 501
-        this.OMEGA = (0.2 /(2 * Math.PI)).toFixed(4);
+        this.N = 500;    // 3 * 167 = 501
+        this.OMEGA =   0.03
+        this.Km = 0.25;  //   K / m < 0.25
         this.W = 1;
         this.R = 0;
         this.W_ROCK = 1;
@@ -15,6 +16,7 @@ N = ${this.N} -- сторона квадрата модели (должна бы
 W = ${this.W} -- поглощение средой (0 < W <= 1, v *= W )
 R = ${this.R} -- =1 отражение от границ, =0 - поглощение границами
 OMEGA = ${this.OMEGA} -- частота нового осциллятора (от 0.001 до 0.1)
+Km = ${this.Km} -- модуль упругости / масса узла 
 W_ROCK = ${this.W_ROCK} -- "поглощение" скалами (0 < W_ROCK <= 1)
 `;
     }
