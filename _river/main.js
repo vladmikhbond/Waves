@@ -22,7 +22,7 @@ function init(n) {
     river = new River(n);
 
     /////
-    let osc = new Oscillator({r: opts.oscPos, omega: 0.1});
+    let osc = new Oscillator();
     river.addOscillator(osc);
     /////
 

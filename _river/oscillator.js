@@ -1,8 +1,8 @@
 class Oscillator {
-    constructor({r=0, ampl=1, omega=0.1}) {
-        this.r = r;  // coordinate
-        this.ampl = ampl;
-        this.omega = omega;
+    constructor() {
+        this.r = opts.oscPos;  // coordinate
+        this.ampl = 1;
+        this.omega = opts.omega;
         this.owner = null;
     }
 

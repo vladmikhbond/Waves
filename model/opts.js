@@ -2,20 +2,19 @@ class Options
 {
     constructor() {
         this.D = 2;
-        this.N = 500;    // 3 * 167 = 501
-        this.OMEGA =   0.03
-        this.Km = 0.25;  //   K / m < 0.25
+        this.N = 100;
+        this.OMEGA =  1 / 20 // (1 колебание на 20 тиков)
+        this.Km = 1;  //   K / m < 1  влияет на скорость v ~ Km**0.5
         this.W = 1;
-        this.R = 0;
         this.W_ROCK = 1;
     }
 
     stringify() {
-        return `D = ${this.D} -- triangle size for 3d visualize
+        return
+`D = ${this.D} -- triangle size for 3d visualize
 N = ${this.N} -- сторона квадрата модели (должна быть кратна D)
-W = ${this.W} -- поглощение средой (0 < W <= 1, v *= W )
-R = ${this.R} -- =1 отражение от границ, =0 - поглощение границами
 OMEGA = ${this.OMEGA} -- частота нового осциллятора (от 0.001 до 0.1)
+W = ${this.W} -- поглощение средой (0 < W <= 1, v *= W )
 Km = ${this.Km} -- модуль упругости / масса узла 
 W_ROCK = ${this.W_ROCK} -- "поглощение" скалами (0 < W_ROCK <= 1)
 `;

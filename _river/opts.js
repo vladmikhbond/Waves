@@ -3,6 +3,14 @@
 // Km = модуль упругости / масса узла
 // скорость распространения волны ~ Km ** 0.5 и не зависит от частоты осциллятора
 
-let opts = {N: 2 * 200, W: 1, Km: 1, margin: 50, V_SCALE: 30,
-    oscPos: 200, oscV: 0, omega: 0.1};
+let opts = {
+    N: 2 * 100,
+    W: 1,          // energy dissipation (W = 1 - no dissipation)
+    Km: 0.2,      //   K/m
+    omega: 1/20,
+    margin: 50,
+    V_SCALE: 30,
+    oscPos: 0,     // position of the oscillator
+    oscV: 0,       // not used
+};
 

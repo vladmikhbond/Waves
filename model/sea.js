@@ -79,7 +79,7 @@ export class Sea
             for (let c = 1; c < n-1; c++)
             {
                 this.w[r][c].a = (this.w[r-1][c].x + this.w[r+1][c].x +
-                    this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) * opts.Km ;
+                    this.w[r][c-1].x + this.w[r][c+1].x - this.w[r][c].x * 4) / 4 * opts.Km ;
             }
         }
 
