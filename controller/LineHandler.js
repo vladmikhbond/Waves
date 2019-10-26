@@ -18,29 +18,31 @@ export class LineHandler
     }
 
     static move(e) {
-        if (LineHandler.isle) {
-            LineHandler.isle.w = e.offsetX;
-            LineHandler.isle.h = e.offsetY;
+        let isle = LineHandler.isle;
+        if (isle) {
+            isle.w = e.offsetX;
+            isle.h = e.offsetY;
 
             let ctx = canvas2d.getContext('2d');
-            LineHandler.view.draw();
+            view.draw();
             ctx.strokeStyle = "white";
-            ctx.lineWidth = LineHandler.isle.width;
+            ctx.lineWidth = isle.width;
             ctx.beginPath();
-            ctx.moveTo(LineHandler.isle.c0, LineHandler.isle.r0);
-            ctx.lineTo(LineHandler.isle.w, LineHandler.isle.h);
+            ctx.moveTo(isle.c0, isle.r0);
+            ctx.lineTo(isle.w, isle.h);
             ctx.stroke();
          }
     }
 
     static up()  {
+        let sea = LineHandler.sea;
         let isle = LineHandler.isle;
         if (isle && !isle.isSmall) {
             isle.w -= isle.c0;
             isle.h -= isle.r0;
-            LineHandler.sea.getRocksFromCanvasData();
-            LineHandler.sea.isles.push(isle);
+            sea.isles.push(isle);
             LineHandler.view3d.addIsle(isle);
+            sea.getRocksFromCanvasData();
         }
         LineHandler.isle = null;
         LineHandler.view.draw();

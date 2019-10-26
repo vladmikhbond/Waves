@@ -104,20 +104,12 @@ export class Sea
             for (let c = 1; c < n-1; c++) {
                 // change v
                 this.w[r][c].v += this.w[r][c].a;
-                this.w[r][c].v *= opts.W;
                  // change x
                 this.w[r][c].x += this.w[r][c].v;
 
                 // rock
                 if (!this.w[r][c].free) {
-                    // this.w[r][c].x = 0;
-                    
-                    // eat energy
-                    // this.w[r][c].v = 0;
-                    // this.w[r][c].x = (this.w[r-1][c].x + this.w[r+1][c].x + this.w[r][c+1].x + this.w[r][c-1].x) / 4;
-
-                    this.w[r][c].v *= opts.W * opts.W_ROCK;
-                    this.w[r][c].x += this.w[r][c].v;
+                    this.w[r][c].x = 0;
                 }
             }
         }
