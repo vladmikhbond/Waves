@@ -2,11 +2,9 @@ class Options
 {
     constructor() {
         this.D = 2;
-        this.N = 100;
+        this.N = 300;
         this.OMEGA =  1 / 20 // (1 колебание на 20 тиков)
         this.Km = 1;  //   K / m < 1  влияет на скорость v ~ Km**0.5
-
-
     }
 
     stringify() {
