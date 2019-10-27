@@ -7,14 +7,18 @@ class Oscillator {
     }
 
     next() {
-        // changt position
-        let contrVelo = 8;
-        if (this.r < opts.N - contrVelo && this.owner.chronos % contrVelo == 0)
+        // change position
+        let contrVelo = 2;
+
+        if (this.r < opts.N - contrVelo && this.owner.chronos % contrVelo == 0) {
             this.r += opts.oscV;
+            this.owner.w[this.r].x =
+                Math.sin(this.omega * this.owner.chronos) * this.ampl;
+        } else {
+            this.owner.w[this.r].x =
+                Math.sin(this.omega * this.owner.chronos) * this.ampl;
+        }
 
-
-        this.owner.w[this.r].x =
-            Math.sin(this.omega * this.owner.chronos) * this.ampl;
     }
 }
 
