@@ -20,11 +20,11 @@ export class LineHandler
     static move(e) {
         let isle = LineHandler.isle;
         if (isle) {
-            isle._w = e.offsetX;
-            isle._h = e.offsetY;
+            isle.w = e.offsetX;
+            isle.h = e.offsetY;
 
             let ctx = canvas2d.getContext('2d');
-            view.draw();
+            LineHandler.view.draw();
             ctx.strokeStyle = "white";
             ctx.lineWidth = isle.width;
             ctx.beginPath();
@@ -38,8 +38,8 @@ export class LineHandler
         let sea = LineHandler.sea;
         let isle = LineHandler.isle;
         if (isle && !isle.isSmall) {
-            isle._w -= isle.c0;
-            isle._h -= isle.r0;
+            isle.w -= isle.c0;
+            isle.h -= isle.r0;
             sea.isles.push(isle);
             LineHandler.view3d.addIsle(isle);
             sea.getRocksFromCanvasData();
