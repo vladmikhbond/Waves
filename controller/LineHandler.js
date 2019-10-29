@@ -14,7 +14,7 @@ export class LineHandler
     }
 
     static down(e)  {
-        LineHandler.isle = new IsleL({c: e.offsetX, r: e.offsetY, width: optz.lineIsleWidth});
+        LineHandler.isle = new IsleL({c: e.offsetX, r: e.offsetY});
     }
 
     static move(e) {
@@ -26,7 +26,7 @@ export class LineHandler
             let ctx = canvas2d.getContext('2d');
             LineHandler.view.draw();
             ctx.strokeStyle = "white";
-            ctx.lineWidth = isle.width;
+            ctx.lineWidth = optz.lineIsleWidth;
             ctx.beginPath();
             ctx.moveTo(isle.c0, isle.r0);
             ctx.lineTo(isle.w, isle.h);

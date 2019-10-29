@@ -54,11 +54,12 @@ export class View3d {
     addIsle(isle) {
         let isleMaterial = new THREE.MeshPhongMaterial({color: 0x00a000});
         let mesh = null;
+        const DEPTH = 4;
 
         if (isle instanceof IsleL)
         {
             let hypot = Math.hypot(isle.w, isle.h);
-            let geometry = new THREE.BoxGeometry(hypot, 5, 4);   // todo: isle line width
+            let geometry = new THREE.BoxGeometry(hypot, optz.lineIsleWidth, DEPTH);   // todo: isle line width
             mesh = new THREE.Mesh(geometry, isleMaterial);
             mesh.position.x = isle.c0 + isle.w / 2;
             mesh.position.y = opts.N - (isle.r0 + isle.h / 2);
@@ -67,7 +68,7 @@ export class View3d {
         }
         else if (isle instanceof IsleR)
         {
-            let geometry = new THREE.BoxGeometry(isle.w, isle.h, 4);
+            let geometry = new THREE.BoxGeometry(isle.w, isle.h, DEPTH);
             mesh = new THREE.Mesh(geometry, isleMaterial);
             mesh.position.x = isle.c0 + isle.w / 2;
             mesh.position.y = opts.N - isle.r0 - isle.h / 2;

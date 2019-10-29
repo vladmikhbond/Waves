@@ -45,7 +45,7 @@ export let optz = {
     cameraY: 0,
     cameraZ: opts.N * Math.cos(cameraRange.value),
     lightX: lightRange.value * opts.N / 2,
-    lineIsleWidth: 1,               // width of the line isle
+    lineIsleWidth: 5,               // width of the line isle
     meterRadius: 20,
 };
 

@@ -1,4 +1,4 @@
-import {opts} from './opts.js';
+import {opts, optz} from './opts.js';
 import {Oscillator} from './oscillator.js';
 import {IsleR, IsleL} from "../model/isle.js";
 
@@ -45,7 +45,7 @@ export class Sea
         for (let isle of this.isles) {
             if (isle instanceof IsleL) {
                 ctx.strokeStyle = "red";
-                ctx.lineWidth = isle.width;
+                ctx.lineWidth = optz.lineIsleWidth;
                 ctx.beginPath();
                 ctx.moveTo(isle.c0, isle.r0);
                 ctx.lineTo(isle.c0 + isle.w, isle.r0 + isle.h);
