@@ -10,6 +10,7 @@ export class Sea
         this.oscs = [];
         this.isles = [];
         this.selected = null;
+        this.ergometer = null;
         // water
         this.w = [];
         for (let r = 0; r < n; r++) {
@@ -114,38 +115,42 @@ export class Sea
             }
         }
 
-
-    }
-
-    // замер плотности энергии в области {c0, r0, w, h}
-    energyDensity(o) {
-        let e = 0, n = 0;
-        for (let r = o.r0;  r < o.r0 + o.w; r++) {
-            for (let c = o.c0;  c < o.c0 + o.h; c++) {
-                let dxr = this.w[r][c].x - this.w[r-1][c].x;
-                let dxc = this.w[r][c].x - this.w[r][c-1].x;
-                let v = this.w[r][c].v;
-                e += (dxr**2 + dxc**2) / 4 + v**2;
-                n++;
-            }
+        // замер энергии
+        if (this.ergometer) {
+            let kin = this.ergometer.getEnergy();
+            console.log('!!!!!!!!!' + kin)
         }
-        return e / n;
     }
 
-    // замер энергии в целом
+    // // замер плотности энергии в области {c0, r0, w, h}
+    // energyDensity(o) {
+    //     let e = 0, n = 0;
+    //     for (let r = o.r0;  r < o.r0 + o.w; r++) {
+    //         for (let c = o.c0;  c < o.c0 + o.h; c++) {
+    //             let dxr = this.w[r][c].x - this.w[r-1][c].x;
+    //             let dxc = this.w[r][c].x - this.w[r][c-1].x;
+    //             let v = this.w[r][c].v;
+    //             e += (dxr**2 + dxc**2) / 4 + v**2;
+    //             n++;
+    //         }
+    //     }
+    //     return e / n;
+    // }
     //
-    energyTotal() {
-        let eP = 0, eC = 0;
-        for (let r = 1; r < this.n-1; r++) {
-            for (let c = 1; c < this.n-1; c++) {
-                let dxr = this.w[r][c].x - this.w[r-1][c].x;
-                let dxc = this.w[r][c].x - this.w[r][c-1].x;
-                let v = this.w[r][c].v;
-                eP += (dxr**2 + dxc**2)/2;
-                eC += v**2/2;
-            }
-        }
-        return {eP, eC};
-    }
+    // // замер энергии в целом
+    // //
+    // energyTotal() {
+    //     let eP = 0, eC = 0;
+    //     for (let r = 1; r < this.n-1; r++) {
+    //         for (let c = 1; c < this.n-1; c++) {
+    //             let dxr = this.w[r][c].x - this.w[r-1][c].x;
+    //             let dxc = this.w[r][c].x - this.w[r][c-1].x;
+    //             let v = this.w[r][c].v;
+    //             eP += (dxr**2 + dxc**2)/2;
+    //             eC += v**2/2;
+    //         }
+    //     }
+    //     return {eP, eC};
+    // }
 
  }

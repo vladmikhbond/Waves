@@ -68,7 +68,7 @@ function mainStep() {
     view.draw1d();
     console.log(`others: ${new Date().valueOf() - t4.valueOf()}`);
 
-    infoTotalEnergy();
+    // infoTotalEnergy();
     // timing
     console.log(`--------- All: ${new Date().valueOf() - t1.valueOf()}`);
 
@@ -180,10 +180,10 @@ document.body.onkeydown = e => {
     if ('SsЫы'.includes(e.key)) {
         mainStep()
     }
-    if ('MmЬь'.includes(e.key)) {
-        let energy = sea.energyDensity(20).toFixed(10);
-        info.innerHTML = `r=${sea.point.r}  c=${sea.point.c}  E=${energy}` ;
-    }
+    // if ('MmЬь'.includes(e.key)) {
+    //     let energy = sea.energyDensity(20).toFixed(10);
+    //     info.innerHTML = `r=${sea.point.r}  c=${sea.point.c}  E=${energy}` ;
+    // }
 };
 
 // ---------------------- just info ----------------------------

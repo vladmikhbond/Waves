@@ -1,4 +1,4 @@
-import {opts} from '../model/opts.js';
+// import {opts} from '../model/opts.js';
 import {IsleR} from '../model/isle.js';
 
 export class RectHandler
@@ -20,8 +20,8 @@ export class RectHandler
     static move(e) {
         let isle = RectHandler.isle;
         if (isle) {
-            isle.w = e.offsetX - isle.c0;
-            isle.h = e.offsetY - isle.r0;
+            isle._w = e.offsetX - isle.c0;
+            isle._h = e.offsetY - isle.r0;
 
             let ctx = canvas2d.getContext('2d');
             RectHandler.view.draw();

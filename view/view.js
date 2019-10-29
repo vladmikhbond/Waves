@@ -58,6 +58,12 @@ export class View
                 this.ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
             }
         }
+        // draw ergometer
+        let ergo = this.sea.ergometer;
+        if (ergo) {
+            this.ctx.strokeStyle = "brown";
+            this.ctx.strokeRect(ergo.c, ergo.r, ergo.w, ergo.h);
+        }
     }
 
     draw1d () {

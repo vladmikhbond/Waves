@@ -14,7 +14,7 @@ class River
 
         for (let i = 0; i < opts.margin; i++) {
             let r = n - opts.margin + i;
-            this.w[r].w = opts.W;
+            this.w[r]._w = opts.W;
         }
 
     }

@@ -4,7 +4,7 @@ export class IsleR extends Obj {
 
     constructor({c, r, w=0, h=0 }, sea=null) {
         super(r, c, sea);
-        this.c0 = c;
+        this.c0 = c;   // todo c0, r0 - for what?
         this.r0 = r;
         this.w = w;
         this.h = h;
