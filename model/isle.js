@@ -23,8 +23,7 @@ export class IsleR extends Obj {
     }
 
     stringify() {
-        return `type = ${this.type} -- 
-c0 = ${this.c0} --             
+        return `c0 = ${this.c0} --             
 r0 = ${this.r0} -- 
 w = ${this.w} -- width
 h = ${this.h} -- height

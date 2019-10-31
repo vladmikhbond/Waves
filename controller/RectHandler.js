@@ -34,7 +34,7 @@ export class RectHandler
         let sea = RectHandler.sea;
         let isle = RectHandler.isle;
         if (isle && !isle.isSmall) {
-            sea.isles.push(isle);
+            sea.addIsle(isle);
             RectHandler.view3d.addIsle(isle);
             sea.getRocksFromCanvasData();
         }

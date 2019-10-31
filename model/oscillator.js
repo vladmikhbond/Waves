@@ -39,8 +39,8 @@ export class Oscillator extends Obj {
 r = ${this.r} -- row
 omega = ${this.omega} -- 
 ampl = ${this.ampl} -- 
-vr = ${this.vr} -- перемешение по r
-vc = ${this.vc} -- перемешение по c
+vr = ${this.vr} -- перемещение по r
+vc = ${this.vc} -- перемещение по c
 v_denominator = ${this.v_denominator} -- знаменатель скорости          
 `;
     }

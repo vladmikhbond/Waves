@@ -24,14 +24,39 @@ export class Sea
         this._1dRow = 0;
     }
 
+    addIsle(isle) {
+        this.isles.push(isle);
+        this.selected = isle;
+
+    }
+
     addOscillator(r, c, omega, ampl) {
         let osc = new Oscillator(r, c, omega, ampl, this );
         this.oscs.push(osc);
+        this.selected = osc;
     }
 
     removeOscillatorNear(r, c) {
         let i = this.oscs.findIndex(o => Math.hypot(o.r - r, o.c - c) < 5);
         if (i !== -1) this.oscs.splice(i, 1);
+    }
+
+    removeSelected() {
+        if (this.selected instanceof IsleR) {
+            let i = this.isles.indexOf(this.selected);
+            if (i !== -1) {
+                this.isles.splice(i, 1);
+                this.getRocksFromCanvasData();
+                this.selected = null;
+            }
+        }
+        if (this.selected instanceof Oscillator) {
+            let i = this.oscs.indexOf(this.selected);
+            if (i !== -1) {
+                this.oscs.splice(i, 1);
+                this.selected = null;
+            }
+        }
     }
 
 

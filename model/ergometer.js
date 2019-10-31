@@ -35,19 +35,21 @@ export class Ergometer extends Obj
     // производит один замер кинетической энергии и сохраняет его в кэше
     meter() {
         let {r1, c1, r2, c2} = this.r1c1r2c2;
-        let K = 0;
+        let E = 0;
         for (let r = r1; r < r2; r++) {
             for (let c = c1; c < c2; c++) {
-                K += this.sea.w[r][c].v ** 2;
+                E += this.sea.w[r][c].v ** 2;
             }
         }
         // save in cash
-        this.e[this.sea.chronos % this.e.length] = K / 2;
+        this.e[this.sea.chronos % this.e.length] = E / 2;
     }
 
     // усредненная энергия
     get energy() {
-        return this.e.reduce((a, x) => a + x) / this.e.length;
+        let {r1, c1, r2, c2} = this.r1c1r2c2;
+        const k = 10000;
+        return k * this.e.reduce((a, x) => a + x) / this.e.length / (r2 - r1) / (c2 - c1);
     }
 
 

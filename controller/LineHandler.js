@@ -40,7 +40,7 @@ export class LineHandler
         if (isle && !isle.isSmall) {
             isle.w -= isle.c0;
             isle.h -= isle.r0;
-            sea.isles.push(isle);
+            sea.addIsle(isle);
             LineHandler.view3d.addIsle(isle);
             sea.getRocksFromCanvasData();
         }

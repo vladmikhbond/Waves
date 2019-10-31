@@ -178,12 +178,13 @@ lightRange.onchange = function() {
 
 document.body.onkeydown = e => {
     if ('SsЫы'.includes(e.key)) {
-        mainStep()
+        mainStep();
     }
-    // if ('MmЬь'.includes(e.key)) {
-    //     let energy = sea.energyDensity(20).toFixed(10);
-    //     info.innerHTML = `r=${sea.point.r}  c=${sea.point.c}  E=${energy}` ;
-    // }
+    if (e.key === "Delete") {
+        sea.removeSelected();
+        view.draw();
+    }
+
 };
 
 // ---------------------- just info ----------------------------
