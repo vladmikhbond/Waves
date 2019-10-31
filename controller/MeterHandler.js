@@ -31,10 +31,10 @@ export class MeterHandler
     static up() {
         let ergo = MeterHandler.ergo;
         if (ergo) {
+            ergo.normalize();
             MeterHandler.sea.ergometer = ergo;
             MeterHandler.view.draw();
             MeterHandler.ergo = null;
-            alert(`c: ${ergo.c}   r: ${ergo.r}   w: ${ergo.w}  h: ${ergo.h}`)
         }
     }
 

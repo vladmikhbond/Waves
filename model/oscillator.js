@@ -2,9 +2,9 @@ import {Obj} from './obj.js';
 import {opts} from './opts.js';
 
 export class Oscillator extends Obj {
-    constructor(r, c, o, a, sea) {
+    constructor(r, c, omega, a, sea) {
         super(r, c, sea);
-        this.omega = o;
+        this.omega = omega;
         this.ampl = a;
         this.vr = 0;
         this.vc = 0;
