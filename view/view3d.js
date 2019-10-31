@@ -61,8 +61,8 @@ export class View3d {
             let hypot = Math.hypot(isle.w, isle.h);
             let geometry = new THREE.BoxGeometry(hypot, optz.lineIsleWidth, DEPTH);   // todo: isle line width
             mesh = new THREE.Mesh(geometry, isleMaterial);
-            mesh.position.x = isle.c0 + isle.w / 2;
-            mesh.position.y = opts.N - (isle.r0 + isle.h / 2);
+            mesh.position.x = isle.c + isle.w / 2;
+            mesh.position.y = opts.N - (isle.r + isle.h / 2);
             let alpha = Math.atan2(isle.h , isle.w);
             mesh.rotation.z = -alpha;
         }
@@ -70,8 +70,8 @@ export class View3d {
         {
             let geometry = new THREE.BoxGeometry(isle.w, isle.h, DEPTH);
             mesh = new THREE.Mesh(geometry, isleMaterial);
-            mesh.position.x = isle.c0 + isle.w / 2;
-            mesh.position.y = opts.N - isle.r0 - isle.h / 2;
+            mesh.position.x = isle.c + isle.w / 2;
+            mesh.position.y = opts.N - isle.r - isle.h / 2;
         }
 
         // mesh.receiveShadow = true;

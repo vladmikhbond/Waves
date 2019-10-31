@@ -20,13 +20,13 @@ export class RectHandler
     static move(e) {
         let isle = RectHandler.isle;
         if (isle) {
-            isle.w = e.offsetX - isle.c0;
-            isle.h = e.offsetY - isle.r0;
+            isle.w = e.offsetX - isle.c;
+            isle.h = e.offsetY - isle.r;
 
             let ctx = canvas2d.getContext('2d');
             RectHandler.view.draw();
             ctx.fillStyle = "lightblue";
-            ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
+            ctx.fillRect(isle.c, isle.r, isle.w, isle.h);
         }
     }
 

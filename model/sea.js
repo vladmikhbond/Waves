@@ -72,12 +72,12 @@ export class Sea
                 ctx.strokeStyle = "red";
                 ctx.lineWidth = optz.lineIsleWidth;
                 ctx.beginPath();
-                ctx.moveTo(isle.c0, isle.r0);
-                ctx.lineTo(isle.c0 + isle.w, isle.r0 + isle.h);
+                ctx.moveTo(isle.c, isle.r);
+                ctx.lineTo(isle.c + isle.w, isle.r + isle.h);
                 ctx.stroke();
             } else if (isle instanceof IsleR) {
                 ctx.fillStyle = "red";
-                ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
+                ctx.fillRect(isle.c, isle.r, isle.w, isle.h);
             }
         }
         // extract freedom from data

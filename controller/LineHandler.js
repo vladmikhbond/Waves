@@ -28,7 +28,7 @@ export class LineHandler
             ctx.strokeStyle = "white";
             ctx.lineWidth = optz.lineIsleWidth;
             ctx.beginPath();
-            ctx.moveTo(isle.c0, isle.r0);
+            ctx.moveTo(isle.c, isle.r);
             ctx.lineTo(isle.w, isle.h);
             ctx.stroke();
          }
@@ -38,8 +38,8 @@ export class LineHandler
         let sea = LineHandler.sea;
         let isle = LineHandler.isle;
         if (isle && !isle.isSmall) {
-            isle.w -= isle.c0;
-            isle.h -= isle.r0;
+            isle.w -= isle.c;
+            isle.h -= isle.r;
             sea.addIsle(isle);
             LineHandler.view3d.addIsle(isle);
             sea.getRocksFromCanvasData();

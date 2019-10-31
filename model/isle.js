@@ -4,15 +4,13 @@ export class IsleR extends Obj {
 
     constructor({c, r, w=0, h=0 }, sea=null) {
         super(r, c, sea);
-        this.c0 = c;   // todo c0, r0 - for what?
-        this.r0 = r;
         this.w = w;
         this.h = h;
     }
 
     hasPoint(c, r) {
-        let c1 = this.c0, c2 = this.c0 + this.w;
-        let r1 = this.r0, r2 = this.r0 + this.h;
+        let c1 = this.c, c2 = this.c + this.w;
+        let r1 = this.r, r2 = this.r + this.h;
         if (c2 < c1) {
             c1 = -c1; c2 = -c2;  c = -c;
         }
@@ -23,8 +21,8 @@ export class IsleR extends Obj {
     }
 
     stringify() {
-        return `c0 = ${this.c0} --             
-r0 = ${this.r0} -- 
+        return `c0 = ${this.c} --             
+r0 = ${this.r} -- 
 w = ${this.w} -- width
 h = ${this.h} -- height
 `;
@@ -40,8 +38,8 @@ h = ${this.h} -- height
 export class IsleL extends IsleR {
 
     hasPoint(c, r) {
-        let c1 = this.c0, c2 = this.c0 + this.w;
-        let r1 = this.r0, r2 = this.r0 + this.h;
+        let c1 = this.c, c2 = this.c + this.w;
+        let r1 = this.r, r2 = this.r + this.h;
         if (c2 < c1) {
             c1 = -c1; c2 = -c2;  c = -c;
         }

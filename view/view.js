@@ -48,14 +48,14 @@ export class View
                 this.ctx.strokeStyle = color;
                 this.ctx.lineWidth = 5; //isle.width;
                 this.ctx.beginPath();
-                this.ctx.moveTo(isle.c0, isle.r0);
-                this.ctx.lineTo(isle.c0 + isle.w, isle.r0 + isle.h);
+                this.ctx.moveTo(isle.c, isle.r);
+                this.ctx.lineTo(isle.c + isle.w, isle.r + isle.h);
                 this.ctx.stroke();
             }
             else if (isle instanceof IsleR)
             {
                 this.ctx.fillStyle = color;
-                this.ctx.fillRect(isle.c0, isle.r0, isle.w, isle.h);
+                this.ctx.fillRect(isle.c, isle.r, isle.w, isle.h);
             }
         }
         // draw ergometer
