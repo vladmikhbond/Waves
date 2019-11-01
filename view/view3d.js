@@ -23,7 +23,7 @@ export class View3d {
         // geometry & attributes
         this.geometry = new THREE.BufferGeometry();
         //
-        let vertices = this.initVertices();
+        let vertices = this._initVertices();
         let positionAttr = new THREE.BufferAttribute( vertices, 3 );
         positionAttr.dytamic = true;
         this.geometry.addAttribute( 'position', positionAttr );
@@ -34,16 +34,14 @@ export class View3d {
 
         // sea
         let seaMaterial = new THREE.MeshPhongMaterial( { color: 0x00FFFF } );
-        //let seaMaterial = new THREE.MeshNormalMaterial();
 
         let seaMesh = new THREE.Mesh( this.geometry, seaMaterial );
         seaMesh.scale.y = -1;
         seaMesh.position.y += opts.N;
-
-        // seaMesh.receiveShadow = true;
-        // seaMesh.castShadow = true;
         this.scene.add(seaMesh);
-
+        // isles
+        for (let isle of sea.isles)
+            this._addIsle(isle);
 
         // renderer
         this.renderer = new THREE.WebGLRenderer({canvas: canvas3d});
@@ -51,7 +49,7 @@ export class View3d {
         //this.renderer.shadowMap.enabled = true;
     }
 
-    addIsle(isle) {
+    _addIsle(isle) {
         let isleMaterial = new THREE.MeshPhongMaterial({color: 0x00a000});
         let mesh = null;
         const DEPTH = 4;
@@ -79,7 +77,7 @@ export class View3d {
         this.scene.add(mesh);
     }
 
-    initVertices() {
+    _initVertices() {
         let d = this.d;
         let side = opts.N / opts.D;
         let v = new Float32Array(side**2 * 18);

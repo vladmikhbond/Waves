@@ -24,7 +24,7 @@ function init() {
     optsArea.style.width = helpArea.style.width = opts.N + 'px';
     canvas2d.style.display = "block";
     tools2d.style.display = "inline";
-    _2dCheckBox.checked = 1;
+    _3dCheckBox.checked = 0;
     canvas3d.style.display = "none";
     tools3d.style.display = "none";
     for (let r of radios) r.disabled = false;
@@ -33,7 +33,6 @@ function init() {
     sea = new Sea(opts.N);
     // create view
     view = new View(sea);
-    view3d = new View3d(sea, opts.D);
 
     // set oscillators mode
     OscilHandler.set(sea, view);
@@ -46,7 +45,7 @@ function init() {
     }
     // initial drawing
     view.draw();
-    view3d.draw();
+
 }
 
 function mainStep() {
@@ -128,20 +127,21 @@ optsButton.onclick = function() {
     }
 };
 
-_2dCheckBox.onchange = function() {
-    if (_2dCheckBox.checked) {
-        canvas2d.style.display = "block";
-        canvas3d.style.display = "none";
-        tools3d.style.display = "none";
-        tools2d.style.display = "inline";
-        for (let r of radios) r.disabled = false;
-    } else {
+_3dCheckBox.onchange = function() {
+    if (_3dCheckBox.checked) {
         canvas2d.style.display = "none";
         canvas3d.style.display = "block";
         tools3d.style.display = "inline";
         tools2d.style.display = "none";
         for (let r of radios) r.disabled = true;
+        view3d = new View3d(sea, opts.D);
         view3d.draw();
+    } else {
+        canvas2d.style.display = "block";
+        canvas3d.style.display = "none";
+        tools3d.style.display = "none";
+        tools2d.style.display = "inline";
+        for (let r of radios) r.disabled = false;
     }
 };
 

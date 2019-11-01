@@ -41,7 +41,6 @@ export class LineHandler
             isle.w -= isle.c;
             isle.h -= isle.r;
             sea.addIsle(isle);
-            LineHandler.view3d.addIsle(isle);
             sea.getRocksFromCanvasData();
         }
         LineHandler.isle = null;
