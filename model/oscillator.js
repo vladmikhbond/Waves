@@ -1,7 +1,7 @@
-import {Obj} from './obj.js';
+import {Rect} from './rect.js';
 import {opts} from './opts.js';
 
-export class Oscillator extends Obj {
+export class Oscillator extends Rect {
     constructor(r, c, omega, a, sea) {
         super(r, c, sea);
         this.omega = omega;

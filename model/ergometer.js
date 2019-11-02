@@ -1,9 +1,9 @@
-import {Obj} from './obj.js';
+import {Rect} from './rect.js';
 
 // Измеритель энергии в заданном прямоугольнике.
 // Энергия усредняется за период в time_gap тиков.
 //
-export class Ergometer extends Obj
+export class Ergometer extends Rect
 {
     constructor({c, r, w=0, h=0, time_gap=20, sea=null}) {
         super(r, c, sea);

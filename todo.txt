@@ -1,6 +1,6 @@
 todo
 - линейные осцилляторы
-- bug: isle is not delete from view3d
+
 - webpack implement
 - области иной плотности
 
