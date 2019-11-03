@@ -39,19 +39,23 @@ export class View
 
             this.ctx.strokeStyle = color;
             this.ctx.lineWidth = 1;
-            this.ctx.beginPath();
-            this.ctx.moveTo(osc.c, osc.r);
-            this.ctx.lineTo(osc.c + osc.w, osc.r + osc.h);
-            this.ctx.stroke();
+            if (osc.w || osc.h) {
+                this.ctx.beginPath();
+                this.ctx.moveTo(osc.c, osc.r);
+                this.ctx.lineTo(osc.c + osc.w, osc.r + osc.h);
+                this.ctx.stroke();
+            } else {
+                this.ctx.strokeRect(osc.c - 1, osc.r - 1, 3, 3);
+            }
         }
 
-        // draw rocks (isles)
+        // draw isles
         for (let isle of this.sea.isles) {
             let color = isle == this.sea.selected ? "white" : "green";
             if (isle instanceof IsleL)
             {
                 this.ctx.strokeStyle = color;
-                this.ctx.lineWidth = 5; //isle.width;
+                this.ctx.lineWidth = optz.lineIsleWidth;
                 this.ctx.beginPath();
                 this.ctx.moveTo(isle.c, isle.r);
                 this.ctx.lineTo(isle.c + isle.w, isle.r + isle.h);
@@ -67,6 +71,7 @@ export class View
         let ergo = this.sea.ergometer;
         if (ergo) {
             this.ctx.strokeStyle = "brown";
+            this.ctx.lineWidth = 2;
             this.ctx.strokeRect(ergo.c, ergo.r, ergo.w, ergo.h);
         }
     }

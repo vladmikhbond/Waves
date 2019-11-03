@@ -38,8 +38,13 @@ export class OscilHandler
         let sea = OscilHandler.sea;
         let osc = OscilHandler.osc;
         if (osc && sea.w[osc.r][osc.c].free) {
-            osc.w -= osc.c;
-            osc.h -= osc.r;
+            if (osc.isSmall) {
+                osc.w = osc.h = 0;
+            } else {
+                osc.w -= osc.c;
+                osc.h -= osc.r;
+                osc.normalize();
+            }
             sea.addOscillator(osc);
         }
         OscilHandler.osc = null;

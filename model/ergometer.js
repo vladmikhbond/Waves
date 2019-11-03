@@ -6,7 +6,7 @@ import {Rect} from './rect.js';
 export class Ergometer extends Rect
 {
     constructor({c, r, w=0, h=0, time_gap=20, sea=null}) {
-        super(r, c, sea);
+        super({r, c, sea});
         this.w = w;
         this.h = h;
         this.e = new Array(time_gap);
@@ -14,30 +14,21 @@ export class Ergometer extends Rect
 
     // Сохраняет прямоугольник, заданный двумя точками {r1, c1, r2, c2}
     normalize() {
-        let r1, r2, c1, c2;
-        if (this.h > 0) {
-            r1 = this.r;
-            r2 = this.r + this.h;
-        } else {
-            r1 = this.r + this.h;
-            r2 = this.r;
+        if (this.h < 0) {
+            this.h = -this.h;
+            this.r -= this.h;
         }
-        if (this.w > 0) {
-            c1 = this.c;
-            c2 = this.c + this.w;
-        } else {
-            c1 = this.c + this.w;
-            c2 = this.c;
+        if (this.w < 0) {
+            this.w = -this.w;
+            this.c -= this.w;
         }
-        this.r1c1r2c2 = {r1, c1, r2, c2}
     }
 
     // производит один замер кинетической энергии и сохраняет его в кэше
     meter() {
-        let {r1, c1, r2, c2} = this.r1c1r2c2;
         let E = 0;
-        for (let r = r1; r < r2; r++) {
-            for (let c = c1; c < c2; c++) {
+        for (let r = this.r; r <= this.r + this.h; r++) {
+            for (let c = this.c; c <= this.c + this.w; c++) {
                 E += this.sea.w[r][c].v ** 2;
             }
         }
@@ -47,9 +38,8 @@ export class Ergometer extends Rect
 
     // усредненная энергия
     get energy() {
-        let {r1, c1, r2, c2} = this.r1c1r2c2;
         const k = 10000;
-        return k * this.e.reduce((a, x) => a + x) / this.e.length / (r2 - r1) / (c2 - c1);
+        return k * this.e.reduce((a, x) => a + x) / this.e.length / (this.w * this.h);
     }
 
 

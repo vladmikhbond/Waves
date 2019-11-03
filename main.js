@@ -57,9 +57,9 @@ function mainStep() {
     view.draw();
     console.log(`draw_2d: ${new Date().valueOf() - t2.valueOf()}`);
 
-
     let t3 = new Date();  // timing
-    view3d.draw();
+    if (view3d)
+        view3d.draw();
     console.log(`draw_3d: ${new Date().valueOf() - t3.valueOf()}`);
 
 
@@ -67,10 +67,7 @@ function mainStep() {
     view.draw1d();
     console.log(`others: ${new Date().valueOf() - t4.valueOf()}`);
 
-    // infoTotalEnergy();
-    // timing
-    console.log(`--------- All: ${new Date().valueOf() - t1.valueOf()}`);
-
+    console.log(`--------- All: ${new Date().valueOf() - t1.valueOf()}`);  // timing
 }
 
 // -------------- handlers ----------
@@ -142,6 +139,7 @@ _3dCheckBox.onchange = function() {
         tools3d.style.display = "none";
         tools2d.style.display = "inline";
         for (let r of radios) r.disabled = false;
+        view3d = null;
     }
 };
 
@@ -186,17 +184,3 @@ document.body.onkeydown = e => {
     }
 
 };
-
-// ---------------------- just info ----------------------------
-
-function infoTotalEnergy() {
-    let total = sea.energyTotal();
-    info.innerHTML = `T: ${sea.chronos}<p>Pot: ${total.eP.toFixed(2)} <p>Kin: ${total.eC.toFixed(2)}  <p>Sum: ${(total.eP + total.eC).toFixed(2)}` ;
-}
-
-// canvas2d.addEventListener('mousemove', function(e) {
-//     sea.point.c = e.offsetX;
-//     sea.point.r = e.offsetY;
-//     let isle = sea.w[sea.point.r][sea.point.c];
-//     info.innerHTML = `c=${e.offsetX} r=${e.offsetY} X = ${isle.x.toFixed(3)}  V = ${isle.v.toFixed(3)}` ;
-// });
