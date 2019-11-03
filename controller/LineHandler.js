@@ -25,7 +25,7 @@ export class LineHandler
 
             let ctx = canvas2d.getContext('2d');
             LineHandler.view.draw();
-            ctx.strokeStyle = "white";
+            ctx.strokeStyle = "lightblue";
             ctx.lineWidth = optz.lineIsleWidth;
             ctx.beginPath();
             ctx.moveTo(isle.c, isle.r);

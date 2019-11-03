@@ -17,16 +17,9 @@ h = ${this.h} -- height
 export class IsleL extends IsleR {
 
     hasPoint(c, r) {
-        let c1 = this.c, c2 = this.c + this.w;
-        let r1 = this.r, r2 = this.r + this.h;
-        if (c2 < c1) {
-            c1 = -c1; c2 = -c2;  c = -c;
-        }
-        if (r2 < r1) {
-            r1 = -r1; r2 = -r2;  r = -r;
-        }
-        return Math.abs((c1 - c) * (r1 - r2) + (r1 - r) * (c1 - c2) ) < 500  ||
-               Math.abs((c1 - c) * (r1 - r2) - (r1 - r) * (c1 - c2) ) < 500;
+        const o = Rect.cr12(this, c, r);
+        return Math.abs((o.c1 - o.c) * (o.r1 - o.r2) + (o.r1 - o.r) * (o.c1 - o.c2) ) < 500  ||
+            Math.abs((o.c1 - o.c) * (o.r1 - o.r2) - (o.r1 - o.r) * (o.c1 - o.c2) ) < 500;
     }
 
 }

@@ -1,4 +1,3 @@
-// import {opts} from '../model/opts.js';
 import {IsleR} from '../model/isle.js';
 
 export class RectHandler

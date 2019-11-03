@@ -36,8 +36,13 @@ export class View
         // draw oscillators
         for (let osc of this.sea.oscs) {
             let color = osc == this.sea.selected ? "white" : "red";
-            this.ctx.fillStyle = color;
-            this.ctx.fillRect(osc.c - 1, osc.r - 1, 3, 3);
+
+            this.ctx.strokeStyle = color;
+            this.ctx.lineWidth = 1;
+            this.ctx.beginPath();
+            this.ctx.moveTo(osc.c, osc.r);
+            this.ctx.lineTo(osc.c + osc.w, osc.r + osc.h);
+            this.ctx.stroke();
         }
 
         // draw rocks (isles)

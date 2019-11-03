@@ -1,9 +1,11 @@
 import {Rect} from './rect.js';
 import {opts} from './opts.js';
 
-export class Oscillator extends Rect {
-    constructor(r, c, omega, a, sea) {
-        super(r, c, sea);
+
+export class Oscillator extends Rect
+{
+    constructor({c, r, w, h, sea, omega, a}) {
+        super({c, r, sea});
         this.omega = omega;
         this.ampl = a;
         this.vr = 0;
@@ -14,7 +16,10 @@ export class Oscillator extends Rect {
 
     next() {
         // change position
-        if (this.r < opts.N - this.v_denominator && this.sea.chronos % this.v_denominator == 0) {
+        if ( (this.vc || this.vr) &&
+            this.r < opts.N - this.v_denominator &&
+            this.sea.chronos % this.v_denominator == 0)
+        {
             // успокаиваем узел, бывший под осциллятором
             let p0 = this.sea.w[this.r][this.c];
             let p = this.sea.w[this.r + this.vr][this.c + this.vc];
@@ -25,14 +30,16 @@ export class Oscillator extends Rect {
             this.c += this.vc;
         }
 
+        for (let r = this.r; r < this.r + this.h; r += 1) {
+            for (let c = this.c; c < this.c + this.w; c += 1) {
+
+            }
+        }
+
         this.sea.w[this.r][this.c].x =
             Math.sin(2 * Math.PI * this.omega * this.sea.chronos + this.phase) * this.ampl;
     }
 
-    hasPoint(c, r) {
-        let dc = this.c - c, dr = this.r - r;
-            return dc * dc + dr * dr < 25;
-    }
 
     stringify() {
         return `c = ${this.c} -- column            
@@ -44,6 +51,13 @@ vc = ${this.vc} -- перемещение по c
 v_denominator = ${this.v_denominator} -- знаменатель скорости          
 `;
     }
+
+    hasPoint(c, r) {
+        const o = Rect.cr12(this, c, r);
+        return Math.abs((o.c1 - o.c) * (o.r1 - o.r2) + (o.r1 - o.r) * (o.c1 - o.c2) ) < 500  ||
+            Math.abs((o.c1 - o.c) * (o.r1 - o.r2) - (o.r1 - o.r) * (o.c1 - o.c2) ) < 500;
+    }
+
 
 
 }

@@ -30,8 +30,7 @@ export class Sea
 
     }
 
-    addOscillator(r, c, omega, ampl) {
-        let osc = new Oscillator(r, c, omega, ampl, this );
+    addOscillator(osc) {
         this.oscs.push(osc);
         this.selected = osc;
     }

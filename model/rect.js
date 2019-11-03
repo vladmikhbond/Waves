@@ -23,16 +23,21 @@ export class Rect {
         return Math.hypot(this.w, this.h) < 3;
     }
 
-    hasPoint(c, r) {
-        let c1 = this.c, c2 = this.c + this.w;
-        let r1 = this.r, r2 = this.r + this.h;
+    static cr12({c, r, w, h}, c0, r0) {
+        let c1 = c, c2 = c + w;
+        let r1 = r, r2 = r + h;
         if (c2 < c1) {
-            c1 = -c1; c2 = -c2;  c = -c;
+            c1 = -c1; c2 = -c2;  c0 = -c0;
         }
         if (r2 < r1) {
-            r1 = -r1; r2 = -r2;  r = -r;
+            r1 = -r1; r2 = -r2;  r0 = -r0;
         }
-        return c1 < c && c < c2 && r1 < r && r < r2;
+        return {c1, r1, c2, r2, c:c0, r:r0};
+    }
+
+    hasPoint(c, r) {
+        const o = Rect.cr12(this, c, r);
+        return o.c1 < o.c && o.c < o.c2 && o.r1 < o.r && o.r < o.r2;
     }
 
 
